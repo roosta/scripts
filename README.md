@@ -37,4 +37,11 @@ $ bakc test.file
 - [ ] fill out --help
 - [ ] comment code
 
+fstrim.sh
+---
+a short fstrim script to run and log fstrim, and include home partition. I didn't make this, but keep it here since its useful. I'd link source but I can't recall where I got it.
+
+source-change.sh
+---
+Originial script that I based the chdisp*.sh scripts off of. I'll dig out the link from my bookmarks so I can credit the creator of this and fstrim.
 
