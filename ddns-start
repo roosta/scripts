@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # 
 ## Author: Daniel Berg (daniel@dab.works)
 ##  2015-06-21
@@ -9,6 +9,7 @@
 # http://support.uniweb.no/hc/no/articles/200121582-Hvordan-sette-opp-dynamisk-DNS-dynDNS-
 # https://github.com/RMerl/asuswrt-merlin/wiki/Custom-DDNS
 #
+# Notice: script not using ssl so pass is sent in plaintext on request!
 
 # User info
 USERNAME="yourdomain.org"
@@ -22,13 +23,14 @@ MYIP=$(curl -s  dns.uniweb.no/checkip.php | sed 's/^.*: \([^<]*\).*$/\1/')
 REPLY=$(curl -s --user $USERNAME:$PASSWORD "http://dns.uniweb.no/DynDNSServer/?hostname=$HOSTNAME&myip=$MYIP")
 
 # check for the reply is a "success"  and notify router that ddns was updated (NoCHG = no change, IPCHG = changed ip)
+# TODO: replace with case switch
 if [ $REPLY = 'NoCHG' ] || [ $REPLY = 'IPCHG' ]; then
   /sbin/ddns_custom_updated 1
 
 # notify of failure
 #
 # the two returned errors would be "WFPW"(wrong passwd), or "WRGHost Client error"
-# I haven't looked into whether I can modify router script to return spesific error.
+# TODO: look into whether its possible modify router script to return spesific error.
 else 
   /sbin/ddns_custom_updated 0
 fi
