@@ -1,5 +1,4 @@
-
-#!/bin/sh
+#!/bin/bash
 #  
 # Autor: Ivo
 # ANSI Color -- use these variables to easily have different color

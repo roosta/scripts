@@ -1,43 +1,47 @@
-#!/bin/bash
-#
-# copy file to either pwd (-w||--working-dir) or
-# backup directory in home(Backup) with hostname and directory structure of
-# source file. (~/Backup/[HOSTNAME]/[PWD]/FILE)
-# Append ISO formatted date and .bak to file (FILENAME.DATE.bak)
+#!/bin/sh
+# copy file to either current (-w||--working-dir) or
+# backup directory in home(.backup) with directory structure of
+# source file. (~/Backup/[PWD]/FILE)
+# Append dateformatted date and .bak to file (FILENAME.DATE.bak)
 #
 # TODO: Add support for multiple files
-# TODO: add root support
 
-bakpath=~/tests/$(hostname)$(pwd)
+backupdir=~/.test
+dateformat="%Y%m%d.%H%M"
 
-# test for arguments
 
-# only filename provided run default behaviour
-if [[ $# -gt 0 && -f "$1" ]]; then
-  if [[ ! -d ${bakpath} ]]; then
-    mkdir -p "${bakpath}"
-  fi
-  cp "$1" "${bakpath}/${1}.$(date -I).bak"
-elif [[  $# -gt 0 ]]; then
-  while [[ $# ]]; do
-    case "$1" in
-      -h|--help)
-        echo "Help placeholder"
-        exit 0
-        ;;
-      -w|--working-dir)
-        shift
-        if test $# -gt 0; then
-          cp "${1}" "./${1}.bak"
-        else
-          echo "no file specified"
-          exit 1
-        fi
-        shift
-        ;;
-      *)
-        break
-        ;;
-    esac
-  done
-fi
+filecopy() {
+ if [[ -f $1 ]]; then
+   PATH=${backupdir}/$(dirname ${1})
+   if [[ ! -d "$PATH" ]]; then
+    mkdir -p "$PATH"
+   fi
+   cp -v "$1" "${backupdir}/${1}.$(date +"$dateformat").bak"
+ fi
+}
+
+while getopts ":hw:" opt; do
+  case $opt in
+    -h)
+      echo "Help placeholder" >&2
+      exit 0
+      ;;
+    -w)
+      #if [[ -f $OPTARG ]]; then
+        #cp $OPTARG "./${OPTARG}.bak"
+        echo "$OPTARG"
+      #else 
+        #echo "Not a valid file" >&2
+        #exit 1
+      #fi
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." >&2
+      exit 1
+      ;;
+  esac
+done
