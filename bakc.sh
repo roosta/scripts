@@ -7,7 +7,7 @@
 # TODO: conf file?
 
 # user vars
-backupdir=~/.test
+backupdir=~/.backup
 fdate="%Y-%m-%d_%H-%M-%S"
 
 filecopy() {
