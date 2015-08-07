@@ -1,39 +1,43 @@
 #!/bin/sh
-# copy file to either current (-w||--working-dir) or
 # backup directory in home(.backup) with directory structure of
-# source file. (~/Backup/[PWD]/FILE)
+# source file. (~/.backup/[PATH]/FILE)
 # Append dateformatted date and .bak to file (FILENAME.DATE.bak)
-#
-# TODO: Add support for multiple files
+# TODO: verbose
+# TODO: choose to follow symlinks
+# TODO: conf file?
 
+# user vars
 backupdir=~/.test
-dateformat="%Y%m%d.%H%M"
-
+fdate="%Y-%m-%d_%H-%M-%S"
 
 filecopy() {
- if [[ -f $1 ]]; then
-   PATH=${backupdir}/$(dirname ${1})
-   if [[ ! -d "$PATH" ]]; then
-    mkdir -p "$PATH"
-   fi
-   cp -v "$1" "${backupdir}/${1}.$(date +"$dateformat").bak"
- fi
+  if [[ -f $1 ]]; then
+    canon=$(readlink -f ${1})
+    path=${backupdir}/$(dirname ${canon})
+    if [[ ! -d "$path" ]]; then
+      mkdir -p "$path"
+    fi
+      cp "$1" "${path}/${1}-$(date +"$fdate").bak"  
+      echo "backed up '${1}' to ${path}"
+  else
+    echo "failed to backup: ${1}. Not a valid file" >&2
+  fi
 }
 
 while getopts ":hw:" opt; do
   case $opt in
-    -h)
+    h)
       echo "Help placeholder" >&2
       exit 0
       ;;
-    -w)
-      #if [[ -f $OPTARG ]]; then
-        #cp $OPTARG "./${OPTARG}.bak"
-        echo "$OPTARG"
-      #else 
-        #echo "Not a valid file" >&2
-        #exit 1
-      #fi
+    w)
+      if [[ -f $OPTARG ]]; then
+        cp $OPTARG "./${OPTARG}.bak"
+      else 
+        echo "Not a valid file" >&2
+        exit 1
+      fi
+      exit 0
       ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
@@ -45,3 +49,10 @@ while getopts ":hw:" opt; do
       ;;
   esac
 done
+
+
+while [[ $# -ne 0 ]]; do
+  filecopy $1
+  shift
+done  
+exit 0
