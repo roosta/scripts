@@ -4,17 +4,17 @@
 switch_display () {
   case "$1" in
     "desk")
-      sink='1'
+      sink='alsa_output.pci-0000_00_1b.0.analog-stereo'
       xrandr --output DVI-D-0 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-0 --off --output DVI-I-1 --mode 1920x1080 --pos 1920x0 --rotate normal --output DVI-I-0 --off --output DP-1 --off --output DP-0 --off 
       switch_sink $sink
       ;;
     "tv")
-      sink='0'
+      sink='alsa_output.pci-0000_01_00.1.hdmi-surround-extra1'
       xrandr --output DVI-D-0 --off --output HDMI-0 --mode 1920x1080 --pos 0x0 --rotate normal --output DVI-I-1 --off --output DVI-I-0 --off --output DP-1 --off --output DP-0 --off
       switch_sink $sink
       ;;
     "all")
-      sink='1'
+      sink='alsa_output.pci-0000_00_1b.0.analog-stereo'
       xrandr --output DVI-D-0 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-0 --mode 1920x1080 --pos 3840x0 --rotate normal --output DVI-I-1 --mode 1920x1080 --pos 1920x0 --rotate normal --output DVI-I-0 --off --output DP-1 --off --output DP-0 --off
       switch_sink $sink
       ;;
