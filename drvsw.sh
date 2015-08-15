@@ -1,4 +1,5 @@
 #!/bin/bash
+# source: https://wiki.archlinux.org/index.php/NVIDIA#Switching_between_NVIDIA_and_nouveau_drivers
 BRANCH= # Enter a branch if needed, i.e. -340xx or -304xx
 NVIDIA=nvidia${BRANCH} # If no branch entered above this would be "nvidia"
 NOUVEAU=xf86-video-nouveau
