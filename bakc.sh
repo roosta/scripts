@@ -13,7 +13,7 @@ fdate="%Y-%m-%d_%H-%M-%S"
 filecopy() {
   if [[ -f $1 ]]; then
     canon=$(readlink -f ${1})
-    path=${backupdir}/$(dirname ${canon})
+    path=${backupdir}$(dirname ${canon})
     if [[ ! -d "$path" ]]; then
       mkdir -p "$path"
     fi
