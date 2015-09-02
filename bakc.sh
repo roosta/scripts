@@ -1,10 +1,29 @@
 #!/bin/sh
+# Author: Daniel Berg <mail@roosta.sh>
+# ----------------------------------------
 # backup directory in home(.backup) with directory structure of
 # source file. (~/.backup/[PATH]/FILE)
 # Append dateformatted date and .bak to file (FILENAME.DATE.bak)
-# TODO: verbose
-# TODO: choose to follow symlinks
-# TODO: conf file?
+# TODO:
+# * verbose
+# * choose to follow symlinks
+# * conf file?
+# * move option
+# * include home directory in elevated mode
+# * custom location
+# -----------------------------------
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # user vars
 backupdir=~/.backup
@@ -17,7 +36,7 @@ filecopy() {
     if [[ ! -d "$path" ]]; then
       mkdir -p "$path"
     fi
-      cp "$1" "${path}/${1}-$(date +"$fdate").bak"  
+      cp "$1" "${path}/${1}-$(date +"$fdate").bak"
       echo "backed up '${1}' to ${path}"
   else
     echo "failed to backup: ${1}. Not a valid file" >&2
@@ -33,7 +52,7 @@ while getopts ":hw:" opt; do
     w)
       if [[ -f $OPTARG ]]; then
         cp $OPTARG "./${OPTARG}.bak"
-      else 
+      else
         echo "Not a valid file" >&2
         exit 1
       fi
@@ -54,5 +73,5 @@ done
 while [[ $# -ne 0 ]]; do
   filecopy $1
   shift
-done  
+done
 exit 0
