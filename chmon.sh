@@ -51,7 +51,7 @@ switch_display () {
         printf "Display %s is not connected\n" $television
         leave 1
       else
-        xrandr --output $television --auto --pos 0x0 \
+        xrandr --output $television --primary --auto --pos 0x0 \
                --output $primary_display --off \
                --output $secondary_display --off
         switch_sink $sink_tv
@@ -111,31 +111,4 @@ notify () {
 }
 
 switch_display "${@}"
-
-#getopts "dta" optname
-#case "$optname" in
-  #"d")
-    #switch_display "desk"
-  #;;
-  #"t")
-    #switch_display "tv"
-  #;;
-  #"a")
-    #switch_display "all"
-  #;;
-  #"?")
-    #echo "Unknown option $OPTARG"
-  #;;
-  #":")
-    #echo "No argument value for option $OPTARG"
-  #;;
-  #*)
-    #echo "Unknown error while processing options"
-  #;;
-#esac
-
-
- #name: <alsa_output.pci-0000_01_00.1.hdmi-surround-extra1>
- #name: <alsa_output.usb-Logitech_Logitech_Wireless_Headset_000D44FF5916-00.analog-stereo>
- #name: <alsa_output.pci-0000_00_1b.0.analog-stereo>
 

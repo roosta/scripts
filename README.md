@@ -12,7 +12,7 @@ takes the options: -w, h currently and default behavior is to add it to current 
 
 ```shell
 $ cd /tests
-$ bakc -w test.file 
+$ bakc -w test.file
 # result:
 # ./test.file.bak
 
@@ -27,10 +27,4 @@ chdisp.sh
 Script that changes active displays and moves sound sources to relevant sink
 Seeing as this is a rather personal script, and only adhere to my setup it needs some tweaking to be usable to anyone else currenty
 Uncertain if I'll make it less coupled to my own setup.
-
-
-fstrim.sh
----
-a short fstrim script to run and log fstrim, and include home partition. I didn't make this, but keep it here since its useful. I'd link source but I can't recall where I got it.
-
 

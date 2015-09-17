@@ -27,17 +27,17 @@
 
 # user vars
 backupdir=~/.backup
-fdate="%Y-%m-%d_%H-%M-%S"
+suffix=$(date +"%Y-%m-%d_%H-%M-%S")
 
 filecopy() {
-  if [[ -f $1 ]]; then
+  if [[ -f $1 || -d $1 ]]; then
     canon=$(readlink -f ${1})
     path=${backupdir}$(dirname ${canon})
     if [[ ! -d "$path" ]]; then
       mkdir -p "$path"
     fi
-      cp "$1" "${path}/${1}-$(date +"$fdate").bak"
-      echo "backed up '${1}' to ${path}"
+      cp -r "$1" "${path}/${1}~${suffix}"
+      echo "backed up '${1}' to ${path}/${1}~${suffix}"
   else
     echo "failed to backup: ${1}. Not a valid file" >&2
   fi
