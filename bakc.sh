@@ -7,10 +7,12 @@
 # TODO:
 # * verbose
 # * choose to follow symlinks
+# * add clean
 # * conf file?
 # * move option
 # * include home directory in elevated mode
 # * custom location
+# * include a temp option
 # -----------------------------------
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -43,7 +45,18 @@ filecopy() {
   fi
 }
 
-while getopts ":hw:" opt; do
+fileremove() {
+  if [[ -f $1 ]]; then
+    rm -Iv --one-file-system ${1}
+    echo "& removed"
+  elif [[ -d $1 ]]; then
+    rm -Irv --one-file-system ${1}
+  else
+    echo "failed to remove: ${1}. Do you own the file?" >&2
+  fi
+}
+
+while getopts ":hwR:" opt; do
   case $opt in
     h)
       echo "Help placeholder" >&2
@@ -56,6 +69,11 @@ while getopts ":hw:" opt; do
         echo "Not a valid file" >&2
         exit 1
       fi
+      exit 0
+      ;;
+    R)
+      filecopy $1
+      fileremove $1
       exit 0
       ;;
     \?)
