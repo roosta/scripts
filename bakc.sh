@@ -13,6 +13,8 @@
 # * include home directory in elevated mode
 # * custom location
 # * include a temp option
+# * add undo delete
+
 # -----------------------------------
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,8 +31,7 @@
 
 # user vars
 backupdir=~/.backup
-suffix=$(date +"%Y-%m-%d_%H-%M-%S")
-
+suffix=$(date +"%Y-%m-%d@%H-%M-%S~")
 filecopy() {
   if [[ -f $1 || -d $1 ]]; then
     canon=$(readlink -f ${1})
@@ -39,7 +40,7 @@ filecopy() {
       mkdir -p "$path"
     fi
       cp -r "$1" "${path}/${1}~${suffix}"
-      echo "backed up '${1}' to ${path}/${1}~${suffix}"
+      echo "backed up '${1}' to ${path}/${1}.${suffix}"
   else
     echo "failed to backup: ${1}. Not a valid file" >&2
   fi
