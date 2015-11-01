@@ -11,18 +11,20 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-# -------------------------
+#
 # Description:
-#  partially automate changing of screen layout and corresponding audio sink.
-#  I made this to easily switch screen layouts between my tv -which has a seperate audio setup-
-#  and my desk. As it largly differs from person to person what their setup looks like this isn't a super
-#  versatile script but it gets updated now and again in an effort to improve and make it less specialized.
+# ---------------
+# partially automate changing of screen layout and corresponding audio sink.
+# I made this to easily switch screen layouts between my tv -which has a seperate audio setup-
+# and my desk. As it largly differs from person to person what their setup looks like this isn't a super
+# versatile script but it gets updated now and again in an effort to improve and make it less specialized.
 # Author:
-#  Daniel Berg <mail@roosta.sh>
-#  Updated 2015-09-02
+# ---------------
+# Daniel Berg <mail@roosta.sh>
+# Updated 2015-09-02
 # sources:
-#  Arch wiki on xrandr and pulse audio
-#  http://www.freedesktop.org/wiki/Software/PulseAudio/FAQ/#index40h3
+# Arch wiki on xrandr and pulse audio
+# http://www.freedesktop.org/wiki/Software/PulseAudio/FAQ/#index40h3
 
 # TODO: Good grief, refactor this!!
 
@@ -35,13 +37,16 @@ secondary_display=DVI-D-0
 sink_desk=alsa_output.pci-0000_00_1b.0.analog-stereo
 sink_tv=alsa_output.pci-0000_01_00.1.hdmi-surround-extra1
 
+desk_metamode="DVI-I-1: nvidia-auto-select +1920+0, DVI-D-0: nvidia-auto-select +0+0 { ForceFullCompositionPipeline = on }"
+couch_metamode="HDMI-0: nvidia-auto-select +0+0 { ForceFullCompositionPipeline = on }"
+all_metamode="DVI-I-1: nvidia-auto-select +1920+0, DVI-D-0: nvidia-auto-select +0+0, HDMI-0: nvidia-auto-select +3840+0 { ForceFullCompositionPipeline = on }"
+
+
 switch_display () {
   (( $# == 1 )) || usage
   case "$1" in
     "desk")
-      xrandr --output $primary_display --primary --auto --pos 0x0 \
-             --output $secondary_display --auto --left-of $primary_display \
-             --output $television --off
+      nvidia-settings --assign CurrentMetaMode="$desk_metamode"
       switch_sink $sink_desk
       notify "desk" $sink_desk
       leave 0
@@ -51,18 +56,14 @@ switch_display () {
         printf "Display %s is not connected\n" $television
         leave 1
       else
-        xrandr --output $television --primary --auto --pos 0x0 \
-               --output $primary_display --off \
-               --output $secondary_display --off
+        nvidia-settings --assign CurrentMetaMode="$couch_metamode"
         switch_sink $sink_tv
         notify "TV" $sink_tv
         leave 0
       fi
       ;;
     "all")
-      xrandr --output $primary_display --auto --pos 0x0 --primary \
-             --output $secondary_display --auto --left-of $primary_display \
-             --output $television --auto --right-of $primary_display
+      nvidia-settings --assign CurrentMetaMode="$all_metamode"
       switch_sink $sink_desk
       notify "All of them" $sink_desk
       leave 0
@@ -80,6 +81,9 @@ leave() {
   unset secondary_display
   unset sink_tv
   unset sink_desk
+  unset desk_metamode
+  unset couch_metamode
+  unset all_metamode
   exit $1
 }
 
@@ -111,4 +115,17 @@ notify () {
 }
 
 switch_display "${@}"
+
+
+#xrandr --output $primary_display --auto --pos 0x0 --primary \
+  #--output $secondary_display --auto --left-of $primary_display \
+  #--output $television --auto --right-of $primary_display
+
+#xrandr --output $primary_display --primary --auto --pos 0x0 \
+  #--output $secondary_display --auto --left-of $primary_display \
+  #--output $television --off
+
+#xrandr --output $television --primary --auto --pos 0x0 \
+  #--output $primary_display --off \
+  #--output $secondary_display --off
 
