@@ -15,8 +15,8 @@
 # Description:
 # ---------------
 # partially automate changing of screen layout and corresponding audio sink.
-# I made this to easily switch screen layouts between my tv -which has a seperate audio setup-
-# and my desk. As it largly differs from person to person what their setup looks like this isn't a super
+# Made to easily switch screen layouts between my tv -which has a seperate audio setup-
+# and my desk. As it differs from setup to setup what their layout is this isn't a very
 # versatile script but it gets updated now and again in an effort to improve and make it less specialized.
 # Author:
 # ---------------
@@ -37,9 +37,9 @@ secondary_display=DVI-D-0
 sink_desk=alsa_output.pci-0000_00_1b.0.analog-stereo
 sink_tv=alsa_output.pci-0000_01_00.1.hdmi-surround-extra1
 
-desk_metamode="DVI-I-1: nvidia-auto-select +1920+0, DVI-D-0: nvidia-auto-select +0+0 { ForceFullCompositionPipeline = on }"
+desk_metamode="DVI-I-1: nvidia-auto-select +1920+0 { ForceFullCompositionPipeline = on }, DVI-D-0: nvidia-auto-select +0+0"
 couch_metamode="HDMI-0: nvidia-auto-select +0+0 { ForceFullCompositionPipeline = on }"
-all_metamode="DVI-I-1: nvidia-auto-select +1920+0, DVI-D-0: nvidia-auto-select +0+0, HDMI-0: nvidia-auto-select +3840+0 { ForceFullCompositionPipeline = on }"
+all_metamode="DVI-I-1: nvidia-auto-select +1920+0 { ForceFullCompositionPipeline = on }, DVI-D-0: nvidia-auto-select +0+0, HDMI-0: nvidia-auto-select +3840+0"
 
 
 switch_display () {
