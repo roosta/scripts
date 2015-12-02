@@ -13,57 +13,67 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 # Description:
-# ---------------
+# ------------
 # partially automate changing of screen layout and corresponding audio sink.
 # Made to easily switch screen layouts between my tv -which has a seperate audio setup-
 # and my desk. As it differs from setup to setup what their layout is this isn't a very
 # versatile script but it gets updated now and again in an effort to improve and make it less specialized.
 # Author:
-# ---------------
+# -------
 # Daniel Berg <mail@roosta.sh>
 # Updated 2015-09-02
 # sources:
 # Arch wiki on xrandr and pulse audio
 # http://www.freedesktop.org/wiki/Software/PulseAudio/FAQ/#index40h3
 
+# http://redsymbol.net/articles/unofficial-bash-strict-mode/
+set -euo pipefail
+IFS=$'\n\t'
+
 # TODO: Good grief, refactor this!!
 
 # define displays
-television=HDMI-0
-primary_display=DVI-I-1
-secondary_display=DVI-D-0
+tv=HDMI-0
+output0=DVI-I-1
+output1=DVI-D-0
 
 # define sinks
 sink_desk=alsa_output.pci-0000_00_1b.0.analog-stereo
 sink_tv=alsa_output.pci-0000_01_00.1.hdmi-surround-extra1
 
-desk_metamode="DVI-I-1: nvidia-auto-select +1920+0 { ForceFullCompositionPipeline = on }, DVI-D-0: nvidia-auto-select +0+0"
-couch_metamode="HDMI-0: nvidia-auto-select +0+0 { ForceFullCompositionPipeline = on }"
-all_metamode="DVI-I-1: nvidia-auto-select +1920+0 { ForceFullCompositionPipeline = on }, DVI-D-0: nvidia-auto-select +0+0, HDMI-0: nvidia-auto-select +3840+0"
+# Try ForceFullCompositionPipeline to solve tearing issues.
+# ^^ experiencing no issues with most apps although compton is sometimes acting up and needs a restart.
+#    Lethal League's performance seems affcted but no other game so far.
+# !! use xrandr instead of this is undesierable
+desk_layout="DVI-I-1: nvidia-auto-select +1920+0 { ForceFullCompositionPipeline = on }, DVI-D-0: nvidia-auto-select +0+0"
+couch_layout="HDMI-0: nvidia-auto-select +0+0 { ForceFullCompositionPipeline = on }"
+all_layout="DVI-I-1: nvidia-auto-select +1920+0 { ForceFullCompositionPipeline = on }, DVI-D-0: nvidia-auto-select +0+0, HDMI-0: nvidia-auto-select +3840+0"
 
 
 switch_display () {
   (( $# == 1 )) || usage
   case "$1" in
     "desk")
-      nvidia-settings --assign CurrentMetaMode="$desk_metamode"
+      xrandr --output $output0 --primary
+      nvidia-settings --assign CurrentMetaMode="$desk_layout"
       switch_sink $sink_desk
       notify "desk" $sink_desk
       leave 0
       ;;
     "tv")
-      if (xrandr | grep "$television disconnected"); then
-        printf "Display %s is not connected\n" $television
+      if (xrandr | grep "$tv disconnected"); then
+        printf "Display %s is not connected\n" $tv
         leave 1
       else
-        nvidia-settings --assign CurrentMetaMode="$couch_metamode"
+        xrandr --output $tv --primary
+        nvidia-settings --assign CurrentMetaMode="$couch_layout"
         switch_sink $sink_tv
         notify "TV" $sink_tv
         leave 0
       fi
       ;;
     "all")
-      nvidia-settings --assign CurrentMetaMode="$all_metamode"
+      nvidia-settings --assign CurrentMetaMode="$all_layout"
       switch_sink $sink_desk
       notify "All of them" $sink_desk
       leave 0
@@ -76,14 +86,14 @@ switch_display () {
 }
 
 leave() {
-  unset television
-  unset primary_display
-  unset secondary_display
+  unset tv
+  unset output0
+  unset output1
   unset sink_tv
   unset sink_desk
-  unset desk_metamode
-  unset couch_metamode
-  unset all_metamode
+  unset desk_layout
+  unset couch_layout
+  unset all_layout
   exit $1
 }
 
@@ -117,15 +127,15 @@ notify () {
 switch_display "${@}"
 
 
-#xrandr --output $primary_display --auto --pos 0x0 --primary \
-  #--output $secondary_display --auto --left-of $primary_display \
-  #--output $television --auto --right-of $primary_display
+#xrandr --output $output0 --auto --pos 0x0 --primary \
+  #--output $output1 --auto --left-of $output0 \
+  #--output $tv --auto --right-of $output0
 
-#xrandr --output $primary_display --primary --auto --pos 0x0 \
-  #--output $secondary_display --auto --left-of $primary_display \
-  #--output $television --off
+#xrandr --output $output0 --primary --auto --pos 0x0 \
+  #--output $output1 --auto --left-of $output0 \
+  #--output $tv --off
 
-#xrandr --output $television --primary --auto --pos 0x0 \
-  #--output $primary_display --off \
-  #--output $secondary_display --off
+#xrandr --output $tv --primary --auto --pos 0x0 \
+  #--output $output0 --off \
+  #--output $output1 --off
 

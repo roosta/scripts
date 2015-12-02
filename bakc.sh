@@ -14,6 +14,8 @@
 # * custom location
 # * include a temp option
 # * add undo delete
+# * add archive function
+# * fix success on failed message
 
 # -----------------------------------
 # This program is free software: you can redistribute it and/or modify
@@ -29,8 +31,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# http://redsymbol.net/articles/unofficial-bash-strict-mode/
+set -euo pipefail
+IFS=$'\n\t'
+
 # user vars
-backupdir=~/.backup
+backupdir=~/.backup/bakc
 suffix=$(date +"%Y-%m-%d@%H-%M-%S~")
 filecopy() {
   if [[ -f $1 || -d $1 ]]; then
