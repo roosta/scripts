@@ -94,6 +94,10 @@ leave() {
   unset desk_layout
   unset couch_layout
   unset all_layout
+
+  # restart i3 to properly display tray icons
+  i3-msg restart
+
   exit $1
 }
 
