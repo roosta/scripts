@@ -36,7 +36,8 @@ set -euo pipefail
 IFS=$'\n\t'
 
 # user vars
-backupdir=~/.backup/bakc
+#backupdir=~/.backup/bakc
+backupdir=~/.test/bakc
 suffix=$(date +"%Y-%m-%d@%H-%M-%S~")
 filecopy() {
   if [[ -f $1 || -d $1 ]]; then
@@ -45,7 +46,7 @@ filecopy() {
     if [[ ! -d "$path" ]]; then
       mkdir -p "$path"
     fi
-      cp -r "$1" "${path}/${1}~${suffix}"
+      cp -ax "$1" "${path}/${1}~${suffix}"
       echo "backed up '${1}' to ${path}/${1}.${suffix}"
   else
     echo "failed to backup: ${1}. Not a valid file" >&2
@@ -59,7 +60,7 @@ fileremove() {
   elif [[ -d $1 ]]; then
     rm -Irv --one-file-system ${1}
   else
-    echo "failed to remove: ${1}. Do you own the file?" >&2
+    echo "Failed to remove: ${1}. Check permissions" >&2
   fi
 }
 
@@ -70,8 +71,8 @@ while getopts ":hwR:" opt; do
       exit 0
       ;;
     w)
-      if [[ -f $OPTARG ]]; then
-        cp $OPTARG "./${OPTARG}.bak"
+      if [[ -f $1 ]]; then
+        cp $1 "./${1}.bak"
       else
         echo "Not a valid file" >&2
         exit 1
