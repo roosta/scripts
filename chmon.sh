@@ -57,7 +57,7 @@ switch_display () {
       xrandr --output $output0 --primary
       nvidia-settings --assign CurrentMetaMode="$desk_layout"
       switch_sink $sink_desk
-      notify "desk" $sink_desk
+      #notify "desk" $sink_desk
       leave 0
       ;;
     "tv")
@@ -68,14 +68,14 @@ switch_display () {
         xrandr --output $tv --primary
         nvidia-settings --assign CurrentMetaMode="$couch_layout"
         switch_sink $sink_tv
-        notify "TV" $sink_tv
+        #notify "TV" $sink_tv
         leave 0
       fi
       ;;
     "all")
       nvidia-settings --assign CurrentMetaMode="$all_layout"
       switch_sink $sink_desk
-      notify "All of them" $sink_desk
+      #notify "All of them" $sink_desk
       leave 0
       ;;
     *)
@@ -95,8 +95,8 @@ leave() {
   unset couch_layout
   unset all_layout
 
-  # restart i3 to properly display tray icons
-  i3-msg restart
+  # restart i3 to to setup workspaces for a different layout.
+  sleep 1; i3-msg restart
 
   exit $1
 }
