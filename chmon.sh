@@ -34,8 +34,8 @@ IFS=$'\n\t'
 
 # define displays
 tv=HDMI-0
-output0=DVI-I-1
-output1=DVI-D-0
+primary=DVI-I-2
+secondary=DVI-I-3
 
 # define sinks
 sink_desk=alsa_output.pci-0000_00_1b.0.analog-stereo
@@ -45,16 +45,16 @@ sink_tv=alsa_output.pci-0000_01_00.1.hdmi-surround-extra1
 # ^^ experiencing no issues with most apps although compton is sometimes acting up and needs a restart.
 #    Lethal League's performance seems affcted but no other game so far.
 # !! use xrandr instead of this is undesierable
-desk_layout="DVI-I-1: nvidia-auto-select +1920+0 { ForceFullCompositionPipeline = on }, DVI-D-0: nvidia-auto-select +0+0"
-couch_layout="HDMI-0: nvidia-auto-select +0+0 { ForceFullCompositionPipeline = on }"
-all_layout="DVI-I-1: nvidia-auto-select +1920+0 { ForceFullCompositionPipeline = on }, DVI-D-0: nvidia-auto-select +0+0, HDMI-0: nvidia-auto-select +3840+0"
+desk_layout="${primary}: nvidia-auto-select +1920+0 { ForceFullCompositionPipeline = on }, ${secondary}: nvidia-auto-select +0+0"
+couch_layout="${tv}: nvidia-auto-select +0+0 { ForceFullCompositionPipeline = on }"
+all_layout="${primary}: nvidia-auto-select +1920+0 { ForceFullCompositionPipeline = on }, ${secondary}: nvidia-auto-select +0+0, HDMI-0: nvidia-auto-select +3840+0"
 
 
 switch_display () {
   (( $# == 1 )) || usage
   case "$1" in
     "desk")
-      xrandr --output $output0 --primary
+      xrandr --output $primary --primary
       nvidia-settings --assign CurrentMetaMode="$desk_layout"
       switch_sink $sink_desk
       #notify "desk" $sink_desk
@@ -87,8 +87,8 @@ switch_display () {
 
 leave() {
   unset tv
-  unset output0
-  unset output1
+  unset primary
+  unset secondary
   unset sink_tv
   unset sink_desk
   unset desk_layout
@@ -131,15 +131,15 @@ notify () {
 switch_display "${@}"
 
 
-#xrandr --output $output0 --auto --pos 0x0 --primary \
-  #--output $output1 --auto --left-of $output0 \
-  #--output $tv --auto --right-of $output0
+#xrandr --output $primary --auto --pos 0x0 --primary \
+  #--output $secondary --auto --left-of $primary \
+  #--output $tv --auto --right-of $primary
 
-#xrandr --output $output0 --primary --auto --pos 0x0 \
-  #--output $output1 --auto --left-of $output0 \
+#xrandr --output $primary --primary --auto --pos 0x0 \
+  #--output $secondary --auto --left-of $primary \
   #--output $tv --off
 
 #xrandr --output $tv --primary --auto --pos 0x0 \
-  #--output $output0 --off \
-  #--output $output1 --off
+  #--output $primary --off \
+  #--output $secondary --off
 

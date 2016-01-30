@@ -36,7 +36,7 @@ set -euo pipefail
 IFS=$'\n\t'
 
 # user vars
-backupdir=~/.backup/bakc
+backupdir=~/.backup
 #backupdir=~/.test/bakc
 suffix=$(date +"%Y-%m-%d@%H-%M-%S~")
 filecopy() {
