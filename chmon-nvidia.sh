@@ -30,22 +30,32 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+# TODO: Good grief, refactor this!!
+
 # define displays
-tv=HDMI-1
-primary=DVI-I-1
-secondary=VGA-1
+tv=HDMI-0
+primary=DVI-I-2
+secondary=DVI-I-3
 
 # define sinks
 sink_desk=alsa_output.pci-0000_00_1b.0.analog-stereo
 sink_tv=alsa_output.pci-0000_01_00.1.hdmi-surround-extra1
 
+# Try ForceFullCompositionPipeline to solve tearing issues.
+# ^^ experiencing no issues with most apps although compton is sometimes acting up and needs a restart.
+#    Lethal League's performance seems affcted but no other game so far.
+# !! use xrandr instead of this is undesierable
+desk_layout="${primary}: nvidia-auto-select +1920+0 { ForceFullCompositionPipeline = on }, ${secondary}: nvidia-auto-select +0+0"
+couch_layout="${tv}: nvidia-auto-select +0+0 { ForceFullCompositionPipeline = on }"
+all_layout="${primary}: nvidia-auto-select +1920+0 { ForceFullCompositionPipeline = on }, ${secondary}: nvidia-auto-select +0+0, HDMI-0: nvidia-auto-select +3840+0"
+
+
 switch_display () {
   (( $# == 1 )) || usage
   case "$1" in
     "desk")
-      xrandr --output ${secondary} --mode 1920x1080 --pos 0x0 --rotate normal \
-             --output ${primary} --primary --mode 1920x1080 --pos 1920x0 --rotate normal \
-             --output ${tv} --off
+      xrandr --output $primary --primary
+      nvidia-settings --assign CurrentMetaMode="$desk_layout"
       switch_sink $sink_desk
       #notify "desk" $sink_desk
       leave 0
@@ -55,19 +65,16 @@ switch_display () {
         printf "Display %s is not connected\n" $tv
         leave 1
       else
-        xrandr --output ${secondary} --off \
-               --output ${primary} --off \
-               --output ${tv} --primary --mode 1920x1080 --pos 0x0 --rotate normal
+        xrandr --output $tv --primary
+        nvidia-settings --assign CurrentMetaMode="$couch_layout"
         switch_sink $sink_tv
         #notify "TV" $sink_tv
         leave 0
       fi
       ;;
     "all")
-      xrandr --output ${secondary} --mode 1920x1080 --pos 0x0 --rotate normal \
-             --output ${primary} --primary --mode 1920x1080 --pos 1920x0 --rotate normal \
-             --output ${tv} --primary --mode 1920x1080 --pos 3840x0 --rotate normal
-      switch_sink $sink_tv
+      nvidia-settings --assign CurrentMetaMode="$all_layout"
+      switch_sink $sink_desk
       #notify "All of them" $sink_desk
       leave 0
       ;;
@@ -89,7 +96,7 @@ leave() {
   unset all_layout
 
   # restart i3 to to setup workspaces for a different layout.
-  sleep 1; i3-msg reload
+  sleep 1; i3-msg restart
 
   exit $1
 }
