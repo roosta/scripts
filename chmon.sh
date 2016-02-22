@@ -34,8 +34,8 @@ IFS=$'\n\t'
 
 # define displays
 tv=HDMI-0
-primary=DVI-I-1
-secondary=VGA-0
+primary=DVI-I-2
+secondary=DVI-I-3
 
 # define sinks
 sink_desk=alsa_output.pci-0000_00_1b.0.analog-stereo
@@ -96,7 +96,7 @@ leave() {
   unset all_layout
 
   # restart i3 to to setup workspaces for a different layout.
-  #sleep 1; i3-msg restart
+  i3-msg restart
 
   exit $1
 }
