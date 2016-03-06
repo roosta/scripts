@@ -47,7 +47,7 @@ sink_tv=alsa_output.pci-0000_01_00.1.hdmi-surround-extra1
 # !! use xrandr instead of this is undesierable
 desk_layout="${primary}: nvidia-auto-select +1920+0 { ForceFullCompositionPipeline = on }, ${secondary}: nvidia-auto-select +0+0"
 couch_layout="${tv}: nvidia-auto-select +0+0 { ForceFullCompositionPipeline = on }"
-all_layout="${primary}: nvidia-auto-select +1920+0 { ForceFullCompositionPipeline = on }, ${secondary}: nvidia-auto-select +0+0, HDMI-0: nvidia-auto-select +3840+0"
+mix_layout="${primary}: nvidia-auto-select +1920+0 { ForceFullCompositionPipeline = on }, ${tv}: nvidia-auto-select +0+0"
 
 
 switch_display () {
@@ -72,9 +72,9 @@ switch_display () {
         leave 0
       fi
       ;;
-    "all")
-      nvidia-settings --assign CurrentMetaMode="$all_layout"
-      switch_sink $sink_desk
+    "mix")
+      nvidia-settings --assign CurrentMetaMode="$mix_layout"
+      switch_sink $sink_tv
       #notify "All of them" $sink_desk
       leave 0
       ;;
@@ -93,7 +93,7 @@ leave() {
   unset sink_desk
   unset desk_layout
   unset couch_layout
-  unset all_layout
+  unset mix_layout
 
   # restart i3 to to setup workspaces for a different layout.
   i3-msg restart
