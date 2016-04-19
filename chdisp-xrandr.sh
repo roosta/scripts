@@ -33,7 +33,7 @@ IFS=$'\n\t'
 # define displays
 tv=HDMI-1
 primary=DVI-I-1
-secondary=VGA-1
+secondary=DVI-I-2
 
 # define sinks
 sink_desk=alsa_output.pci-0000_00_1b.0.analog-stereo
