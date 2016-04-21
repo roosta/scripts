@@ -32,8 +32,8 @@ IFS=$'\n\t'
 
 # define displays
 tv=HDMI-1
-primary=DVI-I-1
-secondary=DVI-I-2
+primary=DVI-I-2
+secondary=DVI-I-1
 
 # define sinks
 sink_desk=alsa_output.pci-0000_00_1b.0.analog-stereo
@@ -44,8 +44,8 @@ switch_display () {
   case "$1" in
     "desk")
       xrandr --output ${tv} --off
-      xrandr --output ${primary} --primary --mode 1920x1080 --pos 0x0 --rotate normal \
-             --output ${secondary} --mode 1920x1080 --left-of ${primary} --rotate normal
+      xrandr --output ${primary} --auto --primary --pos 0x0 --rotate normal \
+             --output ${secondary} --auto --left-of ${primary} --rotate normal
       switch_sink $sink_desk
       #notify "desk" $sink_desk
       leave 0
@@ -57,7 +57,7 @@ switch_display () {
       else
         xrandr --output ${primary} --off \
                --output ${secondary} --off
-        xrandr --output ${tv} --primary --mode 1920x1080 --pos 0x0 --rotate normal
+        xrandr --output ${tv} --primary --auto --pos 0x0 --rotate normal
         switch_sink $sink_tv
         #notify "TV" $sink_tv
         leave 0
