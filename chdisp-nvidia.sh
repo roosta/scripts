@@ -33,9 +33,9 @@ IFS=$'\n\t'
 # TODO: Good grief, refactor this!!
 
 # define displays
-tv=HDMI-0
-primary=DVI-I-2
-secondary=DVI-I-3
+tv="HDMI-0"
+primary="DVI-I-2"
+secondary="DVI-I-3"
 
 # define sinks
 sink_desk=alsa_output.pci-0000_00_1b.0.analog-stereo
@@ -48,7 +48,6 @@ sink_tv=alsa_output.pci-0000_01_00.1.hdmi-surround-extra1
 desk_layout="${primary}: nvidia-auto-select +1920+0 { ForceFullCompositionPipeline = on }, ${secondary}: nvidia-auto-select +0+0"
 couch_layout="${tv}: nvidia-auto-select +0+0 { ForceFullCompositionPipeline = on }"
 mix_layout="${primary}: nvidia-auto-select +1920+0 { ForceFullCompositionPipeline = on }, ${tv}: nvidia-auto-select +0+0"
-
 
 switch_display () {
   (( $# == 1 )) || usage
@@ -102,11 +101,22 @@ leave() {
 }
 
 usage() {
-  cat << EOF
+	cat >&2 <<EOL
+CHDISP (Change display)
+───────────────────────
+Change display layout & audio sink,
+based on preset variables.
 
-    Im a placeholder!
+Usage: chdisp [layout / command]
 
-EOF
+layouts:
+  desk             Change to dual head desk layout
+  tv               Change to single screen tv layout
+
+commands
+  help             show help
+EOL
+  exit 1
 }
 
 # set new default sink and move all streams.
