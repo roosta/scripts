@@ -1,21 +1,21 @@
 #!/bin/sh
-# Author: Daniel Berg <mail@roosta.sh>
+# Author: Roosta <mail@roosta.sh>
 # ----------------------------------------
 # backup directory in home(.backup) with directory structure of
 # source file. (~/.backup/[PATH]/FILE)
 # Append dateformatted date and .bak to file (FILENAME.DATE.bak)
 # TODO:
-# * verbose
-# * choose to follow symlinks
-# * add clean
-# * conf file?
-# * move option
-# * include home directory in elevated mode
-# * custom location
-# * include a temp option
-# * add undo delete
-# * add archive function
-# * fix success on failed message
+# [ ] verbose
+# [ ] choose to follow symlinks
+# [ ] add clean
+# [ ] conf file?
+# [ ] move option
+# [ ] include home directory in elevated mode
+# [ ] custom location
+# [ ] include a temp option
+# [ ] add undo delete
+# [ ] add archive function
+# [ ] fix success on failed message
 
 # -----------------------------------
 # This program is free software: you can redistribute it and/or modify
@@ -38,7 +38,7 @@ IFS=$'\n\t'
 # user vars
 backupdir=~/.backup
 #backupdir=~/.test/bakc
-suffix=$(date +"%Y-%m-%d@%H-%M-%S~")
+suffix=$(date +"%Y-%m-%d@%T")
 filecopy() {
   if [[ -f $1 || -d $1 ]]; then
     canon=$(readlink -f ${1})
