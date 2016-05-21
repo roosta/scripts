@@ -12,7 +12,7 @@ usage() {
           blur [img]       # Take a screenshot, blur it out. If provided, add an image on top.
           pizelize [img]   # Same as the abobe, but pixelize the image instead.
           img <img>        # Use the provided image.
- EOF
+EOF
 }
 
 random() {
@@ -37,7 +37,7 @@ deskshot() {
  if (( $# )); then
    convert -gravity center -composite -matte "${cfg_tmpdir}/lockbg.png" "$1" "${cfg_tmpdir}/lockbg.png"
  fi
- 
+
  image="${cfg_tmpdir}/lockbg.png"
  printf '%s' "$image"
 }
