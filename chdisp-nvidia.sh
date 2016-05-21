@@ -101,19 +101,19 @@ leave() {
 }
 
 usage() {
-	cat >&2 <<EOL
-CHDISP (Change display)
-───────────────────────
-Change display layout & audio sink,
-based on preset variables.
+  cat >&2 <<EOL
+  CHDISP (Change display)
+  ───────────────────────
+  Change display layout & audio sink,
+  based on preset variables.
 
-Usage: chdisp [layout / command]
+  Usage: chdisp [layout / command]
 
-layouts:
+  layouts:
   desk             Change to dual head desk layout
   tv               Change to single screen tv layout
 
-commands
+  commands
   help             show help
 EOL
   exit 1
