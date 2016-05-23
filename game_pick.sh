@@ -22,7 +22,7 @@
 # a proper chance.
 #TODO: expand to include other kinds of media, like books, movies...
 
-games_list=~/utils/resources/games-primary.txt
+games_list=resources/games-primary.txt
 games_count=$(wc -l resources/games-primary.txt | awk '{print $1}')
 random_number=$(( ( RANDOM % ${games_count} )  + 1 ))
 intro="Calculating"
