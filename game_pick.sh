@@ -23,7 +23,7 @@
 #TODO: expand to include other kinds of media, like books, movies...
 
 games_list=resources/games-primary.txt
-games_count=$(wc -l resources/games-primary.txt | awk '{print $1}')
+games_count=$(wc -l $1 | awk '{print $1}')
 random_number=$(( ( RANDOM % ${games_count} )  + 1 ))
 intro="Calculating"
 
@@ -43,5 +43,5 @@ for i in {5..1};do
   echo -ne "$intro \r" && sleep 1
 done
 echo -ne "The Game Picked Was:\n"
-fancy $(awk "NR==$random_number" "$games_list")
+fancy $(awk "NR==$random_number" "$1")
 
