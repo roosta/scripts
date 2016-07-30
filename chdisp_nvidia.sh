@@ -44,7 +44,7 @@ sink_tv=alsa_output.pci-0000_01_00.1.hdmi-surround-extra1
 # Try ForceFullCompositionPipeline to solve tearing issues.
 # ^^ experiencing no issues with most apps although compton is sometimes acting up and needs a restart.
 #    Lethal League's performance seems affcted but no other game so far.
-# !! use xrandr instead of this is undesierable
+# !! use xrandr instead of this is undesirable.
 desk_layout="${primary}: nvidia-auto-select +1920+0 { ForceFullCompositionPipeline = on }, ${secondary}: nvidia-auto-select +0+0"
 couch_layout="${tv}: nvidia-auto-select +0+0 { ForceFullCompositionPipeline = on }"
 mix_layout="${primary}: nvidia-auto-select +1920+0 { ForceFullCompositionPipeline = on }, ${tv}: nvidia-auto-select +0+0"
