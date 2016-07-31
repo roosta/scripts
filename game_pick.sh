@@ -22,9 +22,9 @@
 # a proper chance.
 #TODO: expand to include other kinds of media, like books, movies...
 
-games_list=resources/games-primary.txt
-games_count=$(wc -l $1 | awk '{print $1}')
-random_number=$(( ( RANDOM % ${games_count} )  + 1 ))
+games_list=resources/games_primary.txt
+games_count=$(wc -l ${games_list} | awk '{print $1}')
+random_number=$(( ( RANDOM % games_count )  + 1 ))
 intro="Calculating"
 
 # check for toilet, else just echo text.
@@ -33,15 +33,15 @@ fancy() {
   if hash toilet 2>/dev/null; then
     toilet --gay -t -F border -f future "$@"
   else
-    echo -n -e "$@ \n"
+    echo -n -e "$@" "\n"
   fi
 }
 
 # add a countdown before displaying "result"
-for i in {5..1};do
+for (( c=0; c<=5; c++ )); do
   intro+="."
   echo -ne "$intro \r" && sleep 1
 done
 echo -ne "The Game Picked Was:\n"
-fancy $(awk "NR==$random_number" "$1")
+fancy "$(awk "NR==$random_number" "$games_list")"
 
