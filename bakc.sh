@@ -37,17 +37,16 @@ IFS=$'\n\t'
 
 # user vars
 backupdir=~/.backup
-#backupdir=~/.test/bakc
 suffix=$(date +"%Y-%m-%d@%T")
 filecopy() {
   if [[ -f $1 || -d $1 ]]; then
     canon=$(readlink -f ${1})
-    path=${backupdir}$(dirname ${canon})
-    if [[ ! -d "$path" ]]; then
-      mkdir -p "$path"
+    destination=${backupdir}$(dirname ${canon})
+    if [[ ! -d "$destination" ]]; then
+      mkdir -p "$destination"
     fi
-      cp -ax "$1" "${path}/${1}~${suffix}"
-      echo "backed up '${1}' to ${path}/${1}.${suffix}"
+      cp -ax "${1}" "${destination}/${1}~${suffix}"
+      echo "backed up '${1}' to ${destination}/${1}.${suffix}"
   else
     echo "failed to backup: ${1}. Not a valid file" >&2
   fi
