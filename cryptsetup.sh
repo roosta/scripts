@@ -9,6 +9,10 @@ close () {
 
 usage() {
 	cat >&2 <<EOL
+
+Usage: crypthelper command [DEVICE] [NAME]
+
+commands:
   open:             open and mount
   close:            umound and close
 EOL
