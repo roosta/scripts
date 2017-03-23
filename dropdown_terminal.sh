@@ -1,6 +1,7 @@
 #!/bin/bash
 # https://github.com/kalq/dotfiles/blob/macbook/scripts/bin/dropdown_terminal.sh
 # https://www.reddit.com/r/unixporn/comments/60qw8z/bspwm_bite_my_shiny_metal_ass/
+# based on bspwm
 
 terminal="st"
 
