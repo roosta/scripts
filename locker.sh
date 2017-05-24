@@ -11,6 +11,6 @@ PARAM=(--textcolor=FCE8C3FF --insidecolor=ffffff00 --ringcolor=2D2B28FF \
 
 # try to use a forked version of i3lock with prepared parameters
 if ! i3lock -n "${PARAM[@]}" -c "#1c1b19" > /dev/null 2>&1; then
-    # We have failed, lets get back to stock one
-    i3lock -n -i "$IMAGE"
+  # We have failed, lets get back to stock one
+  i3lock -n -i "$IMAGE"
 fi
