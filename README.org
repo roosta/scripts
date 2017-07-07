@@ -1,0 +1,58 @@
+#+TITLE: Roostas utils
+
+* Information
+This repo is basically a dumping ground for various scripts/utils/whatever that
+are kinda one-shot stuff that doesn't fit in a project. Probably not very useful
+to anyone but me but I'll include some information on each one I can still
+remember what does
+
+Some of these scripts I just grabbed off of various sources, wikis, the likes,
+and have stuck around long after their expiration date. Hard to delete stuff.
+
+* Scripts
+** add_font.sh
+   Just add a new font to system by making fontdir and fontscale, and refreshing font cache.
+   Really basic stuff but I kept forgetting so here's the script ensuring I'll never remember.
+** arch_updates.sh
+   Displays the number of package updates pending for an Arch Linux installation.
+
+   This is grabbed straight from [[https://github.com/ultrabug/py3status][py3status]], I think I made some modifications on
+   the print output but other than that it's the same.
+** bandwidth
+   Output bandwidth usage to stdout.
+   Did not write this, grabbed it from somewhere I can't remember
+
+   Authors:
+   - Copyright (C) 2012 Stefan Breunig <stefan+measure-net-speed@mathphys.fsk.uni-heidelberg.de>
+   - Copyright (C) 2014 kaueraal
+   - Copyright (C) 2015 Thiago Perrotta <perrotta dot thiago at poli dot ufrj dot br>
+** bandwidth_alt.sh
+   Alternative script for outputting bandwidth to stdout. Think this one is
+   broken currently, don't remember what I used it for :)
+** battery
+   Output battery status to stdout
+** byzanz_gui.sh
+   GUI script for byzanz, a script used for recording GIF screencasts. Have
+   since moved to other solutions but its here for posterity.
+
+   Author: (c) Rob W 2012, modified by MHC (http://askubuntu.com/users/81372/mhc)
+** chdisp_nvidia.sh
+   Script for changing output displays using nvidia cards. It also changes audio sink.
+
+   Write this because I have a couch and a desk, and need to switch between them by using a shortcut.
+   I couldn't find a script that changes both displays and audio sink so here we are.
+
+   It uses pre-defined layouts and takes a single argument. =desk=, =tv=, =mix=
+** chdisp_xrandr.sh
+   Same as above but using xrandr instead of nvidia-settings for setting layout
+** cpu_temp
+   Output CPU temperature to stdout. Uses lm_sensors internally, just formats output a bit.
+   Used with i3blocks
+
+   Authors:
+   - Copyright 2014 Pierre Mavro <deimos@deimos.fr>
+   - Copyright 2014 Vivien Didelot <vivien@didelot.org>
+   - Copyright 2014 Andreas Guldstrand <andreas.guldstrand@gmail.com>
+   - Copyright 2014 Benjamin Chretien <chretien at lirmm dot fr>
+** cpu_usage
+   Output CPU usage to stdout with pre-pended color values for use in i3blocks
