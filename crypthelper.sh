@@ -23,7 +23,7 @@ commands:
 
 Example:
   crypthelper open /dev/sdh1 my-encrypted-device-name # gets mountet in ~/mnt/[name]
-  crypthelper close my-encrypted-device-name # gets mountet in ~/mnt/[name]
+  crypthelper close my-encrypted-device-name
 EOL
 	exit 1
 }
