@@ -56,3 +56,48 @@ and have stuck around long after their expiration date. Hard to delete stuff.
    - Copyright 2014 Benjamin Chretien <chretien at lirmm dot fr>
 ** cpu_usage
    Output CPU usage to stdout with pre-pended color values for use in i3blocks
+** crypthelper.sh
+   Script to simplify opening and mounting dm-crypt encrypted partitions.
+   Really not terribly useful I just kept forgetting how to do it, so I wrote this.
+
+   It is used like so:
+   #+BEGIN_SRC shell
+   ./crypthelper.sh open /dev/sdh1 my-encrypted-device-name # gets mounted in ~/mnt/[name]
+   ./crypthelper.sh close my-encrypted-device-name
+   #+END_SRC
+** ddns_start.sh
+   Wrote this for [[https://asuswrt.lostrealm.ca/][asuswrt-merlin]], to setup uniweb.no DDNS on my router a long time ago.
+   This probably doesn't work anymore, and just keeping it here in case I need to
+   do something similar at some point
+** devwatch.sh
+   This is some sort of watch script for removable devices and mounting it using ~udiskctl~
+   Probably found it on the [[https://wiki.archlinux.org/][Arch Linux wiki]]
+** dialog_demo.sh
+   Demo various dialog boxes using ~whiptail~, ~ncurses~, ~GTK dialog~, ~KDE Dialog~
+   I did not write this, only use it for reference. I stupidly never noted where I got it from.
+** disk
+   Disk usage script used with [[https://github.com/vivien/i3blocks][i3blocks]], it defaults to ~home~, but takes settings from [[https://github.com/vivien/i3blocks][i3blocks]] config
+   Copyright (C) 2014 Julien Bonjean <julien@bonjean.info>
+** dropboxd_status.py
+   Display status of Dropbox daemon.
+   I meant to use this outside of py3status hence its presence here, but haven't
+   gotten around to modifying it yet.
+   Requires: dropbox-cli
+   Used with: [[https://github.com/ultrabug/py3status][py3status]]
+
+   - Author: Tjaart van der Walt (github:tjaartvdwalt)
+   - License: BSD
+**
+** dropdown_terminal.sh
+   Script I grabbed from [[https://github.com/kalq/dotfiles/blob/macbook/scripts/bin/dropdown_terminal.sh][here]] and does some sorcery to create a dropdown terminal in bspwm.
+   [[https://www.reddit.com/r/unixporn/comments/60qw8z/bspwm_bite_my_shiny_metal_ass/][This]] is the unixporn entry that linked me to the script
+   It's my intention to modify this to work on [[https://github.com/kalq/dotfiles/blob/macbook/scripts/bin/dropdown_terminal.sh][i3wm]]
+** emacs_file_opener.sh
+   This uses emacsclient to open file ~$1~ at line ~$2~
+   What I usually do is to add this to a project.clj using [[https://github.com/bhauman/lein-figwheel][figwheel]]:
+
+   #+BEGIN_SRC clojure
+   :figwheel {:open-file-command    "script/emacs_file_opener.sh"}
+   #+END_SRC
+
+   and I can click on the error dialog in the browser to have Emacs goto error.
