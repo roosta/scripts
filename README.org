@@ -11,10 +11,10 @@ Some of these scripts I just grabbed off of various sources, wikis, the likes,
 and have stuck around long after their expiration date. Hard to delete stuff.
 
 * Scripts
-** add_font.sh
+** add-font.sh
    Just add a new font to system by making fontdir and fontscale, and refreshing font cache.
    Really basic stuff but I kept forgetting so here's the script ensuring I'll never remember.
-** arch_updates.sh
+** arch-updates.sh
    Displays the number of package updates pending for an Arch Linux installation.
 
    This is grabbed straight from [[https://github.com/ultrabug/py3status][py3status]], I think I made some modifications on
@@ -27,21 +27,21 @@ and have stuck around long after their expiration date. Hard to delete stuff.
    - Copyright (C) 2012 Stefan Breunig <stefan+measure-net-speed@mathphys.fsk.uni-heidelberg.de>
    - Copyright (C) 2014 kaueraal
    - Copyright (C) 2015 Thiago Perrotta <perrotta dot thiago at poli dot ufrj dot br>
-** battery
+** battery.sh
    Output battery status to stdout
-** byzanz_gui.sh
+** byzanz-gui.sh
    GUI script for byzanz, a script used for recording GIF screencasts. Have
    since moved to other solutions but its here for posterity.
 
    Author: (c) Rob W 2012, modified by MHC (http://askubuntu.com/users/81372/mhc)
-** chdisp_nvidia.sh
+** chdisp-nvidia.sh
    Script for changing output displays using nvidia cards. It also changes audio sink.
 
    Write this because I have a couch and a desk, and need to switch between them by using a shortcut.
    I couldn't find a script that changes both displays and audio sink so here we are.
 
    It uses pre-defined layouts and takes a single argument. =desk=, =tv=, =mix=
-** chdisp_xrandr.sh
+** chdisp-xrandr.sh
    Same as above but using xrandr instead of nvidia-settings for setting layout
 ** cpu-temp.sh
    Output CPU temperature to stdout. Uses lm_sensors internally, just formats output a bit.
@@ -52,7 +52,7 @@ and have stuck around long after their expiration date. Hard to delete stuff.
    - Copyright 2014 Vivien Didelot <vivien@didelot.org>
    - Copyright 2014 Andreas Guldstrand <andreas.guldstrand@gmail.com>
    - Copyright 2014 Benjamin Chretien <chretien at lirmm dot fr>
-** cpu_usage
+** cpu-usage.sh
    Output CPU usage to stdout with pre-pended color values for use in i3blocks
 ** crypthelper.sh
    Script to simplify opening and mounting dm-crypt encrypted partitions.
@@ -63,17 +63,17 @@ and have stuck around long after their expiration date. Hard to delete stuff.
    ./crypthelper.sh open /dev/sdh1 my-encrypted-device-name # gets mounted in ~/mnt/[name]
    ./crypthelper.sh close my-encrypted-device-name
    #+END_SRC
-** ddns_start.sh
+** ddns-start.sh
    Wrote this for [[https://asuswrt.lostrealm.ca/][asuswrt-merlin]], to setup uniweb.no DDNS on my router a long time ago.
    This probably doesn't work anymore, and just keeping it here in case I need to
    do something similar at some point
-** dialog_demo.sh
+** dialog-demo.sh
    Demo various dialog boxes using ~whiptail~, ~ncurses~, ~GTK dialog~, ~KDE Dialog~
    I did not write this, only use it for reference. I stupidly never noted where I got it from.
 ** disk
    Disk usage script used with [[https://github.com/vivien/i3blocks][i3blocks]], it defaults to ~home~, but takes settings from [[https://github.com/vivien/i3blocks][i3blocks]] config
    Copyright (C) 2014 Julien Bonjean <julien@bonjean.info>
-** dropboxd_status.py
+** dropboxd-status.py
    Display status of Dropbox daemon.
    I meant to use this outside of py3status hence its presence here, but haven't
    gotten around to modifying it yet.
@@ -83,11 +83,11 @@ and have stuck around long after their expiration date. Hard to delete stuff.
    - Author: Tjaart van der Walt (github:tjaartvdwalt)
    - License: BSD
 **
-** dropdown_terminal.sh
+** dropdown-terminal.sh
    Script I grabbed from [[https://github.com/kalq/dotfiles/blob/macbook/scripts/bin/dropdown_terminal.sh][here]] and does some sorcery to create a dropdown terminal in bspwm.
    [[https://www.reddit.com/r/unixporn/comments/60qw8z/bspwm_bite_my_shiny_metal_ass/][This]] is the unixporn entry that linked me to the script
    It's my intention to modify this to work on [[https://github.com/kalq/dotfiles/blob/macbook/scripts/bin/dropdown_terminal.sh][i3wm]]
-** emacs_file_opener.sh
+** emacs-file-opener.sh
    This uses emacsclient to open file ~$1~ at line ~$2~
    What I usually do is to add this to a project.clj using [[https://github.com/bhauman/lein-figwheel][figwheel]]:
 
@@ -108,20 +108,20 @@ and have stuck around long after their expiration date. Hard to delete stuff.
    - Courier New
 ** fstrim.sh
    Used in a cronjob to run fstrim and log to ~/var/log/trim.log~
-** game_pick.sh
+** game-pick.sh
    Randomly pick a game from a list, using [[https://github.com/cacalabs/toilet][toilet]] for some added flair.
    I don't like making decisions.
-** gfx_drv_swap.sh
+** gfx-drv-swap.sh
    Swap driver packages installed on Archlinux between nvidia and xf86-video-nouveau.
    Pulled this script from the archlinux wiki but was unable to find it again
    when I went back looking.
-** git_remove_submodule.sh
+** git-remove-submodule.sh
    Remove a git submodule, this used to be a bit of a hassle, unsure if it still
    is, since I basically stopped using submodules after much frustration. This
    script alleviates that hassle somewhat.
 
    Author: Adam Sharp, Aug 21, 2013
-** gpu_temp
+** gpu-temp.sh
    Outputs nvidia GPU temperature.
    Originally used with [[https://github.com/vivien/i3blocks][i3blocks]].
 ** i3exit.sh
@@ -134,7 +134,7 @@ and have stuck around long after their expiration date. Hard to delete stuff.
    source: https://github.com/Airblader/dotfiles-manjaro/blob/master/.i3/i3exit
 ** iface
    output local IP addresses. Used with [[https://github.com/vivien/i3blocks][i3blocks]].
-** iommu_groups.sh
+** iommu-groups.sh
    List all IOMMU groups for system. Used this when setting up PCI passthrough to a
    virtual machine. More info [[https://wiki.archlinux.org/index.php/PCI_passthrough_via_OVMF][here]].
 ** keyboard-layout.sh
@@ -147,9 +147,9 @@ and have stuck around long after their expiration date. Hard to delete stuff.
    original source: http://unix.stackexchange.com/a/27688
 ** launch-polybar.sh
    Called on i3 startup to launch whatever polybar layout ~hostname~ requires.
-** loadavg_slim.sh
+** loadavg.sh
    echo load average
-** loadavg_spark.sh
+** loadavg-spark.sh
    Use [[https://github.com/holman/spark][spark]] with load average
 **
 **
