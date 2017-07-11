@@ -1,6 +1,7 @@
 #+TITLE: Roostas utils
 
 * Information
+
 This repo is basically a dumping ground for various scripts/utils/whatever that
 are kinda one-shot stuff that doesn't fit in a project. Probably not very useful
 to anyone but me but I'll include some information on each one I can still
@@ -26,9 +27,6 @@ and have stuck around long after their expiration date. Hard to delete stuff.
    - Copyright (C) 2012 Stefan Breunig <stefan+measure-net-speed@mathphys.fsk.uni-heidelberg.de>
    - Copyright (C) 2014 kaueraal
    - Copyright (C) 2015 Thiago Perrotta <perrotta dot thiago at poli dot ufrj dot br>
-** bandwidth_alt.sh
-   Alternative script for outputting bandwidth to stdout. Think this one is
-   broken currently, don't remember what I used it for :)
 ** battery
    Output battery status to stdout
 ** byzanz_gui.sh
@@ -45,7 +43,7 @@ and have stuck around long after their expiration date. Hard to delete stuff.
    It uses pre-defined layouts and takes a single argument. =desk=, =tv=, =mix=
 ** chdisp_xrandr.sh
    Same as above but using xrandr instead of nvidia-settings for setting layout
-** cpu_temp
+** cpu-temp.sh
    Output CPU temperature to stdout. Uses lm_sensors internally, just formats output a bit.
    Used with i3blocks
 
@@ -69,9 +67,6 @@ and have stuck around long after their expiration date. Hard to delete stuff.
    Wrote this for [[https://asuswrt.lostrealm.ca/][asuswrt-merlin]], to setup uniweb.no DDNS on my router a long time ago.
    This probably doesn't work anymore, and just keeping it here in case I need to
    do something similar at some point
-** devwatch.sh
-   This is some sort of watch script for removable devices and mounting it using ~udiskctl~
-   Probably found it on the [[https://wiki.archlinux.org/][Arch Linux wiki]]
 ** dialog_demo.sh
    Demo various dialog boxes using ~whiptail~, ~ncurses~, ~GTK dialog~, ~KDE Dialog~
    I did not write this, only use it for reference. I stupidly never noted where I got it from.
@@ -101,3 +96,156 @@ and have stuck around long after their expiration date. Hard to delete stuff.
    #+END_SRC
 
    and I can click on the error dialog in the browser to have Emacs goto error.
+** fontalias.sh
+   print which systemfont matches these aliases:
+   - serif
+   - sans-serif
+   - monospace
+   - Arial
+   - Helvetica
+   - Verdana
+   - Times New Roman
+   - Courier New
+** fstrim.sh
+   Used in a cronjob to run fstrim and log to ~/var/log/trim.log~
+** game_pick.sh
+   Randomly pick a game from a list, using [[https://github.com/cacalabs/toilet][toilet]] for some added flair.
+   I don't like making decisions.
+** gfx_drv_swap.sh
+   Swap driver packages installed on Archlinux between nvidia and xf86-video-nouveau.
+   Pulled this script from the archlinux wiki but was unable to find it again
+   when I went back looking.
+** git_remove_submodule.sh
+   Remove a git submodule, this used to be a bit of a hassle, unsure if it still
+   is, since I basically stopped using submodules after much frustration. This
+   script alleviates that hassle somewhat.
+
+   Author: Adam Sharp, Aug 21, 2013
+** gpu_temp
+   Outputs nvidia GPU temperature.
+   Originally used with [[https://github.com/vivien/i3blocks][i3blocks]].
+** i3exit.sh
+   Script used for an [[https://i3wm.org/docs/userguide.html#_display_mode][i3wm display mode]] that sends
+   lock|logout|suspend|hibernate|reboot|shutdown commands
+
+   this script requires passwordless access to poweroff, reboot, pm-suspend and
+   pm-hibernate
+
+   source: https://github.com/Airblader/dotfiles-manjaro/blob/master/.i3/i3exit
+** iface
+   output local IP addresses. Used with [[https://github.com/vivien/i3blocks][i3blocks]].
+** iommu_groups.sh
+   List all IOMMU groups for system. Used this when setting up PCI passthrough to a
+   virtual machine. More info [[https://wiki.archlinux.org/index.php/PCI_passthrough_via_OVMF][here]].
+** keyboard-layout.sh
+   Echo keyboard layout code/caps lock and formatting for [[https://github.com/jaagr/polybar][polybar]]
+
+   I like my indicator to have a red background on Norwegian layout and
+   caps-lock since it always trips me up when this is activated. Only works for
+   Norwegian and US layouts. Could easily be modified though.
+
+   original source: http://unix.stackexchange.com/a/27688
+** launch-polybar.sh
+   Called on i3 startup to launch whatever polybar layout ~hostname~ requires.
+** loadavg_slim.sh
+   echo load average
+** loadavg_spark.sh
+   Use [[https://github.com/holman/spark][spark]] with load average
+**
+**
+** i3lock-color-locker.sh
+   Using [[https://github.com/chrjguill/i3lock-color][i3lock-color]], setup color params and lock if i3lock-color is on system,
+   else fall back to i3lock regular. Blurs background and use [[https://github.com/roosta/vim-srcery][srcery colors]].
+** i3lock-extra.sh
+   Take a screenshot of desktop, blur and lock screen using i3lock. Got this
+   from [[https://www.reddit.com/r/unixporn/][unixporn]] at some point. Did a quick google and found this [[https://gitgud.io/fbt/misc/blob/64297e8f99aa3b1c4059c92519f7040892a8eb78/i3lock-extra][source file]]
+   but unsure if this is the original. Either way thanks to whoever wrote it
+** memory.sh
+   Output memory usage by using awk on ~/proc/meminfo~
+   Used with [[https://github.com/vivien/i3blocks][i3blocks]].
+   - Copyright (C) 2014 Julien Bonjean <julien@bonjean.info>
+** openvpn-detect.sh
+   Checks for an openvpn instance and echo result
+
+   Usage:
+   1. The configuration name of OpenVPN should be familiar for you (home,work...)
+   2. The device name in your configuration file should be fully named (tun0,tap1...not only tun or tap)
+   3. When you launch one or multiple OpenVPN connexion, be sure the PID file is written in the correct folder (ex: --writepid /run/openvpn/home.pid)
+
+   Used with [[https://github.com/vivien/i3blocks][i3blocks]].
+   Made by Pierre Mavro/Deimosfr <deimos@deimos.fr>
+** optirun (folder)
+   Friend of mine sent me this conf and run script. I believe it was for
+   enabling optirun when charging/docked.
+   Author: Christian Karlsen
+** paswitch.sh
+   Switch Pulseaudio sinks, used this mainly for reference and found it on the
+   [[https://www.freedesktop.org/wiki/Software/PulseAudio/Documentation/][pulseaudio docs]], used the base concepts here to make the chdisp* scripts
+
+   - paswitch 2011-02-02 by Ng Oon-Ee <ngoonee@gmail.com>
+   - original author unknown
+** pip-uninstall-recursive.sh
+   Remove a package with pip and recursively remove unneeded dependencies
+** pip-upgrade-all.py
+   Upgrade all pip packages
+** pkg.sh
+   Archlinux update status script, check for available updates using pacman and
+   [[https://github.com/falconindy/cower][cower]], echo result as nr of offical/nr of AUR Used with [[https://github.com/jaagr/polybar][polybar]].
+** public-ip.sh
+   echo public ip
+** record-gif.sh
+   Records a selection of the screen and output result as a gif
+
+   This script requires:
+   - https://github.com/lolilolicon/xrectsel
+   - recordmydesktop
+   - mplayer
+   - imagemagick
+   - gifsicle
+
+   Author: Mathias Bjerke <mathbje@gmail.com>
+** run-spotify.sh
+   Start spotify if no instance exist. Used this in either i3 or i3bar to start
+   spotify by clicking a music icon or somsuch
+** tmux-attach.sh
+   Attach to an existing session, or create a new. Useful if you want tmux to
+   always be started with terminal emulator. Source either in shell rc file, or
+   in window manager on terminal emulator startup. Believe I got from [[https://wiki.archlinux.org/index.php/Tmux#Start_tmux_with_default_session_layout][here]].
+** tmux-dev-session.sh
+   I run this manually to start a default tmux session layout. Check for
+   existing named session, attach, or create a new named session called dev.
+   Opted for this solution rather than using a session manager, even tho there
+   are [[https://wiki.archlinux.org/index.php/Tmux#Start_tmux_with_default_session_layout][several]] [[https://github.com/junegunn/heytmux][nice]] [[https://github.com/tmuxinator/tmuxinator][ones]]
+
+   One thing with this that I'm currently testing out is monitoring silence on
+   the 'update' window. I'd like to get notified when an update requires input
+** urxvtc-tmux.sh
+   much like 'tmux-attach.sh' but starts urxvt client and kick off Tmux.
+** touchpad-toggle.sh
+   Toggles touchpad on or off.
+
+   Used in i3wm config like so:
+
+   #+BEGIN_SRC example
+   bindsym XF86TouchpadToggle exec --no-startup-id ~/utils/touchpad-toggle.sh
+   #+END_SRC
+** volume.sh
+   echo current volume
+
+   - Copyright (C) 2014 Julien Bonjean <julien@bonjean.info>
+   - Copyright (C) 2014 Alexander Keller <github@nycroth.com>
+** vpn.sh
+   Check for tunnel and echo [[https://github.com/jaagr/polybar/wiki/Formatting][polybar formatted]] string
+** wifi.sh
+   Echo wifi signal quality, used with [[https://github.com/vivien/i3blocks][i3blocks]].
+** wol.sh
+   wake-on-lan script, used for reference
+   Author: unknown
+** x11_override.cc
+   Nabbed from conky source code. Was experimenting with removing a window from
+   i3wm's control, where conky has a window-mode option of 'override', which is
+   exactly what I needed. Never got around to actually using this, just dumped
+   here and forgotten
+** xset-wacom-my-prefs.sh
+   Set my Wacom prefs using ~xsetwacom~, never found a gui app that did what I
+   needed to resorted to setting it with a script
