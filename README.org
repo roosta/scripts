@@ -219,6 +219,11 @@ and have stuck around long after their expiration date. Hard to delete stuff.
 
    One thing with this that I'm currently testing out is monitoring silence on
    the 'update' window. I'd like to get notified when an update requires input
+** tmux-update-window.sh
+   Create an update window if 'dev' session exist. Set this window to monitor
+   silence. Reasoning behind this is that if I start an update, and then do
+   something else I'd like to be alerted on silence since that indicates that
+   its either finished or requires input
 ** urxvtc-tmux.sh
    much like 'tmux-attach.sh' but starts urxvt client and kick off Tmux.
 ** touchpad-toggle.sh
