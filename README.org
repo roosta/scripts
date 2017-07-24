@@ -1,5 +1,4 @@
 #+TITLE: Roostas utils
-
 * Information
 
 This repo is basically a dumping ground for various scripts/utils/whatever that
@@ -151,8 +150,6 @@ and have stuck around long after their expiration date. Hard to delete stuff.
    echo load average
 ** loadavg-spark.sh
    Use [[https://github.com/holman/spark][spark]] with load average
-**
-**
 ** i3lock-color-locker.sh
    Using [[https://github.com/chrjguill/i3lock-color][i3lock-color]], setup color params and lock if i3lock-color is on system,
    else fall back to i3lock regular. Blurs background and use [[https://github.com/roosta/vim-srcery][srcery colors]].
