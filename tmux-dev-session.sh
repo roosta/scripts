@@ -4,9 +4,6 @@ if ! tmux has-session -t dev 2>/dev/null; then
   tmux new-session -s dev -n main -d
   tmux split-window -h -d -t main
   tmux new-window -a -n serve -d  
-  # tmux new-window -a -n update -d  
-  # tmux setw -t update monitor-silence 30 
-  # tmux select-window -t 0:main
 
   # tmux send-keys -t development 'cd /var/www/htdocs/' C-m
   # tmux send-keys -t development 'vim' C-m
