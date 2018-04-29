@@ -4,7 +4,7 @@ aur=$(cower -u | wc -l)
 
 check=$((pac + aur))
 if [[ "$check" != "0" ]]; then
-  echo "$pac/$aur"
+  echo "%{F#FBB829}$pac/$aur%{F-}"
 else
   echo "$pac/$aur"
 fi
