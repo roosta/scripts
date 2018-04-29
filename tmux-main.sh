@@ -4,7 +4,7 @@
 if ! tmux has-session -t main 2>/dev/null; then
   tmux new-session -s main -n dev -d
   tmux split-window -h -d -t dev
-  tmux new-window -a -n serve -d
   tmux new-window -a -n log -d
+  tmux new-window -a -n serve -d
 fi
 tmux attach -t main
