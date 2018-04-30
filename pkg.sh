@@ -1,4 +1,8 @@
 #!/bin/bash
+# Script used with polybar to print pacman and AUR package updates that are
+# available. Requires cower.
+# https://aur.archlinux.org/packages/cower/
+# Author: Daniel Berg <mail@roosta.sh>
 pac=$(checkupdates | wc -l)
 aur=$(cower -u | wc -l)
 
@@ -8,5 +12,3 @@ if [[ "$check" != "0" ]]; then
 else
   echo "$pac/$aur"
 fi
-
-# spark $pac $aur 
