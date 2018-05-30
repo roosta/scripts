@@ -4,7 +4,7 @@
 # https://aur.archlinux.org/packages/cower/
 # Author: Daniel Berg <mail@roosta.sh>
 pac=$(checkupdates | wc -l)
-aur=$(cower -u | wc -l)
+aur=$(auracle sync | wc -l)
 
 check=$((pac + aur))
 if [[ "$check" != "0" ]]; then
