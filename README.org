@@ -1,4 +1,4 @@
-#+TITLE: Roosta's utils
+#+TITLE: Roosta's scripts
 ** Table of content                                                     :TOC:
   - [[#information][Information]]
   - [[#scripts][Scripts]]
