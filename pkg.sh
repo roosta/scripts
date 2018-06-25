@@ -1,7 +1,7 @@
 #!/bin/bash
 # Script used with polybar to print pacman and AUR package updates that are
-# available. Requires cower.
-# https://aur.archlinux.org/packages/cower/
+# available. Requires auracle.
+# https://aur.archlinux.org/packages/auracle-git/
 # Author: Daniel Berg <mail@roosta.sh>
 pac=$(checkupdates | wc -l)
 aur=$(auracle sync | wc -l)
