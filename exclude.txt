@@ -6,6 +6,6 @@
 /mnt/*
 /media/*
 /lost+found
-/home/*/dropbox/*
+/home/*/Dropbox/*
 /home/*/.local/share/Trash/*
 /home/*/.cache/*
