@@ -1,5 +1,30 @@
 #!/usr/bin/env bash
 
+# Copyright (C) 2019 Daniel Berg <mail@roosta.sh>
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# This script is used with fzf as a preview script. It expects 3
+# arguments, $1 filename, $2 line number, $3 query, here is an example
+# of its usage:
+
+# rg --smart-case --line-number --no-heading . | fzf -d ":" --preview="fzf-preview {1} {2} {q}")
+
+# it shows a preview window with 10 lines above and below displayed
+# for the relevant match, and highlights the search query
+
+
 total=$(wc -l < "$1")
 
 if [[ $(( $2 - 10 )) -lt 1 ]]; then
