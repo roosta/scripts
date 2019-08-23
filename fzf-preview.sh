@@ -39,8 +39,10 @@ else
   end=$(( $2 + 10 ))
 fi
 
+context=$(sed -n "${start},${end}p" "$1")
 
-sed -n "${start},${end}p" "$1" | rg -N --colors 'match:fg:green' --smart-case --pretty --context 10 "$3"
+echo "$context" | rg -N --colors 'match:fg:green' --smart-case --pretty --context 10 "$3" || "$context"
+
 # asd=$(( $2 + 1))
 
 # echo $start | cat
