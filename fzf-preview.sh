@@ -15,36 +15,26 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# This script is used with fzf as a preview script. It expects 3
-# arguments, $1 filename, $2 line number, $3 query, here is an example
+# This script is used with fzf as a preview script. It expects 2
+# arguments, $1 full match, $2 query, here is an example
 # of its usage:
 
-# rg --smart-case --line-number --no-heading . | fzf -d ":" --preview="fzf-preview {1} {2} {q}")
+# rg --smart-case --line-number --no-heading . | fzf -d ":" --preview="fzf-preview {} {q}")
 
 # it shows a preview window with 10 lines above and below displayed
 # for the relevant match, and highlights the search query
 
 
-total=$(wc -l < "$1")
+file=$(echo "$1" | cut -d':' -f1)
+linum=$(echo "$1" | cut -d':' -f2)
+total=$(wc -l < "$file")
+partial_match=$(echo "$1" | cut -d':' -f3-)
 
-[[ $(( $2 - 10 )) -lt 1 ]] && start=1 || start=$(( $2 - 10 ))
-[[ $(( $2 + 10 )) -gt $total ]] && end=$total || end=$(( $2 + 10 ))
+[[ $(( linum - 10 )) -lt 1 ]] && start=1 || start=$(( linum - 10 ))
+[[ $(( linum + 10 )) -gt $total ]] && end=$total || end=$(( linum + 10 ))
 
-context=$(sed -n "${start},${end}p" "$1")
+context=$(sed -n "${start},${end}p" "$file")
 
-echo "$context" | rg -N --colors 'match:fg:green' --smart-case --pretty --context 10 "$3" || echo "$context"
-
-# asd=$(( $2 + 1))
-
-# echo $start | cat
-# file=$(echo "$1" | cut -d':' -f1)
-# linum=$(echo "$1" | cut -d':' -f2)
-# echo $start | cat
-# echo $end | cat
-# echo $1 | cat
-# echo $2 | cat
-# pandoc -s -f org -t plain "$1" 2> /dev/null | sed -n "${2}p"
-# pandoc -s -f org -t html "$file" | w3m -T text/html +"$linum"
-# emacsclient -nw +"$linum" "$file"
-
-# pandoc -s -f org -t man "$*" | man -l -
+echo "$context" | \
+  rg -N --colors 'match:fg:green' --smart-case --pretty --context 10 "$2" || \
+  echo "$context" | rg -F -N --colors 'match:fg:green' --pretty --context 10 "$partial_match"
