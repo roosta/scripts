@@ -27,17 +27,8 @@
 
 total=$(wc -l < "$1")
 
-if [[ $(( $2 - 10 )) -lt 1 ]]; then
-  start=1
-else
-  start=$(( $2 - 10 ))
-fi
-
-if [[ $(( $2 + 10 )) -gt $total ]]; then
-  end=$total
-else
-  end=$(( $2 + 10 ))
-fi
+[[ $(( $2 - 10 )) -lt 1 ]] && start=1 || start=$(( $2 - 10 ))
+[[ $(( $2 + 10 )) -gt $total ]] && end=$total || end=$(( $2 + 10 ))
 
 context=$(sed -n "${start},${end}p" "$1")
 
