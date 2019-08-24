@@ -21,20 +21,23 @@
 
 # rg --smart-case --line-number --no-heading . | fzf -d ":" --preview="fzf-preview {} {q}")
 
-# it shows a preview window with 10 lines above and below displayed
-# for the relevant match, and highlights the search query
+# it shows a preview window that is sized based on FZF_PREVIEW_LINES
+# with the match in the middle, and highlights the search query
 
 
 file=$(echo "$1" | cut -d':' -f1)
 linum=$(echo "$1" | cut -d':' -f2)
 total=$(wc -l < "$file")
 partial_match=$(echo "$1" | cut -d':' -f3-)
+half_lines=$(( FZF_PREVIEW_LINES / 2))
 
-[[ $(( linum - 10 )) -lt 1 ]] && start=1 || start=$(( linum - 10 ))
-[[ $(( linum + 10 )) -gt $total ]] && end=$total || end=$(( linum + 10 ))
+
+[[ $(( linum - half_lines )) -lt 1 ]] && start=1 || start=$(( linum - half_lines ))
+[[ $(( linum + half_lines )) -gt $total ]] && end=$total || end=$(( linum + half_lines ))
+[[ $start -eq 1 &&  $end -ne $total ]] && end=$FZF_PREVIEW_LINES
 
 context=$(sed -n "${start},${end}p" "$file")
 
 echo "$context" | \
-  rg -N --colors 'match:fg:green' --smart-case --pretty --context 10 "$2" || \
-  echo "$context" | rg -F -N --colors 'match:fg:green' --pretty --context 10 "$partial_match"
+  rg -N --colors 'match:fg:green' --smart-case --pretty --context -A "$end" -B "$start" "$2" || \
+  echo "$context" | rg -F -N --colors 'match:fg:green' --pretty -A "$end" -B "$start" "$partial_match"
