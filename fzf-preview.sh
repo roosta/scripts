@@ -32,7 +32,7 @@ total=$(wc -l < "$1")
 
 context=$(sed -n "${start},${end}p" "$1")
 
-echo "$context" | rg -N --colors 'match:fg:green' --smart-case --pretty --context 10 "$3" || "$context"
+echo "$context" | rg -N --colors 'match:fg:green' --smart-case --pretty --context 10 "$3" || echo "$context"
 
 # asd=$(( $2 + 1))
 
