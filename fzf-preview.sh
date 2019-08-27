@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# ====================================
+
 # This script is used with fzf as a preview script. It expects 2
 # arguments, $1 full match, $2 query, here is an example
 # of its usage:
@@ -24,6 +26,11 @@
 # it shows a preview window that is sized based on FZF_PREVIEW_LINES
 # with the match in the middle, and highlights the search query
 
+# I made it for searching through org-mode files, I keep a lot of
+# notes, and this helps me find what I'm looking for
+
+set -euo pipefail
+IFS=$'\n\t'
 
 fzf_preview() {
   local file linum total partial_match half_lines start end total context
