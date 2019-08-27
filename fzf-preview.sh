@@ -34,22 +34,23 @@ IFS=$'\n\t'
 
 fzf_preview() {
   local file linum total partial_match half_lines start end total context
-
   file=$(echo "$1" | cut -d':' -f1)
-  linum=$(echo "$1" | cut -d':' -f2)
-  total=$(wc -l < "$file")
-  partial_match=$(echo "$1" | cut -d':' -f3-)
-  half_lines=$(( FZF_PREVIEW_LINES / 2))
+  if [ -f "$file" ]; then
+    linum=$(echo "$1" | cut -d':' -f2)
+    total=$(wc -l < "$file")
+    partial_match=$(echo "$1" | cut -d':' -f3-)
+    half_lines=$(( FZF_PREVIEW_LINES / 2))
 
-  [[ $(( linum - half_lines )) -lt 1 ]] && start=1 || start=$(( linum - half_lines ))
-  [[ $(( linum + half_lines )) -gt $total ]] && end=$total || end=$(( linum + half_lines ))
-  [[ $start -eq 1 &&  $end -ne $total ]] && end=$FZF_PREVIEW_LINES
+    [[ $(( linum - half_lines )) -lt 1 ]] && start=1 || start=$(( linum - half_lines ))
+    [[ $(( linum + half_lines )) -gt $total ]] && end=$total || end=$(( linum + half_lines ))
+    [[ $start -eq 1 &&  $end -ne $total ]] && end=$FZF_PREVIEW_LINES
 
-  context=$(sed -n "${start},${end}p" "$file")
+    context=$(sed -n "${start},${end}p" "$file")
 
-  echo "$context" | \
-    rg -N --color "always" --colors 'match:fg:green' --smart-case --context -A "$end" -B "$start" "$2" || \
-    echo "$context" | rg -F -N --color "always" --colors 'match:fg:green' -A "$end" -B "$start" "$partial_match"
+    echo "$context" | \
+      rg -N --color "always" --colors 'match:fg:green' --smart-case --context -A "$end" -B "$start" "$2" || \
+      echo "$context" | rg -F -N --color "always" --colors 'match:fg:green' -A "$end" -B "$start" "$partial_match"
+    fi
 }
 
 exit_if_unsupported() {
