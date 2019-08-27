@@ -27,7 +27,7 @@
 # with the match in the middle, and highlights the search query
 
 # I made it for searching through org-mode files, I keep a lot of
-# notes, and this helps me find what I'm looking for
+# notes, and this helps me find what I'm looking for.
 
 set -euo pipefail
 IFS=$'\n\t'
