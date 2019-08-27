@@ -1,2 +1,2 @@
 #! /bin/sh
-emacsclient -n +$2:$3 $1
+emacsclient -nw +$2:$3 $1
