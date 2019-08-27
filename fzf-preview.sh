@@ -39,5 +39,5 @@ half_lines=$(( FZF_PREVIEW_LINES / 2))
 context=$(sed -n "${start},${end}p" "$file")
 
 echo "$context" | \
-  rg -N --colors 'match:fg:green' --smart-case --pretty --context -A "$end" -B "$start" "$2" || \
-  echo "$context" | rg -F -N --colors 'match:fg:green' --pretty -A "$end" -B "$start" "$partial_match"
+  rg -N --color "always" --colors 'match:fg:green' --smart-case --context -A "$end" -B "$start" "$2" || \
+  echo "$context" | rg -F -N --color "always" --colors 'match:fg:green' -A "$end" -B "$start" "$partial_match"
