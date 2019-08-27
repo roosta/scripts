@@ -23,8 +23,11 @@
 
 # rg --smart-case --line-number --no-heading . | fzf -d ":" --preview="fzf-preview {} {q}")
 
-# it shows a preview window that is sized based on FZF_PREVIEW_LINES
-# with the match in the middle, and highlights the search query
+# Make sure the script is on your $path
+
+# it shows a preview window of the file of the location that is
+# selected. It is sized based on FZF_PREVIEW_LINES with the match in
+# the middle, and highlights the search query.
 
 # I made it for searching through org-mode files, I keep a lot of
 # notes, and this helps me find what I'm looking for.
