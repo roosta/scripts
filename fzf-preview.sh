@@ -76,10 +76,6 @@ _get_filetype() {
 
 }
 
-_command_exists() {
-	command -v "$@" > /dev/null 2>&1
-}
-
 _fzf_preview() {
   local file linum total partial_match half_lines start end total context filetype query out
   current_line="$1"
@@ -101,7 +97,7 @@ _fzf_preview() {
     if [ "$filetype" = false ]; then
       out="$context"
     else
-      if _command_exists pygmentize; then
+      if hash pygmentize 2>/dev/null; then
         out=$(pygmentize -l "$filetype" <<< "$context")
       else
         out="$context"
@@ -133,13 +129,10 @@ _exit_if_unsupported() {
   supported_version="0.18.0"
   supported_version_only_digits=$(echo "$supported_version" | tr -dC '[:digit:]')
   if [ "$version_only_digits" -lt "$supported_version_only_digits" ]; then
-    echo "Unsupported fzf version ($version), upgrade to $supported_version or higher"
-    exit 1
+    echo "fzf-preview.sh: Unsupported fzf version ($version), upgrade to $supported_version or higher" >&2;
+    exit 1;
   fi
-  if _command_exist rg; then
-    echo "rg (ripgrep) needs to be installed for this script to work"
-    exit 1
-  fi
+  command -v rg >/dev/null 2>&1 || { echo "fzf-preview.sh: rg (ripgrep) needs to be installed for this script to work" >&2; exit 1; }
 }
 
 main() {
