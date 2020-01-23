@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Copyright (C) 2019 Daniel Berg <mail@roosta.sh>
+# Copyright (C) 2020 Daniel Berg <mail@roosta.sh>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,16 +23,19 @@
 
 # rg --smart-case --line-number --no-heading . | fzf -d ":" --preview="fzf-preview {} {q}")
 
-# Make sure the script is on your $path
+# Make sure the script is on your $path, and fzf-preview takes two
+# arguments in the form of fzf placeholder for the current line {},
+# and the search query {q}, this script will not work without those
+# two arguments
 
 # it shows a preview window of the file of the location that is
 # selected. It is sized based on FZF_PREVIEW_LINES with the match in
 # the middle, and highlights the search query.
 
-# I made it for searching through org-mode files, I keep a lot of
-# notes, and this helps me find what I'm looking for.
-# DONE Optional colorize
-# DONE Check for rg
+# If pygmentize is installed this script will color certain filetypes
+# If you'd like more filetypes supported simply modify _get_filetype
+# function.
+
 set -euo pipefail
 IFS=$'\n\t'
 
@@ -136,8 +139,13 @@ _exit_if_unsupported() {
 }
 
 main() {
-  _exit_if_unsupported
-  _fzf_preview "$@"
+  if [ "$#" != "2" ]; then
+    echo "fzf-preview.sh: this scripts takes exactly two arguments" >&2;
+    exit 1;
+  else
+    _exit_if_unsupported
+    _fzf_preview "$@"
+  fi
 }
 
 main "$@"
