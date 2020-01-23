@@ -64,6 +64,12 @@ _get_filetype() {
          *.cpp | *.hpp | *.c++ | *.h++ | *.cc | *.hh | *.cxx | *.hxx | *.C | *.H | *.cp | *.CPP)
            filetype="cpp"
            ;;
+         *.sh | *.ksh | *.bash | *.ebuild | *.eclass | *.exheres-0 | *.exlib | *.zsh | .bashrc | bashrc | .bash_* | bash_* | zshrc | .zshrc | PKGBUILD)
+           filetype="bash"
+           ;;
+         *.py | *.pyw | *.jy | *.sage | *.sc | SConstruct | SConscript | *.bzl | BUCK | BUILD | BUILD.bazel | WORKSPACE | *.tac)
+           filetype="python"
+           ;;
          *) filetype=false
     esac
     echo "$filetype"
