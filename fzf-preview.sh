@@ -31,13 +31,35 @@
 
 # I made it for searching through org-mode files, I keep a lot of
 # notes, and this helps me find what I'm looking for.
-
+# TODO Optional colorize
+# TODO Check for rg
 set -euo pipefail
 IFS=$'\n\t'
 
+_get_filetype() {
+  local file filetype
+  file="$1"
+    case "$1" in
+         *.el)
+           filetype="elisp"
+           ;;
+         *.clj | *.cljs)
+           filetype="clojure"
+           ;;
+         *.js)
+           filetype="javascript"
+           ;;
+         *.css)
+           filetype="css"
+           ;;
+         *) filetype=false
+    esac
+    echo "$filetype"
+
+}
 
 _fzf_preview() {
-  local file linum total partial_match half_lines start end total context filetype query
+  local file linum total partial_match half_lines start end total context filetype query out
   current_line="$1"
   query="$2"
   file=$(echo "$current_line" | cut -d':' -f1)
@@ -46,6 +68,7 @@ _fzf_preview() {
     total=$(wc -l < "$file")
     partial_match=$(echo "$current_line" | cut -d':' -f3-)
     half_lines=$(( FZF_PREVIEW_LINES / 2))
+    filetype=$(_get_filetype "$file")
 
     [[ $(( linum - half_lines )) -lt 1 ]] && start=1 || start=$(( linum - half_lines ))
     [[ $(( linum + half_lines )) -gt $total ]] && end=$total || end=$(( linum + half_lines ))
@@ -53,20 +76,26 @@ _fzf_preview() {
 
     context=$(sed -n "${start},${end}p" "$file")
 
+    if [ "$filetype" = false ]; then
+      out="$context"
+    else
+      out=$(pygmentize -l "$filetype" <<< "$context")
+    fi
+
     rg --no-line-number \
        --color "always" \
        --colors 'match:bg:magenta' \
        --colors 'match:fg:white' \
        --smart-case \
        --after-context "$end" \
-       --before-context "$start" "$query" <<< "$context" || \
+       --before-context "$start" "$query" <<< "$out" || \
       rg --fixed-strings \
          --no-line-number \
          --color "always" \
          --colors 'match:bg:magenta' \
          --colors 'match:fg:white' \
          --after-context "$end" \
-         --before-context "$start" "$partial_match" <<< "$context"
+         --before-context "$start" "$partial_match" <<< "$out"
     fi
 }
 
