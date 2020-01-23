@@ -97,7 +97,11 @@ _fzf_preview() {
     if [ "$filetype" = false ]; then
       out="$context"
     else
-      out=$(pygmentize -l "$filetype" <<< "$context")
+      if hash pygmentize 2>/dev/null; then
+        out=$(pygmentize -l "$filetype" <<< "$context")
+      else
+        out="$context"
+      fi
     fi
 
     rg --no-line-number \
