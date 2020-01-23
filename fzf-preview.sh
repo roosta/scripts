@@ -97,6 +97,7 @@ _fzf_preview() {
     half_lines=$(( FZF_PREVIEW_LINES / 2))
     filetype=$(_get_filetype "$file")
 
+    # Setup beginning and end of context
     [[ $(( linum - half_lines )) -lt 1 ]] && start=1 || start=$(( linum - half_lines ))
     [[ $(( linum + half_lines )) -gt $total ]] && end=$total || end=$(( linum + half_lines ))
     [[ $start -eq 1 &&  $end -ne $total ]] && end=$FZF_PREVIEW_LINES
@@ -113,6 +114,7 @@ _fzf_preview() {
       fi
     fi
 
+    # Handle full match and partial match
     rg --no-line-number \
        --color "always" \
        --colors 'match:bg:magenta' \
