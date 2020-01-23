@@ -31,8 +31,8 @@
 
 # I made it for searching through org-mode files, I keep a lot of
 # notes, and this helps me find what I'm looking for.
-# TODO Optional colorize
-# TODO Check for rg
+# DONE Optional colorize
+# DONE Check for rg
 set -euo pipefail
 IFS=$'\n\t'
 
@@ -76,6 +76,10 @@ _get_filetype() {
 
 }
 
+_command_exists() {
+	command -v "$@" > /dev/null 2>&1
+}
+
 _fzf_preview() {
   local file linum total partial_match half_lines start end total context filetype query out
   current_line="$1"
@@ -97,7 +101,7 @@ _fzf_preview() {
     if [ "$filetype" = false ]; then
       out="$context"
     else
-      if hash pygmentize 2>/dev/null; then
+      if _command_exists pygmentize; then
         out=$(pygmentize -l "$filetype" <<< "$context")
       else
         out="$context"
@@ -123,12 +127,17 @@ _fzf_preview() {
 
 _exit_if_unsupported() {
   local version version_only_digits supported_version supported_version_only_digits
+
   version=$(fzf --version | awk '{print $1}')
   version_only_digits=$(echo "$version" | tr -dC '[:digit:]')
   supported_version="0.18.0"
   supported_version_only_digits=$(echo "$supported_version" | tr -dC '[:digit:]')
   if [ "$version_only_digits" -lt "$supported_version_only_digits" ]; then
     echo "Unsupported fzf version ($version), upgrade to $supported_version or higher"
+    exit 1
+  fi
+  if _command_exist rg; then
+    echo "rg (ripgrep) needs to be installed for this script to work"
     exit 1
   fi
 }
