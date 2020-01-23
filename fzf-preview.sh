@@ -36,6 +36,9 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+# Manually parse filetype
+# For available lexers run
+# pygmentize -L lexers
 _get_filetype() {
   local file filetype
   file="$1"
@@ -43,14 +46,23 @@ _get_filetype() {
          *.el)
            filetype="elisp"
            ;;
-         *.clj | *.cljs)
+         *.clj)
            filetype="clojure"
            ;;
-         *.js)
+         *.cljs)
+           filetype="clojurescript"
+           ;;
+         *.js | *.jsm)
            filetype="javascript"
            ;;
          *.css)
            filetype="css"
+           ;;
+         Makefile)
+           filetype="makefile"
+           ;;
+         *.cpp | *.hpp | *.c++ | *.h++ | *.cc | *.hh | *.cxx | *.hxx | *.C | *.H | *.cp | *.CPP)
+           filetype="cpp"
            ;;
          *) filetype=false
     esac
