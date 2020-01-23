@@ -18,21 +18,18 @@
 # ====================================
 
 # This script is used with fzf as a preview script. It expects 2
-# arguments, $1 full match, $2 query, here is an example
+# arguments, $1 current line, $2 query, here is an example
 # of its usage:
 
 # rg --smart-case --line-number --no-heading . | fzf -d ":" --preview="fzf-preview {} {q}")
 
-# Make sure the script is on your $path, and fzf-preview takes two
-# arguments in the form of fzf placeholder for the current line {},
-# and the search query {q}, this script will not work without those
-# two arguments
+# Make sure the script is on your $PATH
 
 # it shows a preview window of the file of the location that is
 # selected. It is sized based on FZF_PREVIEW_LINES with the match in
 # the middle, and highlights the search query.
 
-# If pygmentize is installed this script will color certain filetypes
+# If pygmentize is installed this script will colorize certain filetypes
 # If you'd like more filetypes supported simply modify _get_filetype
 # function.
 
