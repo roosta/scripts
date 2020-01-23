@@ -35,13 +35,16 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-fzf_preview() {
-  local file linum total partial_match half_lines start end total context
-  file=$(echo "$1" | cut -d':' -f1)
+
+_fzf_preview() {
+  local file linum total partial_match half_lines start end total context filetype query
+  current_line="$1"
+  query="$2"
+  file=$(echo "$current_line" | cut -d':' -f1)
   if [ -f "$file" ]; then
-    linum=$(echo "$1" | cut -d':' -f2)
+    linum=$(echo "$current_line" | cut -d':' -f2)
     total=$(wc -l < "$file")
-    partial_match=$(echo "$1" | cut -d':' -f3-)
+    partial_match=$(echo "$current_line" | cut -d':' -f3-)
     half_lines=$(( FZF_PREVIEW_LINES / 2))
 
     [[ $(( linum - half_lines )) -lt 1 ]] && start=1 || start=$(( linum - half_lines ))
@@ -50,13 +53,24 @@ fzf_preview() {
 
     context=$(sed -n "${start},${end}p" "$file")
 
-    echo "$context" | \
-      rg -N --color "always" --colors 'match:fg:green' --smart-case --context -A "$end" -B "$start" "$2" || \
-      echo "$context" | rg -F -N --color "always" --colors 'match:fg:green' -A "$end" -B "$start" "$partial_match"
+    rg --no-line-number \
+       --color "always" \
+       --colors 'match:bg:magenta' \
+       --colors 'match:fg:white' \
+       --smart-case \
+       --after-context "$end" \
+       --before-context "$start" "$query" <<< "$context" || \
+      rg --fixed-strings \
+         --no-line-number \
+         --color "always" \
+         --colors 'match:bg:magenta' \
+         --colors 'match:fg:white' \
+         --after-context "$end" \
+         --before-context "$start" "$partial_match" <<< "$context"
     fi
 }
 
-exit_if_unsupported() {
+_exit_if_unsupported() {
   local version version_only_digits supported_version supported_version_only_digits
   version=$(fzf --version | awk '{print $1}')
   version_only_digits=$(echo "$version" | tr -dC '[:digit:]')
@@ -69,8 +83,8 @@ exit_if_unsupported() {
 }
 
 main() {
-  exit_if_unsupported
-  fzf_preview "$@"
+  _exit_if_unsupported
+  _fzf_preview "$@"
 }
 
 main "$@"
