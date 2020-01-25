@@ -46,7 +46,7 @@ set -euo pipefail
 IFS=$'\n\t'
 
 _fzf_preview() {
-  local file linum total partial_match half_lines start end total context query colorized
+  local file linum total partial_match half_lines start end total context query
   current_line="$1"
   query="$2"
   file=$(echo "$current_line" | cut -d':' -f1)
@@ -61,7 +61,10 @@ _fzf_preview() {
     [[ $(( linum + half_lines )) -gt $total ]] && end=$total || end=$(( linum + half_lines ))
     [[ $start -eq 1 &&  $end -ne $total ]] && end=$FZF_PREVIEW_LINES
 
-    context=$(bat -n ---color=always --line-range "${start}:${end}" "$file")
+    context=$(bat --number \
+                  ---color=always \
+                  --pager "less -RF" \
+                  --line-range "${start}:${end}" "$file")
 
     # Handle full match and partial match
     rg --no-line-number \
@@ -77,7 +80,8 @@ _fzf_preview() {
          --colors 'match:bg:magenta' \
          --colors 'match:fg:white' \
          --after-context "$end" \
-         --before-context "$start" "$partial_match" <<< "$context"
+         --before-context "$start" "$partial_match" <<< "$context" || \
+      echo "$context"
     fi
 }
 
