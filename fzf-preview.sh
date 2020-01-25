@@ -23,17 +23,25 @@
 # This script expects 2 arguments, $1 current line, $2 query, here is
 # an example of its usage:
 
-# Find in files
+# # find-in-files
 # fif() {
 #   match=$(\rg \
 #             --smart-case \
 #             --color "always" \
 #             --line-number \
 #             --hidden \
-#             --no-heading . | fzf -d ":" --ansi --nth "2.." --with-nth "1,3.." --preview="fzf-preview {} {q}") &&
+#             --no-heading . | \
+#             fzf -d ":" \
+#                 --ansi \
+#                 --nth "2.." \
+#                 --preview-window=up \
+#                 --with-nth "1,3.." \
+#                 --preview="fzf-preview {}") &&
+
 #     linum=$(echo "$match" | cut -d':' -f2) &&
 #     file=$(echo "$match" | cut -d':' -f1) &&
-#     emacsclient -nw +$linum $file && popd
+
+#     emacsclient -nw +$linum $file
 # }
 
 # Make sure the script is on your $PATH
@@ -69,14 +77,17 @@ _fzf_preview() {
 
 _exit_if_unsupported() {
   local version version_only_digits supported_version supported_version_only_digits
-
-  version=$(fzf --version | awk '{print $1}')
-  version_only_digits=$(echo "$version" | tr -dC '[:digit:]')
-  supported_version="0.18.0"
-  supported_version_only_digits=$(echo "$supported_version" | tr -dC '[:digit:]')
-  if [ "$version_only_digits" -lt "$supported_version_only_digits" ]; then
-    echo "fzf-preview.sh: Unsupported fzf version ($version), upgrade to $supported_version or higher" >&2;
-    exit 1;
+  if hash fzf 2>/dev/null; then
+    version=$(fzf --version | awk '{print $1}')
+    version_only_digits=$(echo "$version" | tr -dC '[:digit:]')
+    supported_version="0.18.0"
+    supported_version_only_digits=$(echo "$supported_version" | tr -dC '[:digit:]')
+    if [ "$version_only_digits" -lt "$supported_version_only_digits" ]; then
+      echo "fzf-preview.sh: Unsupported fzf version ($version), upgrade to $supported_version or higher" >&2;
+      exit 1;
+    fi
+  else
+    echo "fzf-preview.sh: fzf needs to be installed for this script to work" >&2; exit 1;
   fi
   command -v bat >/dev/null 2>&1 || { echo "fzf-preview.sh: bat needs to be installed for this script to work" >&2; exit 1; }
 }
