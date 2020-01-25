@@ -45,48 +45,8 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-# Manually parse filetype
-# For available lexers run
-# pygmentize -L lexers
-_get_filetype() {
-  local file filetype
-  file="$1"
-    case "$1" in
-         *.el)
-           filetype="elisp"
-           ;;
-         *.clj)
-           filetype="clojure"
-           ;;
-         *.cljs)
-           filetype="clojurescript"
-           ;;
-         *.js | *.jsm)
-           filetype="javascript"
-           ;;
-         *.css)
-           filetype="css"
-           ;;
-         Makefile)
-           filetype="makefile"
-           ;;
-         *.cpp | *.hpp | *.c++ | *.h++ | *.cc | *.hh | *.cxx | *.hxx | *.C | *.H | *.cp | *.CPP)
-           filetype="cpp"
-           ;;
-         *.sh | *.ksh | *.bash | *.ebuild | *.eclass | *.exheres-0 | *.exlib | *.zsh | .bashrc | bashrc | .bash_* | bash_* | zshrc | .zshrc | PKGBUILD)
-           filetype="bash"
-           ;;
-         *.py | *.pyw | *.jy | *.sage | *.sc | SConstruct | SConscript | *.bzl | BUCK | BUILD | BUILD.bazel | WORKSPACE | *.tac)
-           filetype="python"
-           ;;
-         *) filetype=false
-    esac
-    echo "$filetype"
-
-}
-
 _fzf_preview() {
-  local file linum total partial_match half_lines start end total context filetype query out
+  local file linum total partial_match half_lines start end total context query colorized
   current_line="$1"
   query="$2"
   file=$(echo "$current_line" | cut -d':' -f1)
@@ -95,24 +55,14 @@ _fzf_preview() {
     total=$(wc -l < "$file")
     partial_match=$(echo "$current_line" | cut -d':' -f3-)
     half_lines=$(( FZF_PREVIEW_LINES / 2))
-    filetype=$(_get_filetype "$file")
 
     # Setup beginning and end of context
     [[ $(( linum - half_lines )) -lt 1 ]] && start=1 || start=$(( linum - half_lines ))
     [[ $(( linum + half_lines )) -gt $total ]] && end=$total || end=$(( linum + half_lines ))
     [[ $start -eq 1 &&  $end -ne $total ]] && end=$FZF_PREVIEW_LINES
 
-    context=$(sed -n "${start},${end}p" "$file")
-
-    if [ "$filetype" = false ]; then
-      out="$context"
-    else
-      if hash pygmentize 2>/dev/null; then
-        out=$(pygmentize -l "$filetype" <<< "$context")
-      else
-        out="$context"
-      fi
-    fi
+    colorized=$(bat ---color=always "$file")
+    context=$(sed -n "${start},${end}p" <<< "$colorized")
 
     # Handle full match and partial match
     rg --no-line-number \
@@ -121,14 +71,14 @@ _fzf_preview() {
        --colors 'match:fg:white' \
        --smart-case \
        --after-context "$end" \
-       --before-context "$start" "$query" <<< "$out" || \
+       --before-context "$start" "$query" <<< "$context" || \
       rg --fixed-strings \
          --no-line-number \
          --color "always" \
          --colors 'match:bg:magenta' \
          --colors 'match:fg:white' \
          --after-context "$end" \
-         --before-context "$start" "$partial_match" <<< "$out"
+         --before-context "$start" "$partial_match" <<< "$context"
     fi
 }
 
