@@ -46,14 +46,13 @@ set -euo pipefail
 IFS=$'\n\t'
 
 _fzf_preview() {
-  local file linum total partial_match half_lines start end total context query
-  current_line="$1"
-  query="$2"
-  file=$(echo "$current_line" | cut -d':' -f1)
+  local file linum total half_lines start end total
+  match="$1"
+  file=$(echo "$match" | cut -d':' -f1)
+  linum=$(echo "$match" | cut -d':' -f2)
   if [ -f "$file" ]; then
-    linum=$(echo "$current_line" | cut -d':' -f2)
+    linum=$(echo "$match" | cut -d':' -f2)
     total=$(wc -l < "$file")
-    partial_match=$(echo "$current_line" | cut -d':' -f3-)
     half_lines=$(( FZF_PREVIEW_LINES / 2))
 
     # Setup beginning and end of context
@@ -61,27 +60,11 @@ _fzf_preview() {
     [[ $(( linum + half_lines )) -gt $total ]] && end=$total || end=$(( linum + half_lines ))
     [[ $start -eq 1 &&  $end -ne $total ]] && end=$FZF_PREVIEW_LINES
 
-    context=$(bat --number \
-                  ---color=always \
-                  --pager "less -RF" \
-                  --line-range "${start}:${end}" "$file")
 
-    # Handle full match and partial match
-    rg --no-line-number \
-       --color "always" \
-       --colors 'match:bg:magenta' \
-       --colors 'match:fg:white' \
-       --smart-case \
-       --after-context "$end" \
-       --before-context "$start" "$query" <<< "$context" || \
-      rg --fixed-strings \
-         --no-line-number \
-         --color "always" \
-         --colors 'match:bg:magenta' \
-         --colors 'match:fg:white' \
-         --after-context "$end" \
-         --before-context "$start" "$partial_match" <<< "$context" || \
-      echo "$context"
+    bat --number \
+        ---color=always \
+        --highlight-line "$linum" \
+        --line-range "${start}:${end}" "$file"
     fi
 }
 
@@ -100,8 +83,8 @@ _exit_if_unsupported() {
 }
 
 main() {
-  if [ "$#" != "2" ]; then
-    echo "fzf-preview.sh: this scripts takes exactly two arguments" >&2;
+  if [ "$#" != "1" ]; then
+    echo "fzf-preview.sh: this scripts takes exactly one argument" >&2;
     exit 1;
   else
     _exit_if_unsupported
