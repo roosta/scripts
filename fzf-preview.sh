@@ -61,8 +61,7 @@ _fzf_preview() {
     [[ $(( linum + half_lines )) -gt $total ]] && end=$total || end=$(( linum + half_lines ))
     [[ $start -eq 1 &&  $end -ne $total ]] && end=$FZF_PREVIEW_LINES
 
-    colorized=$(bat ---color=always "$file")
-    context=$(sed -n "${start},${end}p" <<< "$colorized")
+    context=$(bat -n ---color=always --line-range "${start}:${end}" "$file")
 
     # Handle full match and partial match
     rg --no-line-number \
