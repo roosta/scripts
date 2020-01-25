@@ -60,7 +60,6 @@ _fzf_preview() {
     [[ $(( linum + half_lines )) -gt $total ]] && end=$total || end=$(( linum + half_lines ))
     [[ $start -eq 1 &&  $end -ne $total ]] && end=$FZF_PREVIEW_LINES
 
-
     bat --number \
         ---color=always \
         --highlight-line "$linum" \
@@ -79,7 +78,7 @@ _exit_if_unsupported() {
     echo "fzf-preview.sh: Unsupported fzf version ($version), upgrade to $supported_version or higher" >&2;
     exit 1;
   fi
-  command -v rg >/dev/null 2>&1 || { echo "fzf-preview.sh: rg (ripgrep) needs to be installed for this script to work" >&2; exit 1; }
+  command -v bat >/dev/null 2>&1 || { echo "fzf-preview.sh: bat needs to be installed for this script to work" >&2; exit 1; }
 }
 
 main() {
