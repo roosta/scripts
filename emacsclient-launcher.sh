@@ -1,0 +1,1 @@
+emacsclient -a vim -t "$@"
