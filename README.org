@@ -137,7 +137,6 @@ and have stuck around long after their expiration date. Hard to delete stuff.
 
     - Author: Tjaart van der Walt (github:tjaartvdwalt)
     - License: BSD
- **
 *** dropdown-terminal.sh
     Script I grabbed from [[https://github.com/kalq/dotfiles/blob/macbook/scripts/bin/dropdown_terminal.sh][here]] and does some sorcery to create a dropdown terminal in bspwm.
     [[https://www.reddit.com/r/unixporn/comments/60qw8z/bspwm_bite_my_shiny_metal_ass/][This]] is the unixporn entry that linked me to the script
@@ -200,6 +199,26 @@ and have stuck around long after their expiration date. Hard to delete stuff.
     Norwegian and US layouts. Could easily be modified though.
 
     original source: http://unix.stackexchange.com/a/27688
+
+    How to use:
+    In polybar setup a module using IPC:
+    #+BEGIN_SRC conf
+      [module/keyboard-layout]
+      type = custom/ipc
+      format-foreground = ${colors.brightwhite}
+      format = <output>
+      hook-0 = ~/scripts/keyboard-layout.sh
+      initial = 1
+    #+END_SRC
+
+    Then in i3 setup something like this:
+
+    #+BEGIN_SRC conf
+      bindsym --release Caps_Lock exec polybar-msg hook keyboard-layout 1
+    #+END_SRC
+    This triggers an ipc message when releasing caps lock, which I
+    have setup via xorg to toggle between layouts.
+
 *** launch-polybar.sh
     Called on i3 startup to launch whatever polybar layout ~hostname~ requires.
 *** loadavg.sh
