@@ -219,6 +219,13 @@ and have stuck around long after their expiration date. Hard to delete stuff.
     This triggers an ipc message when releasing caps lock, which I
     have setup via xorg to toggle between layouts.
 
+    Remember to enable ipc for your bar:
+
+    #+BEGIN_SRC conf
+      [bar/primary]
+      enable-ipc = true
+    #+END_SRC
+
 *** launch-polybar.sh
     Called on i3 startup to launch whatever polybar layout ~hostname~ requires.
 *** loadavg.sh
