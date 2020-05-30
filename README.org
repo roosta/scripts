@@ -56,14 +56,13 @@
     - [[#xset-wacom-my-prefssh][xset-wacom-my-prefs.sh]]
 
 ** Information
+   This repo is basically a dumping ground for various scripts/utils/whatever that
+   are kinda one-shot stuff that doesn't fit in a project. Probably not very useful
+   to anyone but me but I'll include some information on each one I can still
+   remember what does
 
-This repo is basically a dumping ground for various scripts/utils/whatever that
-are kinda one-shot stuff that doesn't fit in a project. Probably not very useful
-to anyone but me but I'll include some information on each one I can still
-remember what does
-
-Some of these scripts I just grabbed off of various sources, wikis, the likes,
-and have stuck around long after their expiration date. Hard to delete stuff.
+   Some of these scripts I just grabbed off of various sources, wikis, the likes,
+   and have stuck around long after their expiration date. Hard to delete stuff.
 
 ** Scripts
 *** add-font.sh
@@ -186,6 +185,13 @@ and have stuck around long after their expiration date. Hard to delete stuff.
     pm-hibernate
 
     source: https://github.com/Airblader/dotfiles-manjaro/blob/master/.i3/i3exit
+*** i3lock-color-locker.sh
+    Using [[https://github.com/chrjguill/i3lock-color][i3lock-color]], setup color params and lock if i3lock-color is on system,
+    else fall back to i3lock regular. Blurs background and use [[https://github.com/roosta/vim-srcery][srcery colors]].
+*** i3lock-extra.sh
+    Take a screenshot of desktop, blur and lock screen using i3lock. Got this
+    from [[https://www.reddit.com/r/unixporn/][unixporn]] at some point. Did a quick google and found this [[https://gitgud.io/fbt/misc/blob/64297e8f99aa3b1c4059c92519f7040892a8eb78/i3lock-extra][source file]]
+    but unsure if this is the original. Either way thanks to whoever wrote it
 *** iface
     output local IP addresses. Used with [[https://github.com/vivien/i3blocks][i3blocks]].
 *** iommu-groups.sh
@@ -228,17 +234,10 @@ and have stuck around long after their expiration date. Hard to delete stuff.
 
 *** launch-polybar.sh
     Called on i3 startup to launch whatever polybar layout ~hostname~ requires.
-*** loadavg.sh
-    echo load average
 *** loadavg-spark.sh
     Use [[https://github.com/holman/spark][spark]] with load average
-*** i3lock-color-locker.sh
-    Using [[https://github.com/chrjguill/i3lock-color][i3lock-color]], setup color params and lock if i3lock-color is on system,
-    else fall back to i3lock regular. Blurs background and use [[https://github.com/roosta/vim-srcery][srcery colors]].
-*** i3lock-extra.sh
-    Take a screenshot of desktop, blur and lock screen using i3lock. Got this
-    from [[https://www.reddit.com/r/unixporn/][unixporn]] at some point. Did a quick google and found this [[https://gitgud.io/fbt/misc/blob/64297e8f99aa3b1c4059c92519f7040892a8eb78/i3lock-extra][source file]]
-    but unsure if this is the original. Either way thanks to whoever wrote it
+*** loadavg.sh
+    echo load average
 *** memory.sh
     Output memory usage by using awk on ~/proc/meminfo~
     Used with [[https://github.com/vivien/i3blocks][i3blocks]].
@@ -303,8 +302,6 @@ and have stuck around long after their expiration date. Hard to delete stuff.
     silence. Reasoning behind this is that if I start an update, and then do
     something else I'd like to be alerted on silence since that indicates that
     its either finished or requires input
-*** urxvtc-tmux.sh
-    much like 'tmux-attach.sh' but starts urxvt client and kick off Tmux.
 *** touchpad-toggle.sh
     Toggles touchpad on or off.
 
@@ -313,6 +310,8 @@ and have stuck around long after their expiration date. Hard to delete stuff.
     #+BEGIN_SRC example
     bindsym XF86TouchpadToggle exec --no-startup-id ~/utils/touchpad-toggle.sh
     #+END_SRC
+*** urxvtc-tmux.sh
+    much like 'tmux-attach.sh' but starts urxvt client and kick off Tmux.
 *** volume.sh
     echo current volume
 
