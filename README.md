@@ -12,7 +12,6 @@ and have stuck around long after their expiration date. Hard to delete stuff.
 <!-- vim-markdown-toc GFM -->
 
 * [add-font.sh](#add-fontsh)
-* [arch-updates.sh](#arch-updatessh)
 * [bandwidth](#bandwidth)
 * [battery.sh](#batterysh)
 * [byzanz-gui.sh](#byzanz-guish)
@@ -72,14 +71,6 @@ Just add a new font to system by making fontdir and fontscale, and refreshing
 font cache. Really basic stuff but I kept forgetting so here's the script
 ensuring I'll never remember.
 
-
-### arch-updates.sh
-
-Displays the number of package updates pending for an Arch Linux installation.
-
-This is grabbed straight from
-[py3status](https://github.com/ultrabug/py3status), I think I made some
-modifications on the print output but other than that it's the same.
 
 ### bandwidth
 
