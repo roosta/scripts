@@ -81,11 +81,10 @@ This is grabbed straight from
 [py3status](https://github.com/ultrabug/py3status), I think I made some
 modifications on the print output but other than that it's the same.
 
-
 ### bandwidth
 
 Output bandwidth usage to stdout. Did not write this, grabbed it from somewhere
-I can't remember
+I can't remember.
 
 Authors:
 
@@ -93,11 +92,19 @@ Authors:
 - Copyright (C) 2014 kaueraal
 - Copyright (C) 2015 Thiago Perrotta <perrotta dot thiago at poli dot ufrj dot br>
 
-
 ### battery.sh
 
-Output battery status to stdout
+This script is meant to use with i3blocks. It parses the output of the `acpi`
+command (often provided by a package of the same name) to read the status of
+the battery, and eventually its remaining time (to full charge or discharge).
 
+The color will gradually change for a percentage below 85%, and the urgency
+(exit code 33) is set if there is less that 5% remaining.  Output battery
+status to stdout.
+
+- Copyright 2014 Pierre Mavro <deimos@deimos.fr>
+- Copyright 2014 Vivien Didelot <vivien@didelot.org>
+- Licensed under the terms of the GNU GPL v3, or any later version.
 
 ### byzanz-gui.sh
 
@@ -131,6 +138,9 @@ Same as above but using xrandr instead of nvidia-settings for setting layout
 
 ### cpu-temp.sh
 
+Echo CPU temp formatted with colors based on threshold, don't remember what I
+originally used this for but I'm guessing either i3blocks, or py3status.
+
 
 Authors:
 
@@ -144,53 +154,71 @@ Authors:
 
 Output CPU usage to stdout with pre-pended color values for use in i3blocks
 
-
 ### crypthelper.sh
 
-Script to simplify opening and mounting dm-crypt encrypted partitions. Really not terribly useful I just kept forgetting how to do it, so I wrote this.
+Script to simplify opening and mounting dm-crypt encrypted partitions. Really
+not terribly useful I just kept forgetting how to do it, so I wrote this.
 
 It is used like so:
 
-```shell
+```bash
 ./crypthelper.sh open /dev/sdh1 my-encrypted-device-name # gets mounted in ~/mnt/[name]
 ./crypthelper.sh close my-encrypted-device-name
 ```
 
-
 ### ddns-start.sh
 
-Wrote this for [asuswrt-merlin](https://asuswrt.lostrealm.ca/), to setup uniweb.no DDNS on my router a long time ago. This probably doesn't work anymore, and just keeping it here in case I need to do something similar at some point
-
+Wrote this for [asuswrt-merlin](https://asuswrt.lostrealm.ca/), to setup
+uniweb.no DDNS on my router a long time ago. This probably doesn't work
+anymore, and just keeping it here in case I need to do something similar at
+some point.
 
 ### dialog-demo.sh
 
-Demo various dialog boxes using `whiptail`, `ncurses`, `GTK dialog`, `KDE Dialog` I did not write this, only use it for reference. I stupidly never noted where I got it from.
-
+Demo various dialog boxes using `whiptail`, `ncurses`, `GTK dialog`, `KDE
+Dialog` I did not write this, only use it for reference. I stupidly never noted
+where I got it from.
 
 ### disk
 
-Disk usage script used with [i3blocks](https://github.com/vivien/i3blocks), it defaults to `home`, but takes settings from [i3blocks](https://github.com/vivien/i3blocks) config Copyright (C) 2014 Julien Bonjean <julien@bonjean.info>
+Disk usage script used with [i3blocks](https://github.com/vivien/i3blocks), it
+defaults to `home`, but takes settings from
+[i3blocks](https://github.com/vivien/i3blocks) config.
+
+Copyright (C) 2014 Julien Bonjean \<julien@bonjean.info\>
 
 
 ### dropboxd-status.py
 
-Display status of Dropbox daemon. I meant to use this outside of py3status hence its presence here, but haven't gotten around to modifying it yet. Requires: dropbox-cli Used with: [py3status](https://github.com/ultrabug/py3status)
+Display status of Dropbox daemon. I meant to use this outside of py3status
+hence its presence here, but haven't gotten around to modifying it yet.
+Requires: dropbox-cli.
 
--   Author: Tjaart van der Walt (github:tjaartvdwalt)
--   License: BSD
+Used with: [py3status](https://github.com/ultrabug/py3status)
+
+- Author: [Tjaart van der Walt](https://github.com/tjaartvdwalt)
+- License: BSD
 
 
 ### dropdown-terminal.sh
 
-Script I grabbed from [here](https://github.com/kalq/dotfiles/blob/macbook/scripts/bin/dropdown_terminal.sh) and does some sorcery to create a dropdown terminal in bspwm. [This](https://www.reddit.com/r/unixporn/comments/60qw8z/bspwm_bite_my_shiny_metal_ass/) is the unixporn entry that linked me to the script It's my intention to modify this to work on [i3wm](https://github.com/kalq/dotfiles/blob/macbook/scripts/bin/dropdown_terminal.sh)
+Script I grabbed from
+[here](https://github.com/kalq/dotfiles/blob/macbook/scripts/bin/dropdown_terminal.sh)
+and does some sorcery to create a dropdown terminal in bspwm.
+[This](https://www.reddit.com/r/unixporn/comments/60qw8z/bspwm_bite_my_shiny_metal_ass/)
+is the unixporn entry that linked me to the script It's my intention to modify
+this to work on
+[i3wm](https://github.com/kalq/dotfiles/blob/macbook/scripts/bin/dropdown_terminal.sh).
 
 
 ### emacs-file-opener.sh
 
-This uses emacsclient to open file `$1` at line `$2` What I usually do is to add this to a project.clj using [figwheel](https://github.com/bhauman/lein-figwheel):
+This uses emacsclient to open file `$1` at line `$2` What I usually do is to
+add this to a project.clj using
+[figwheel](https://github.com/bhauman/lein-figwheel):
 
 ```clojure
-:figwheel {:open-file-command    "script/emacs_file_opener.sh"}
+:figwheel {:open-file-command  "script/emacs_file_opener.sh"}
 ```
 
 and I can click on the error dialog in the browser to have Emacs goto error.
@@ -200,14 +228,14 @@ and I can click on the error dialog in the browser to have Emacs goto error.
 
 print which systemfont matches these aliases:
 
--   serif
--   sans-serif
--   monospace
--   Arial
--   Helvetica
--   Verdana
--   Times New Roman
--   Courier New
+- serif
+- sans-serif
+- monospace
+- Arial
+- Helvetica
+- Verdana
+- Times New Roman
+- Courier New
 
 
 ### fstrim.sh
@@ -217,29 +245,36 @@ Used in a cronjob to run fstrim and log to `/var/log/trim.log`
 
 ### game-pick.sh
 
-Randomly pick a game from a list, using [toilet](https://github.com/cacalabs/toilet) for some added flair. I don't like making decisions.
+Randomly pick a game from a list, using
+[toilet](https://github.com/cacalabs/toilet) for some added flair.
 
 
 ### gfx-drv-swap.sh
 
-Swap driver packages installed on Archlinux between nvidia and xf86-video-nouveau. Pulled this script from the archlinux wiki but was unable to find it again when I went back looking.
+Swap driver packages installed on Archlinux between nvidia and
+xf86-video-nouveau. Pulled this script from the archlinux wiki but was unable
+to find it again when I went back looking.
 
 
 ### git-remove-submodule.sh
 
-Remove a git submodule, this used to be a bit of a hassle, unsure if it still is, since I basically stopped using submodules after much frustration. This script alleviates that hassle somewhat.
+Remove a git submodule, this used to be a bit of a hassle, unsure if it still
+is, since I basically stopped using submodules after much frustration. This
+script alleviates that hassle somewhat.
 
 Author: Adam Sharp, Aug 21, 2013
 
 
 ### gpu-temp.sh
 
-Outputs nvidia GPU temperature. Originally used with [i3blocks](https://github.com/vivien/i3blocks).
-
+Outputs nvidia GPU temperature. Originally used with
+[i3blocks](https://github.com/vivien/i3blocks).
 
 ### i3exit.sh
 
-Script used for an [i3wm display mode](https://i3wm.org/docs/userguide.html#_display_mode) that sends lock|logout|suspend|hibernate|reboot|shutdown commands
+Script used for an [i3wm display
+mode](https://i3wm.org/docs/userguide.html#_display_mode) that sends
+`lock | logout | suspend | hibernate | reboot |` shutdown commands
 
 this script requires passwordless access to poweroff, reboot, pm-suspend and pm-hibernate
 
@@ -253,7 +288,11 @@ Using [i3lock-color](https://github.com/chrjguill/i3lock-color), setup color par
 
 ### i3lock-extra.sh
 
-Take a screenshot of desktop, blur and lock screen using i3lock. Got this from [unixporn](https://www.reddit.com/r/unixporn/) at some point. Did a quick google and found this [source file](https://gitgud.io/fbt/misc/blob/64297e8f99aa3b1c4059c92519f7040892a8eb78/i3lock-extra) but unsure if this is the original. Either way thanks to whoever wrote it
+Take a screenshot of desktop, blur and lock screen using i3lock. Got this from
+[unixporn](https://www.reddit.com/r/unixporn/) at some point. Did a quick
+google and found this [source
+file](https://gitgud.io/fbt/misc/blob/64297e8f99aa3b1c4059c92519f7040892a8eb78/i3lock-extra)
+but unsure if this is the original. Either way thanks to whoever wrote it
 
 
 ### iface
@@ -263,16 +302,18 @@ output local IP addresses. Used with [i3blocks](https://github.com/vivien/i3bloc
 
 ### iommu-groups.sh
 
-List all IOMMU groups for system. Used this when setting up PCI passthrough to a virtual machine. More info [here](https://wiki.archlinux.org/index.php/PCI_passthrough_via_OVMF).
+List all IOMMU groups for system. Used this when setting up PCI passthrough to
+a virtual machine. More info
+[here](https://wiki.archlinux.org/index.php/PCI_passthrough_via_OVMF).
 
 
 ### keyboard-layout.sh
 
 Echo keyboard layout code/caps lock and formatting for [polybar](https://github.com/jaagr/polybar)
 
-I like my indicator to have a red background on Norwegian layout and caps-lock since it always trips me up when this is activated. Only works for Norwegian and US layouts. Could easily be modified though.
-
-original source: <http://unix.stackexchange.com/a/27688>
+I like my indicator to have a red background on Norwegian layout and caps-lock
+since it always trips me up when this is activated. Only works for Norwegian
+and US layouts. Could easily be modified though.
 
 How to use: In polybar setup a module using IPC:
 
@@ -300,35 +341,44 @@ Remember to enable ipc for your bar:
 enable-ipc = true
 ```
 
+original source: <http://unix.stackexchange.com/a/27688>
 
 ### launch-polybar.sh
 
 Called on i3 startup to launch whatever polybar layout `hostname` requires.
+
+```
+exec_always --no-startup-id $HOME/scripts/launch-polybar.sh
+```
+
+I have multiple monitors, so I launch several bars depending on hostname, since
+the number of screens vary, so does the configs.
 
 
 ### loadavg-spark.sh
 
 Use [spark](https://github.com/holman/spark) with load average
 
-
 ### loadavg.sh
 
 echo load average
 
-
 ### memory.sh
 
-Output memory usage by using awk on `/proc/meminfo` Used with [i3blocks](https://github.com/vivien/i3blocks).
+Output memory usage by using awk on `/proc/meminfo` Used with
+[i3blocks](https://github.com/vivien/i3blocks).
 
--   Copyright (C) 2014 Julien Bonjean <julien@bonjean.info>
+- Copyright (C) 2014 Julien Bonjean \<julien@bonjean.info\>
 
 
 ### ocr-clip.sh
 
-Author: Mathias Bjerke <mathbje@gmail.com> Dependencies: tesseract-ocr imagemagick gnome-screenshot xclip
+Dependencies: tesseract-ocr imagemagick gnome-screenshot xclip
 
-Select some text on screen, and attempt to OCR it. Takes language as param, i.e. \`./ocr-clip.sh eng\`. Will copy text to clipboard, and echo to terminal.
+Select some text on screen, and attempt to OCR it. Takes language as param,
+i.e. `./ocr-clip.sh eng`. Will copy text to clipboard, and echo to terminal.
 
+Author: Mathias Bjerke \<mathbje@gmail.com\>
 
 ### openvpn-detect.sh
 
@@ -337,11 +387,11 @@ Checks for an openvpn instance and echo result
 Usage:
 
 1.  The configuration name of OpenVPN should be familiar for you
-    (home,work&#x2026;)
+    (home,work, etc)
 2.  The device name in your configuration file should be fully named
-    (tun0,tap1&#x2026;not only tun or tap)
+    (tun0, tap1, not only tun or tap)
 3.  When you launch one or multiple OpenVPN connexion, be sure the PID file is
-    written in the correct folder (ex: &#x2013;writepid /run/openvpn/home.pid)
+    written in the correct folder (ex: `--writepid /run/openvpn/home.pid`)
 
 Used with [i3blocks](https://github.com/vivien/i3blocks). Made by Pierre Mavro/Deimosfr <deimos@deimos.fr>
 
@@ -372,7 +422,11 @@ Upgrade all pip packages
 
 ### pkg.sh
 
-Archlinux update status script, check for available updates using pacman and [cower](https://github.com/falconindy/cower), echo result as nr of offical/nr of AUR Used with [polybar](https://github.com/jaagr/polybar).
+Archlinux update status script, check for available updates using pacman and
+[auracle](https://github.com/falconindy/auracle), echo result as number of
+offical/AUR packages.
+
+Used with [polybar](https://github.com/jaagr/polybar).
 
 
 ### public-ip.sh
