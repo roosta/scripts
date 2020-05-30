@@ -8,88 +8,90 @@ still remember what does
 Some of these scripts I just grabbed off of various sources, wikis, the likes,
 and have stuck around long after their expiration date. Hard to delete stuff.
 
-## Table of content
+## Scripts
 <!-- vim-markdown-toc GFM -->
 
-* [Scripts](#scripts)
-  * [add-font.sh](#add-fontsh)
-  * [arch-updates.sh](#arch-updatessh)
-  * [bandwidth](#bandwidth)
-  * [battery.sh](#batterysh)
-  * [byzanz-gui.sh](#byzanz-guish)
-  * [chdisp-nvidia.sh](#chdisp-nvidiash)
-  * [chdisp-xrandr.sh](#chdisp-xrandrsh)
-  * [cpu-temp.sh](#cpu-tempsh)
-  * [cpu-usage.sh](#cpu-usagesh)
-  * [crypthelper.sh](#crypthelpersh)
-  * [ddns-start.sh](#ddns-startsh)
-  * [dialog-demo.sh](#dialog-demosh)
-  * [disk](#disk)
-  * [dropboxd-status.py](#dropboxd-statuspy)
-  * [dropdown-terminal.sh](#dropdown-terminalsh)
-  * [emacs-file-opener.sh](#emacs-file-openersh)
-  * [fontalias.sh](#fontaliassh)
-  * [fstrim.sh](#fstrimsh)
-  * [game-pick.sh](#game-picksh)
-  * [gfx-drv-swap.sh](#gfx-drv-swapsh)
-  * [git-remove-submodule.sh](#git-remove-submodulesh)
-  * [gpu-temp.sh](#gpu-tempsh)
-  * [i3exit.sh](#i3exitsh)
-  * [i3lock-color-locker.sh](#i3lock-color-lockersh)
-  * [i3lock-extra.sh](#i3lock-extrash)
-  * [iface](#iface)
-  * [iommu-groups.sh](#iommu-groupssh)
-  * [keyboard-layout.sh](#keyboard-layoutsh)
-  * [launch-polybar.sh](#launch-polybarsh)
-  * [loadavg-spark.sh](#loadavg-sparksh)
-  * [loadavg.sh](#loadavgsh)
-  * [memory.sh](#memorysh)
-  * [ocr-clip.sh](#ocr-clipsh)
-  * [openvpn-detect.sh](#openvpn-detectsh)
-  * [optirun (folder)](#optirun-folder)
-  * [paswitch.sh](#paswitchsh)
-  * [pip-uninstall-recursive.sh](#pip-uninstall-recursivesh)
-  * [pip-upgrade-all.py](#pip-upgrade-allpy)
-  * [pkg.sh](#pkgsh)
-  * [public-ip.sh](#public-ipsh)
-  * [record-gif.sh](#record-gifsh)
-  * [run-spotify.sh](#run-spotifysh)
-  * [tmux-attach.sh](#tmux-attachsh)
-  * [tmux-dev-session.sh](#tmux-dev-sessionsh)
-  * [tmux-update-window.sh](#tmux-update-windowsh)
-  * [touchpad-toggle.sh](#touchpad-togglesh)
-  * [urxvtc-tmux.sh](#urxvtc-tmuxsh)
-  * [volume.sh](#volumesh)
-  * [vpn.sh](#vpnsh)
-  * [wifi.sh](#wifish)
-  * [wol.sh](#wolsh)
-  * [xset-wacom-my-prefs.sh](#xset-wacom-my-prefssh)
+* [add-font.sh](#add-fontsh)
+* [arch-updates.sh](#arch-updatessh)
+* [bandwidth](#bandwidth)
+* [battery.sh](#batterysh)
+* [byzanz-gui.sh](#byzanz-guish)
+* [chdisp-nvidia.sh](#chdisp-nvidiash)
+* [chdisp-xrandr.sh](#chdisp-xrandrsh)
+* [cpu-temp.sh](#cpu-tempsh)
+* [cpu-usage.sh](#cpu-usagesh)
+* [crypthelper.sh](#crypthelpersh)
+* [ddns-start.sh](#ddns-startsh)
+* [dialog-demo.sh](#dialog-demosh)
+* [disk](#disk)
+* [dropboxd-status.py](#dropboxd-statuspy)
+* [dropdown-terminal.sh](#dropdown-terminalsh)
+* [emacs-file-opener.sh](#emacs-file-openersh)
+* [fontalias.sh](#fontaliassh)
+* [fstrim.sh](#fstrimsh)
+* [game-pick.sh](#game-picksh)
+* [gfx-drv-swap.sh](#gfx-drv-swapsh)
+* [git-remove-submodule.sh](#git-remove-submodulesh)
+* [gpu-temp.sh](#gpu-tempsh)
+* [i3exit.sh](#i3exitsh)
+* [i3lock-color-locker.sh](#i3lock-color-lockersh)
+* [i3lock-extra.sh](#i3lock-extrash)
+* [iface](#iface)
+* [iommu-groups.sh](#iommu-groupssh)
+* [keyboard-layout.sh](#keyboard-layoutsh)
+* [launch-polybar.sh](#launch-polybarsh)
+* [loadavg-spark.sh](#loadavg-sparksh)
+* [loadavg.sh](#loadavgsh)
+* [memory.sh](#memorysh)
+* [ocr-clip.sh](#ocr-clipsh)
+* [openvpn-detect.sh](#openvpn-detectsh)
+* [optirun (folder)](#optirun-folder)
+* [paswitch.sh](#paswitchsh)
+* [pip-uninstall-recursive.sh](#pip-uninstall-recursivesh)
+* [pip-upgrade-all.py](#pip-upgrade-allpy)
+* [pkg.sh](#pkgsh)
+* [public-ip.sh](#public-ipsh)
+* [record-gif.sh](#record-gifsh)
+* [run-spotify.sh](#run-spotifysh)
+* [tmux-attach.sh](#tmux-attachsh)
+* [tmux-dev-session.sh](#tmux-dev-sessionsh)
+* [tmux-update-window.sh](#tmux-update-windowsh)
+* [touchpad-toggle.sh](#touchpad-togglesh)
+* [urxvtc-tmux.sh](#urxvtc-tmuxsh)
+* [volume.sh](#volumesh)
+* [vpn.sh](#vpnsh)
+* [wifi.sh](#wifish)
+* [wol.sh](#wolsh)
+* [xset-wacom-my-prefs.sh](#xset-wacom-my-prefssh)
 
 <!-- vim-markdown-toc -->
 
-## Scripts
-
 ### add-font.sh
 
-Just add a new font to system by making fontdir and fontscale, and refreshing font cache. Really basic stuff but I kept forgetting so here's the script ensuring I'll never remember.
+Just add a new font to system by making fontdir and fontscale, and refreshing
+font cache. Really basic stuff but I kept forgetting so here's the script
+ensuring I'll never remember.
 
 
 ### arch-updates.sh
 
 Displays the number of package updates pending for an Arch Linux installation.
 
-This is grabbed straight from [py3status](https://github.com/ultrabug/py3status), I think I made some modifications on the print output but other than that it's the same.
+This is grabbed straight from
+[py3status](https://github.com/ultrabug/py3status), I think I made some
+modifications on the print output but other than that it's the same.
 
 
 ### bandwidth
 
-Output bandwidth usage to stdout. Did not write this, grabbed it from somewhere I can't remember
+Output bandwidth usage to stdout. Did not write this, grabbed it from somewhere
+I can't remember
 
 Authors:
 
--   Copyright (C) 2012 Stefan Breunig <stefan+measure-net-speed@mathphys.fsk.uni-heidelberg.de>
--   Copyright (C) 2014 kaueraal
--   Copyright (C) 2015 Thiago Perrotta <perrotta dot thiago at poli dot ufrj dot br>
+- Copyright (C) 2012 Stefan Breunig <stefan+measure-net-speed@mathphys.fsk.uni-heidelberg.de>
+- Copyright (C) 2014 kaueraal
+- Copyright (C) 2015 Thiago Perrotta <perrotta dot thiago at poli dot ufrj dot br>
 
 
 ### battery.sh
@@ -99,9 +101,11 @@ Output battery status to stdout
 
 ### byzanz-gui.sh
 
-GUI script for byzanz, a script used for recording GIF screencasts. Have since moved to other solutions but its here for posterity.
+GUI script for byzanz, a script used for recording GIF screencasts. Have since
+moved to other solutions but its here for posterity.
 
-Author: (c) Rob W 2012, modified by MHC (<http://askubuntu.com/users/81372/mhc>)
+Author: (c) Rob W 2012, modified by MHC
+(<http://askubuntu.com/users/81372/mhc>)
 
 
 ### chdisp-nvidia.sh
@@ -124,7 +128,6 @@ Usage:
 ### chdisp-xrandr.sh
 
 Same as above but using xrandr instead of nvidia-settings for setting layout
-
 
 ### cpu-temp.sh
 
@@ -333,21 +336,27 @@ Checks for an openvpn instance and echo result
 
 Usage:
 
-1.  The configuration name of OpenVPN should be familiar for you (home,work&#x2026;)
-2.  The device name in your configuration file should be fully named (tun0,tap1&#x2026;not only tun or tap)
-3.  When you launch one or multiple OpenVPN connexion, be sure the PID file is written in the correct folder (ex: &#x2013;writepid /run/openvpn/home.pid)
+1.  The configuration name of OpenVPN should be familiar for you
+    (home,work&#x2026;)
+2.  The device name in your configuration file should be fully named
+    (tun0,tap1&#x2026;not only tun or tap)
+3.  When you launch one or multiple OpenVPN connexion, be sure the PID file is
+    written in the correct folder (ex: &#x2013;writepid /run/openvpn/home.pid)
 
 Used with [i3blocks](https://github.com/vivien/i3blocks). Made by Pierre Mavro/Deimosfr <deimos@deimos.fr>
 
-
 ### optirun (folder)
 
-Friend of mine sent me this conf and run script. I believe it was for enabling optirun when charging/docked. Author: Christian Karlsen
-
+Friend of mine sent me this conf and run script. I believe it was for enabling
+optirun when charging/docked.
+Author: Christian Karlsen
 
 ### paswitch.sh
 
-Switch Pulseaudio sinks, used this mainly for reference and found it on the [pulseaudio docs](https://www.freedesktop.org/wiki/Software/PulseAudio/Documentation/), used the base concepts here to make the chdisp\* scripts
+Switch Pulseaudio sinks, used this mainly for reference and found it on the
+[pulseaudio
+docs](https://www.freedesktop.org/wiki/Software/PulseAudio/Documentation/),
+used the base concepts here to make the chdisp\* scripts.
 
 -   paswitch 2011-02-02 by Ng Oon-Ee <ngoonee@gmail.com>
 -   original author unknown
@@ -357,11 +366,9 @@ Switch Pulseaudio sinks, used this mainly for reference and found it on the [pul
 
 Remove a package with pip and recursively remove unneeded dependencies
 
-
 ### pip-upgrade-all.py
 
 Upgrade all pip packages
-
 
 ### pkg.sh
 
@@ -372,43 +379,53 @@ Archlinux update status script, check for available updates using pacman and [co
 
 echo public ip
 
-
 ### record-gif.sh
 
 Records a selection of the screen and output result as a gif
 
 This script requires:
 
--   <https://github.com/lolilolicon/xrectsel>
--   recordmydesktop
--   mplayer
--   imagemagick
--   gifsicle
+- https://github.com/lolilolicon/xrectsel
+- recordmydesktop
+- mplayer
+- imagemagick
+- gifsicle
 
 Author: Mathias Bjerke <mathbje@gmail.com>
 
 
 ### run-spotify.sh
 
-Start spotify if no instance exist. Used this in either i3 or i3bar to start spotify by clicking a music icon or somsuch
-
+Start spotify if no instance exist. Used this in either i3 or i3bar to start
+spotify by clicking a music icon or somsuch.
 
 ### tmux-attach.sh
 
-Attach to an existing session, or create a new. Useful if you want tmux to always be started with terminal emulator. Source either in shell rc file, or in window manager on terminal emulator startup. Believe I got from [here](https://wiki.archlinux.org/index.php/Tmux#Start_tmux_with_default_session_layout).
+Attach to an existing session, or create a new. Useful if you want tmux to
+always be started with terminal emulator. Source either in shell rc file, or in
+window manager on terminal emulator startup. Believe I got from
+[here](https://wiki.archlinux.org/index.php/Tmux#Start_tmux_with_default_session_layout).
 
 
 ### tmux-dev-session.sh
 
-I run this manually to start a default tmux session layout. Check for existing named session, attach, or create a new named session called dev. Opted for this solution rather than using a session manager, even tho there are [several](https://wiki.archlinux.org/index.php/Tmux#Start_tmux_with_default_session_layout) [nice](https://github.com/junegunn/heytmux) [ones](https://github.com/tmuxinator/tmuxinator)
+I run this manually to start a default tmux session layout. Check for existing
+named session, attach, or create a new named session called dev. Opted for this
+solution rather than using a session manager, even though there are
+[several](https://wiki.archlinux.org/index.php/Tmux#Start_tmux_with_default_session_layout)
+[nice](https://github.com/junegunn/heytmux)
+[ones](https://github.com/tmuxinator/tmuxinator).
 
-One thing with this that I'm currently testing out is monitoring silence on the 'update' window. I'd like to get notified when an update requires input
+One thing with this that I'm currently testing out is monitoring silence on the
+'update' window. I'd like to get notified when an update requires input
 
 
 ### tmux-update-window.sh
 
-Create an update window if 'dev' session exist. Set this window to monitor silence. Reasoning behind this is that if I start an update, and then do something else I'd like to be alerted on silence since that indicates that its either finished or requires input
-
+Create an update window if 'dev' session exist. Set this window to monitor
+silence. Reasoning behind this is that if I start an update, and then do
+something else I'd like to be alerted on silence since that indicates that its
+either finished or requires input.
 
 ### touchpad-toggle.sh
 
@@ -420,36 +437,33 @@ Used in i3wm config like so:
 bindsym XF86TouchpadToggle exec --no-startup-id ~/utils/touchpad-toggle.sh
 ```
 
-
 ### urxvtc-tmux.sh
 
 much like 'tmux-attach.sh' but starts urxvt client and kick off Tmux.
-
 
 ### volume.sh
 
 echo current volume
 
--   Copyright (C) 2014 Julien Bonjean <julien@bonjean.info>
--   Copyright (C) 2014 Alexander Keller <github@nycroth.com>
-
+- Copyright (C) 2014 Julien Bonjean <julien@bonjean.info>
+- Copyright (C) 2014 Alexander Keller <github@nycroth.com>
 
 ### vpn.sh
 
 Check for tunnel and echo [polybar formatted](https://github.com/jaagr/polybar/wiki/Formatting) string
 
-
 ### wifi.sh
 
 Echo wifi signal quality, used with [i3blocks](https://github.com/vivien/i3blocks).
-
 
 ### wol.sh
 
 wake-on-lan script, used for reference Author: unknown
 
-
-Nabbed from conky source code. Was experimenting with removing a window from i3wm's control, where conky has a window-mode option of 'override', which is exactly what I needed. Never got around to actually using this, just dumped here and forgotten
+Nabbed from conky source code. Was experimenting with removing a window from
+i3wm's control, where conky has a window-mode option of 'override', which is
+exactly what I needed. Never got around to actually using this, just dumped
+here and forgotten.
 
 
 ### xset-wacom-my-prefs.sh
