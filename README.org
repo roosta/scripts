@@ -54,7 +54,6 @@
     - [[#wolsh][wol.sh]]
     - [[#x11_overridecc][x11_override.cc]]
     - [[#xset-wacom-my-prefssh][xset-wacom-my-prefs.sh]]
-
 * Information
    This repo is basically a dumping ground for various scripts/utils/whatever that
    are kinda one-shot stuff that doesn't fit in a project. Probably not very useful
@@ -242,6 +241,13 @@
    Output memory usage by using awk on ~/proc/meminfo~
    Used with [[https://github.com/vivien/i3blocks][i3blocks]].
    - Copyright (C) 2014 Julien Bonjean <julien@bonjean.info>
+** ocr-clip.sh
+   Author: Mathias Bjerke <mathbje@gmail.com>
+   Dependencies: tesseract-ocr imagemagick gnome-screenshot xclip
+
+   Select some text on screen, and attempt to OCR it.  Takes language
+   as param, i.e. `./ocr-clip.sh eng`. Will copy text to clipboard,
+   and echo to terminal.
 ** openvpn-detect.sh
    Checks for an openvpn instance and echo result
 
