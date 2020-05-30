@@ -63,7 +63,6 @@ and have stuck around long after their expiration date. Hard to delete stuff.
   * [vpn.sh](#vpnsh)
   * [wifi.sh](#wifish)
   * [wol.sh](#wolsh)
-  * [x11<sub>override.cc</sub>](#x11suboverrideccsub)
   * [xset-wacom-my-prefs.sh](#xset-wacom-my-prefssh)
 
 <!-- vim-markdown-toc -->
@@ -129,7 +128,6 @@ Same as above but using xrandr instead of nvidia-settings for setting layout
 
 ### cpu-temp.sh
 
-Output CPU temperature to stdout. Uses lm<sub>sensors</sub> internally, just formats output a bit. Used with i3blocks
 
 Authors:
 
@@ -450,8 +448,6 @@ Echo wifi signal quality, used with [i3blocks](https://github.com/vivien/i3block
 
 wake-on-lan script, used for reference Author: unknown
 
-
-### x11<sub>override.cc</sub>
 
 Nabbed from conky source code. Was experimenting with removing a window from i3wm's control, where conky has a window-mode option of 'override', which is exactly what I needed. Never got around to actually using this, just dumped here and forgotten
 
