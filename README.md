@@ -4,24 +4,16 @@ This is where maintain my various shell scripts.
 
 ## Branches
 
-### [master](https://github.com/roosta/scripts)
+| Branch | Description |
+|--------|-------------|
+| [**master**](https://github.com/roosta/scripts) | Most current up to date scripts. |
+| [**deprecated**](https://github.com/roosta/scripts/tree/deprecated) | Old deprecated scripts I don't use anymore |
 
-Most current up to date scripts.
-
-### [deprecated](https://github.com/roosta/scripts/tree/deprecated)
-
-I have a lot of scripts I never use anymore, but they're backed up in the
-`deprecated` branch for posterity.
-
-## add-font.sh
-
-Just add a new font to system by making fontdir and fontscale, and refreshing
-font cache. Really basic stuff but I kept forgetting so here's the script
-ensuring I'll never remember.
-
+## Table of content
 
 <!-- vim-markdown-toc GFM -->
 
+* [add-font.sh](#add-fontsh)
 * [chdisp-nvidia.sh](#chdisp-nvidiash)
 * [chdisp-xrandr.sh](#chdisp-xrandrsh)
 * [crypthelper.sh](#crypthelpersh)
@@ -56,6 +48,14 @@ ensuring I'll never remember.
 * [xset-wacom-my-prefs.sh](#xset-wacom-my-prefssh)
 
 <!-- vim-markdown-toc -->
+
+## add-font.sh
+
+Just add a new font to system by making fontdir and fontscale, and refreshing
+font cache. Really basic stuff but I kept forgetting so here's the script
+ensuring I'll never remember.
+
+
 ## chdisp-nvidia.sh
 
 Script for changing output displays using nvidia cards. It also changes audio
