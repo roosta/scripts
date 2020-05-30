@@ -1,12 +1,6 @@
 # Roosta's scripts
 
-This repo is basically a dumping ground for various scripts/utils/whatever that
-are kinda one-shot stuff that doesn't fit in a project. Probably not very
-useful to anyone but me but I'll include some information on each one I can
-still remember what does
-
-Some of these scripts I just grabbed off of various sources, wikis, the likes,
-and have stuck around long after their expiration date. Hard to delete stuff.
+This is where maintain my shell various scripts.
 
 ## Scripts
 <!-- vim-markdown-toc GFM -->
