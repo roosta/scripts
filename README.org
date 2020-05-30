@@ -333,4 +333,3 @@ and have stuck around long after their expiration date. Hard to delete stuff.
 *** xset-wacom-my-prefs.sh
     Set my Wacom prefs using ~xsetwacom~, never found a gui app that did what I
     needed to resorted to setting it with a script
-** TODO Move script descriptions in to head of script files, and find some way of outputting just that to a readme file
