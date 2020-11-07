@@ -18,11 +18,11 @@ print() {
 
   case "$(xset -q | grep Caps|awk '{print $4}')" in
     "off") CAPS="";;
-    "on") CAPS="%{F#FCE8C3 B#F75341} Caps Lock %{F- B-}";;
+    "on") CAPS=" %{F#FCE8C3 B#F75341} Caps Lock %{F- B-}";;
     *) CAPS="Something went wrong";;
   esac
 
-  echo "$KBD $CAPS"
+  echo "$KBD$CAPS"
 }
 
 toggle() {
