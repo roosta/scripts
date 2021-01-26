@@ -1,1 +1,0 @@
-* TODO Move script descriptions in to head of script files, and find some way of outputting just that to a readme file
