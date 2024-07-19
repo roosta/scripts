@@ -13,6 +13,7 @@ case "$host_name" in
     polybar lintilla-primary -r &
     polybar lintilla-secondary -r &
     polybar lintilla-tertiary -r &
+    polybar lintilla-quaternary -r &
     ;;
   "garkbit")
     polybar garkbit-primary -r &
