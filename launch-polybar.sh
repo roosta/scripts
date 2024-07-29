@@ -9,15 +9,11 @@ while pgrep -x polybar >/dev/null; do sleep 1; done
 # launch bars based on hostname
 host_name=$(hostname)
 case "$host_name" in
-  "lintilla")
-    polybar lintilla-primary -r &
-    polybar lintilla-secondary -r &
-    polybar lintilla-tertiary -r &
-    polybar lintilla-quaternary -r &
-    ;;
   "garkbit")
     polybar garkbit-primary -r &
     polybar garkbit-secondary -r &
+    polybar garkbit-tertiary -r &
+    polybar garkbit-quaternary -r &
     ;;
   "allitnil")
     polybar allitnil -r &
