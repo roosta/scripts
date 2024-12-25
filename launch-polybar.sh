@@ -7,8 +7,7 @@ killall -q polybar
 while pgrep -x polybar >/dev/null; do sleep 1; done
 
 # launch bars based on hostname
-host_name=$(hostname)
-case "$host_name" in
+case $(hostname) in
   "garkbit")
     polybar garkbit-primary -r &
     polybar garkbit-secondary -r &
