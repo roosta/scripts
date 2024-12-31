@@ -367,3 +367,13 @@ here and forgotten.
 #### xset-wacom-my-prefs.sh
 
 Set my Wacom prefs using `xsetwacom`, never found a gui app that did what I needed to resorted to setting it with a script
+
+#### tmux-music.sh
+
+Starts a new session called `mpd`, and launch mopidy.
+
+#### tmux-work.sh
+
+Creates a work session that automatically starts a datomic transactor and the
+datomic dev console.
+
