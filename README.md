@@ -4,6 +4,8 @@ These are utility scripts I use on my systems that isn't a package, or is
 simple enough to warrant a script file. These files are in flux, due to
 changing requirements and environments.
 
+- Companion repo for for my [dotfiles](https://github.com/roosta/etc)
+
 ### Branches
 
 | Branch | Description |
@@ -15,6 +17,11 @@ changing requirements and environments.
 
 Short descriptions for each script, not always up to data. Attribution where
 possible.
+
+#### bookmarks_md.mjs
+
+Node script to grab bookmarks from chrome/firefox in a folder on the toolbar
+called `capture`. Converts the bookmarks to markdown links.
 
 #### crypthelper.sh
 
@@ -28,12 +35,33 @@ It is used like so:
 ./crypthelper.sh close my-encrypted-device-name
 ```
 
-#### iommu-groups.sh
+#### flush.sh
+
+WIP script to flush credentials and secrets.
+
+### git_ls_large_files.sh
+
+See which files in a git repo history takes up the most space. Useful if
+pruning assets or similar from a repo.
+
+### Power scripts
+
+Scripts used in custom power menus, mostly using systemctl, but also uses
+[zenity](https://gitlab.gnome.org/GNOME/zenity) as a confirm dialog, cause I
+sometimes hit the wrong menu item.
+
+- hibernate.sh
+- lock.sh
+- locker.sh
+- logout.sh
+- reboot.sh
+- shutdown.sh
+- suspend.sh
+
+#### [iommu-groups.sh](iommu-groups.sh)
 
 List all IOMMU groups for system. Used this when setting up PCI passthrough to
-a virtual machine. More info
-[here](https://wiki.archlinux.org/index.php/PCI_passthrough_via_OVMF).
-
+a virtual machine. More info [here](https://wiki.archlinux.org/index.php/PCI_passthrough_via_OVMF).
 
 #### keyboard-layout.sh
 
@@ -103,7 +131,6 @@ always be started with terminal emulator. Source either in shell rc file, or in
 window manager on terminal emulator startup. Believe I got from
 [here](https://wiki.archlinux.org/index.php/Tmux##Start_tmux_with_default_session_layout).
 
-
 #### tmux-main.sh
 
 I run this manually to start a default tmux session layout. Check for existing
@@ -139,7 +166,13 @@ silence. When I start an update, and then do something else I'd like to be
 alerted on silence since that indicates that its either finished or requires
 input.
 
+#### torrent-done.sh
+
+Extract `rar` archives on torrent completion, used in [transmission](https://github.com/transmission/transmission)
+
 #### touchpad-toggle.sh
+
+- TODO: Fix for wayland
 
 Toggles touchpad on or off.
 
@@ -155,8 +188,4 @@ bindsym XF86TouchpadToggle exec --no-startup-id ~/utils/touchpad-toggle.sh
 > compatibility temporarily
 
 Check for tunnel and echo [polybar formatted](https://github.com/jaagr/polybar/wiki/Formatting) string
-
-#### flush.sh
-
-WIP script to flush credentials and secrets.
 
