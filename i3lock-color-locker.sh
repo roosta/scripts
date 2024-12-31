@@ -1,8 +1,3 @@
-# PARAM=(--textcolor=ffffff00 --insidecolor=ffffff1c --ringcolor=ffffff3e \
-#        --linecolor=ffffff00 --keyhlcolor=00000080 --ringvercolor=00000000 \
-#        --separatorcolor=22222260 --insidevercolor=0000001c \
-#        --ringwrongcolor=00000055 --insidewrongcolor=0000001c)
-
 PARAM=(--insidecolor=ffffff00 --ringcolor=2D2B28FF \
        --linecolor=1C1B19ff --keyhlcolor=98BC37FF --ringvercolor=00000000 \
        --separatorcolor=1C1B19ff --insidevercolor=0000001c \

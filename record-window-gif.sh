@@ -56,7 +56,7 @@ ffmpeg -t $TRIMMED_DURATION -i $RAW_FILE -filter_complex "[0:v] split [a][b];[a]
 gifsicle -O2 $GIF_FILE -o $OPTIMIZED_GIF_FILE
 
 # Review gif
-firefox-developer-edition $OPTIMIZED_GIF_FILE
+firefox $OPTIMIZED_GIF_FILE
 
 # I needed to set a higher FPS once when I was capturing fast action. Keep for posterity.
 # ffmpeg -t $TRIMMED_DURATION -i $RAW_FILE -filter_complex "[0:v] fps=30,split [a][b];[a] palettegen [p];[b][p] paletteuse" $GIF_FILE
