@@ -329,6 +329,15 @@ One thing with this that I'm currently testing out is monitoring silence on the
 'update' window. I'd like to get notified when an update requires input
 
 
+#### tmux-music.sh
+
+Starts a new session called `mpd`, and launch mopidy.
+
+#### tmux-work.sh
+
+Creates a work session that automatically starts a datomic transactor and the
+datomic dev console.
+
 #### touchpad-toggle.sh
 
 Toggles touchpad on or off.
@@ -367,13 +376,4 @@ here and forgotten.
 #### xset-wacom-my-prefs.sh
 
 Set my Wacom prefs using `xsetwacom`, never found a gui app that did what I needed to resorted to setting it with a script
-
-#### tmux-music.sh
-
-Starts a new session called `mpd`, and launch mopidy.
-
-#### tmux-work.sh
-
-Creates a work session that automatically starts a datomic transactor and the
-datomic dev console.
 
