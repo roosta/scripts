@@ -183,3 +183,33 @@ Used in i3wm config like so:
 ```i3
 bindsym XF86TouchpadToggle exec --no-startup-id ~/utils/touchpad-toggle.sh
 ```
+#### [updates-arch-combined.sh](updates-arch-combined.sh)
+
+> DEPECATED: Xorg is getting phased out for wayland, kept for backward
+> compatibility temporarily.
+
+Will output formatted text for Polybar, checking Arch Linux `pacman` updates, as
+well as AUR updates.
+
+#### [waybar-dev.sh](waybar-dev.sh)
+
+Requirements:
+- [entr](https://eradman.com/entrproject/)
+- [Waybar](https://github.com/Alexays/Waybar)
+
+Uses `entr` to watch for changes in my Waybar config files, and will restart
+Waybar on save. I use this when I develop themes and customization, you can
+pass `-d` to open a GTK debugger window as well, to get CSS selectors used for
+styling Waybar.
+
+#### [wl-prop.sh](wl-prop.sh)
+
+Requirements:
+
+- [Sway](https://github.com/swaywm/sway)
+- [jq](https://jqlang.github.io/jq/)
+- [awk](https://www.gnu.org/software/gawk/)
+
+Works similarly to `xprop` in xorg. Running this will start a window selection,
+and output the relevant node from the Sway tree.
+
