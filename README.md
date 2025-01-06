@@ -367,3 +367,10 @@ here and forgotten.
 
 Set my Wacom prefs using `xsetwacom`, never found a gui app that did what I needed to resorted to setting it with a script
 
+#### [vpn.sh](vpn.sh)
+
+> DEPECATED: Xorg is getting phased out for wayland, kept for backward
+> compatibility temporarily
+
+Check for tunnel and echo [polybar formatted](https://github.com/jaagr/polybar/wiki/Formatting) string
+
