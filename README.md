@@ -39,10 +39,12 @@ It is used like so:
 
 WIP script to flush credentials and secrets.
 
-#### [git_ls_large_files.sh](git_ls_large_files.sh)
+#### [git-ls-large-files.sh](git-ls-large-files.sh)
 
 See which files in a git repo history takes up the most space. Useful if
 pruning assets or similar from a repo.
+
+Source: https://stackoverflow.com/questions/13403069/how-to-find-out-which-files-take-up-the-most-space-in-git-repo
 
 #### Power scripts
 
