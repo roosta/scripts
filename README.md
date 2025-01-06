@@ -338,16 +338,6 @@ Starts a new session called `mpd`, and launch mopidy.
 Creates a work session that automatically starts a datomic transactor and the
 datomic dev console.
 
-#### touchpad-toggle.sh
-
-Toggles touchpad on or off.
-
-Used in i3wm config like so:
-
-```example
-bindsym XF86TouchpadToggle exec --no-startup-id ~/utils/touchpad-toggle.sh
-```
-
 #### urxvtc-tmux.sh
 
 much like 'tmux-attach.sh' but starts urxvt client and kick off Tmux.
