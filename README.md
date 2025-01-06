@@ -183,11 +183,3 @@ Used in i3wm config like so:
 ```i3
 bindsym XF86TouchpadToggle exec --no-startup-id ~/utils/touchpad-toggle.sh
 ```
-
-#### [vpn.sh](vpn.sh)
-
-> DEPECATED: Xorg is getting phased out for wayland, kept for backward
-> compatibility temporarily
-
-Check for tunnel and echo [polybar formatted](https://github.com/jaagr/polybar/wiki/Formatting) string
-
