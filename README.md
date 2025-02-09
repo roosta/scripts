@@ -4,6 +4,10 @@ These are utility scripts I use on my systems that isn't a package, or is
 simple enough to warrant a script file. These files are in flux, due to
 changing requirements and environments.
 
+Going forward most of these scripts target Wayland, Xorg scripts kept here for
+backward compatibility so I can launch an i3 session for whatever reason. For a
+full list of phased out scripts `checkout` the deprecated branch.
+
 - Companion repo for for my [dotfiles](https://github.com/roosta/etc)
 
 ### Branches
@@ -204,12 +208,35 @@ styling Waybar.
 
 #### [wl-prop.sh](wl-prop.sh)
 
+- source: https://gist.github.com/crispyricepc/f313386043395ff06570e02af2d9a8e0#file-wlprop-sh
+
 Requirements:
 
-- [Sway](https://github.com/swaywm/sway)
-- [jq](https://jqlang.github.io/jq/)
-- [awk](https://www.gnu.org/software/gawk/)
+- `swaymsg`
+- `jq`
+- `slurp`
+- `awk`
 
 Works similarly to `xprop` in xorg. Running this will start a window selection,
 and output the relevant node from the Sway tree.
+
+#### Rofi Action Menu
+
+A Rofi menu with common actions I used to script or save as cmd one liners.
+
+When transitioning to Wayland, several desktop related tools stopped working,
+like `flameshot`, or `gpick`. So I needed some alternatives for Wayland. I set it
+up as a Rofi menu with generic scripts, so that it can be swapped out on
+need.
+
+- [colorpicker.sh](colorpicker.sh)
+  - [hyprpicker](https://github.com/hyprwm/hyprpicker)
+  - [wl-clipboard](https://github.com/bugaevc/wl-clipboard)
+- [monitor.sh](monitor.sh)
+  - [alacritty](https://github.com/alacritty/alacritty)
+  - [btop](https://github.com/aristocratos/btop)
+- [screenshot.sh](screenshot.sh)
+  - [grim](https://git.sr.ht/~emersion/grim)
+  - [slurp](https://github.com/emersion/slurp)
+  - [swappy](https://github.com/jtheoof/swappy)
 
