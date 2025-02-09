@@ -6,7 +6,7 @@ changing requirements and environments.
 
 Going forward most of these scripts target Wayland, Xorg scripts kept here for
 backward compatibility so I can launch an i3 session for whatever reason. For a
-full list of phased out scripts `checkout` the deprecated branch.
+full list of phased out scripts `checkout` the `deprecated` branch.
 
 - Companion repo for for my [dotfiles](https://github.com/roosta/etc)
 
@@ -19,8 +19,42 @@ full list of phased out scripts `checkout` the deprecated branch.
 
 ### Script descriptions
 
-Short descriptions for each script, not always up to data. Attribution where
+Short descriptions for each script, not always up to date. Attribution where
 possible.
+
+#### Power scripts
+
+Scripts used in custom power menus, mostly using systemctl, but also uses
+[zenity](https://gitlab.gnome.org/GNOME/zenity) as a confirm dialog, cause I
+sometimes hit the wrong menu item.
+
+- [hibernate.sh](hibernate.sh)
+- [lock.sh](lock.sh)
+- [locker.sh](locker.sh)
+- [logout.sh](logout.sh)
+- [reboot.sh](reboot.sh)
+- [shutdown.sh](shutdown.sh)
+- [suspend.sh](suspend.sh)
+
+#### Rofi Action Menu
+
+A Rofi menu with common actions I used to script or save as cmd one liners.
+
+When transitioning to Wayland, several desktop related tools stopped working,
+like `flameshot`, or `gpick`. So I needed some alternatives for Wayland. I set it
+up as a Rofi menu with generic scripts, so that it can be swapped out on
+need.
+
+- [colorpicker.sh](colorpicker.sh)
+  - [hyprpicker](https://github.com/hyprwm/hyprpicker)
+  - [wl-clipboard](https://github.com/bugaevc/wl-clipboard)
+- [monitor.sh](monitor.sh)
+  - [alacritty](https://github.com/alacritty/alacritty)
+  - [btop](https://github.com/aristocratos/btop)
+- [screenshot.sh](screenshot.sh)
+  - [grim](https://git.sr.ht/~emersion/grim)
+  - [slurp](https://github.com/emersion/slurp)
+  - [swappy](https://github.com/jtheoof/swappy)
 
 #### [bookmarks_md.mjs](bookmarks_md.mjs)
 
@@ -49,20 +83,6 @@ See which files in a git repo history takes up the most space. Useful if
 pruning assets or similar from a repo.
 
 Source: https://stackoverflow.com/questions/13403069/how-to-find-out-which-files-take-up-the-most-space-in-git-repo
-
-#### Power scripts
-
-Scripts used in custom power menus, mostly using systemctl, but also uses
-[zenity](https://gitlab.gnome.org/GNOME/zenity) as a confirm dialog, cause I
-sometimes hit the wrong menu item.
-
-- [hibernate.sh](hibernate.sh)
-- [lock.sh](lock.sh)
-- [locker.sh](locker.sh)
-- [logout.sh](logout.sh)
-- [reboot.sh](reboot.sh)
-- [shutdown.sh](shutdown.sh)
-- [suspend.sh](suspend.sh)
 
 #### [iommu-groups.sh](iommu-groups.sh)
 
@@ -219,24 +239,4 @@ Requirements:
 
 Works similarly to `xprop` in xorg. Running this will start a window selection,
 and output the relevant node from the Sway tree.
-
-#### Rofi Action Menu
-
-A Rofi menu with common actions I used to script or save as cmd one liners.
-
-When transitioning to Wayland, several desktop related tools stopped working,
-like `flameshot`, or `gpick`. So I needed some alternatives for Wayland. I set it
-up as a Rofi menu with generic scripts, so that it can be swapped out on
-need.
-
-- [colorpicker.sh](colorpicker.sh)
-  - [hyprpicker](https://github.com/hyprwm/hyprpicker)
-  - [wl-clipboard](https://github.com/bugaevc/wl-clipboard)
-- [monitor.sh](monitor.sh)
-  - [alacritty](https://github.com/alacritty/alacritty)
-  - [btop](https://github.com/aristocratos/btop)
-- [screenshot.sh](screenshot.sh)
-  - [grim](https://git.sr.ht/~emersion/grim)
-  - [slurp](https://github.com/emersion/slurp)
-  - [swappy](https://github.com/jtheoof/swappy)
 
