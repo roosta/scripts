@@ -56,6 +56,11 @@ need.
   - [slurp](https://github.com/emersion/slurp)
   - [swappy](https://github.com/jtheoof/swappy)
 
+Using with you could put something like this in your WM/compositor config:
+```i3
+bindsym $mod+grave exec rofi -show menu -modes "menu:~/scripts/rofi-menu.sh" -show-icons
+```
+
 #### [bookmarks_md.mjs](bookmarks_md.mjs)
 
 Node script to grab bookmarks from chrome/firefox in a folder on the toolbar
