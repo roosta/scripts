@@ -267,10 +267,10 @@ clicking on the volume module.
 
 ```jsonc
 "pulseaudio": {
-    ...
+    // ...
     "on-click": "~/scripts/toggle-sinks.sh 'alsa_output.usb-SteelSeries_SteelSeries_Arctis_7-00.stereo-game' 'alsa_output.pci-0000_00_1b.0.analog-stereo'",
-    "on-click-middle": "pavucontrol",
-    ...
+    "on-click-middle": "pavucontrol"
+    // ...
 
 },
 ```
