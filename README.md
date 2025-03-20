@@ -245,3 +245,32 @@ Requirements:
 Works similarly to `xprop` in xorg. Running this will start a window selection,
 and output the relevant node from the Sway tree.
 
+#### [toggle-sinks.sh](toggle-sinks.sh)
+
+Requirements:
+
+- `pulseaudio` / `pipewire-pulse`
+
+Toggles between two sinks using pactl, takes two arguments, which are the
+sinks you wish to toggle between. Using on pipewire, pipewire-pulse. To list
+sinks use `pactl list sinks short`.
+
+##### Usage:
+
+```sh
+./toggle-sinks.sh [SINK1] [SINK2]
+```
+
+I have two outputs I toggle between often: headset and speakers. I've added
+this script to [Waybar](https://github.com/Alexays/Waybar), and activate it by
+clicking on the volume module.
+
+```jsonc
+"pulseaudio": {
+    ...
+    "on-click": "~/scripts/toggle-sinks.sh 'alsa_output.usb-SteelSeries_SteelSeries_Arctis_7-00.stereo-game' 'alsa_output.pci-0000_00_1b.0.analog-stereo'",
+    "on-click-middle": "pavucontrol",
+    ...
+
+},
+```
