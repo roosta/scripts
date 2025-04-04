@@ -78,6 +78,25 @@ It is used like so:
 ./crypthelper.sh close my-encrypted-device-name
 ```
 
+#### [figlet-list.sh](figlet-list.sh)
+
+Script to display all toilet/figlet fonts with sample text. It will try
+`/usr/share/figlet` and `/usr/share/figlet/fonts`. I got extra fonts installed
+in the latter.
+
+Requirements:
+
+- https://github.com/cacalabs/toilet
+> Could be modified to use figlet
+
+Optionally:
+- https://github.com/xero/figlet-fonts
+
+Refs:
+
+- https://github.com/xero/figlet-fonts
+- https://github.com/xero/dotfiles
+
 #### [flush.sh](flush.sh)
 
 WIP script to flush credentials and secrets.
