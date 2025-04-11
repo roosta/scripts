@@ -1,4 +1,5 @@
-# Scripts
+Scripts
+=========
 
 These are utility scripts I use on my systems that isn't a package, or is
 simple enough to warrant a script file. These files are in flux, due to
@@ -61,6 +62,37 @@ Using with you could put something like this in your WM/compositor config:
 bindsym $mod+grave exec rofi -show menu -modes "menu:~/scripts/rofi-menu.sh" -show-icons
 ```
 
+### [add-vim-plugin.sh](add-vim-plugin.sh)
+
+Will create a lua file from a github repo identifier: `username/repo`. This was created to
+speed up migration from `vimrc` to `init.lua`
+
+Requirements:
+
+- [Toilet](https://github.com/cacalabs/toilet)
+- [figlet-fonts](https://github.com/xero/figlet-fonts)
+
+Also asumes [lazy.nvim](https://lazy.folke.io/) is being used with a
+[structured file layout](https://lazy.folke.io/usage/structuring).
+
+Usage:
+
+```sh
+./add-vim-plugin.sh "roosta/fzf-folds.vim"
+```
+
+Resulting file:
+
+```./fzf-folds.lua
+-- ┬─┐┌─┐┬─┐  ┬─┐┌─┐┬  ┬─┐┐─┐ ┐ ┬o┌┌┐
+-- ├─ ┌─┘├─ ──├─ │ ││  │ │└─┐ │┌┘││││
+-- ┆  └─┘┆    ┆  ┘─┘┆─┘┆─┘──┘o└┘ ┆┘ ┆
+-- ─────────────────────────────────────────────────────────────────────────
+
+return {
+  "roosta/fzf-folds.vim",
+}
+```
 ### [bookmarks_md.mjs](bookmarks_md.mjs)
 
 Node script to grab bookmarks from chrome/firefox in a folder on the toolbar
@@ -292,5 +324,4 @@ Requirements:
 
 Works similarly to `xprop` in xorg. Running this will start a window selection,
 and output the relevant node from the Sway tree.
-
 
