@@ -20,6 +20,6 @@ fi
 # Move all currently playing streams to the new sink
 SINK=$(pactl get-default-sink)
 pactl list short sink-inputs | while read -r stream; do
-    stream_id=$(cut -f1 < "$stream")
+    stream_id=$(cut -f1 <<< "$stream")
     pactl move-sink-input "$stream_id" "$SINK"
 done
