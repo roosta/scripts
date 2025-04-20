@@ -55,7 +55,7 @@ if [ $# -gt 0 ]; then
 fi
 
 # Change prompt to "Actions menu"
-echo -en "\0prompt\x1fActions Menu\n"
+echo -en "\0prompt\x1factions\n"
 
 # Print menu items
 for item in "${MENU_ITEMS[@]}"; do
