@@ -10,9 +10,9 @@ readonly SCRIPTS_DIR="${HOME}/scripts"
 # Define menu structure. Icon is defined after the pipe, make sure you have it
 # installed via an icon pack or similar
 declare -A MENU_ITEMS=(
-  ["screenshot"]="Take a screenshot|insert-image"
-  ["colorpicker"]="Pick a color|gpick"
-  ["monitor"]="Start monitor|btop"
+  ["screenshot"]="Take a screenshot|viewimage"
+  ["colorpicker"]="Pick a color|applications-graphics-symbolic"
+  ["monitor"]="Start monitor|process-stop-symbolic"
 )
 
 # Format menu item for rofi display
