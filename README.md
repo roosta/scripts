@@ -325,3 +325,13 @@ Requirements:
 Works similarly to `xprop` in xorg. Running this will start a window selection,
 and output the relevant node from the Sway tree.
 
+### [git-update.sh](git-update.sh)
+
+Script to walk a list of repositories and either pull or clone, depending on
+state. It is done in parallell, and takes a destination and a flat text file
+with git repo urls to sync. Used in my dotfiles, when I need to keep repos up to
+date with a job.
+
+```sh
+./scripts/git_update.sh ~/lib ~/lib_repositories.txt
+```
