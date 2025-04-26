@@ -11,9 +11,9 @@ while [[ "$#" -gt 0 ]]; do
 done
 
 CONFIG_FILES=(
-  "$HOME/etc/conf/waybar/.config/waybar/config.jsonc"
-  "$HOME/etc/conf/waybar/.config/waybar/modules.jsonc"
-  "$HOME/etc/conf/waybar/.config/waybar/style.css"
+  "$HOME/.config/waybar/config.jsonc"
+  "$HOME/.config/waybar/modules.jsonc"
+  "$HOME/.config/waybar/style.css"
 )
 
 # Create the command based on debug mode
