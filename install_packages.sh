@@ -5,7 +5,7 @@
 
 set -euo pipefail
 
-CONFIG_FILE="${1:-dependencies.yaml}"
+CONFIG_FILE="${1:-$HOME/.dependencies.yml}"
 
 if [[ ! -f "$CONFIG_FILE" ]]; then
   echo "Error: Config file '$CONFIG_FILE' not found."
@@ -26,12 +26,15 @@ fi
 
 echo "🔍 Reading package configuration from $CONFIG_FILE..."
 
+PACKAGE_JSON=$(yq < "$CONFIG_FILE")
+
+CURRENT=0;
+
 # Get all package categories
-CATEGORIES=$(yq '.packages | keys | .[]' "$CONFIG_FILE")
+CATEGORIES=$(jq '.packages | keys | .[]' <<< "$PACKAGE_JSON")
 
 # Count total packages for progress tracking
-TOTAL_PACKAGES=$(yq '.packages.* | .[] | select(.aur != null) | length' "$CONFIG_FILE" | wc -l)
-CURRENT=0
+TOTAL_PACKAGES=$(jq '.packages.[] | .[] | length' <<< "$PACKAGE_JSON" | wc -l)
 
 echo "📦 Found $TOTAL_PACKAGES packages to process across $(echo "$CATEGORIES" | wc -l) categories"
 echo "⚙️ Starting installation..."
@@ -39,17 +42,11 @@ echo "⚙️ Starting installation..."
 for category in $CATEGORIES; do
   echo "🔹 Processing category: $category"
 
-  # Get all packages in this category
-  PACKAGES=$(yq ".packages.${category[]} | select(.aur != null) | 
-    {name: .name, aur: .aur, optional: .optional // false}" "$CONFIG_FILE")
+  PACKAGES=$(jq ".packages.${category}" <<< "$PACKAGE_JSON")
+  csv=$(jq -r '.[]|[.name, .optional // false, .aur] | @csv' <<< "$PACKAGES");
 
-  # Process each package
-  echo "$PACKAGES" | yq -o=json | jq -c '.[]' | while read -r pkg_json; do
-  name=$(echo "$pkg_json" | jq -r '.name')
-  # aur=$(echo "$pkg_json" | jq -r '.aur')
-  optional=$(echo "$pkg_json" | jq -r '.optional')
-
-    # Skip optional packages for now
+  # Skip optional packages for now
+  while IFS=$',' read -r name optional _; do
     if [[ "$optional" == "true" ]]; then
       echo "  ⏩ Skipping optional package: $name"
       continue
@@ -59,12 +56,13 @@ for category in $CATEGORIES; do
     echo "  🔄 Installing package ($CURRENT/$TOTAL_PACKAGES): $name"
 
     # Install the package with paru
-    if ! paru -S --needed --noconfirm "$name"; then
-      echo "  ❌ Failed to install: $name"
-    else
-      echo "  ✅ Successfully installed: $name"
-    fi
-  done
+    # if ! paru -S --needed --noconfirm "$name"; then
+    #   echo "  ❌ Failed to install: $name"
+    # else
+    #   echo "  ✅ Successfully installed: $name"
+    # fi
+  done <<< "$csv"
+
 done
 
 echo "🎉 Package installation completed!"
