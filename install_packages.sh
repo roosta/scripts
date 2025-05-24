@@ -43,10 +43,10 @@ for category in $CATEGORIES; do
   echo "🔹 Processing category: $category"
 
   PACKAGES=$(jq ".packages.${category}" <<< "$PACKAGE_JSON")
-  csv=$(jq -r '.[]|[.name, .optional // false, .aur] | @csv' <<< "$PACKAGES");
+  csv=$(jq -r '.[]|[.name, .optional // false, .aur] | @tsv' <<< "$PACKAGES");
 
   # Skip optional packages for now
-  while IFS=$',' read -r name optional _; do
+  while IFS=$'\t' read -r name optional _; do
     if [[ "$optional" == "true" ]]; then
       echo "  ⏩ Skipping optional package: $name"
       continue
@@ -56,11 +56,11 @@ for category in $CATEGORIES; do
     echo "  🔄 Installing package ($CURRENT/$TOTAL_PACKAGES): $name"
 
     # Install the package with paru
-    # if ! paru -S --needed --noconfirm "$name"; then
-    #   echo "  ❌ Failed to install: $name"
-    # else
-    #   echo "  ✅ Successfully installed: $name"
-    # fi
+    if ! paru -S --needed --noconfirm "$name"; then
+      echo "  ❌ Failed to install: $name"
+    else
+      echo "  ✅ Successfully installed: $name"
+    fi
   done <<< "$csv"
 
 done
