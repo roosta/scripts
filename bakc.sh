@@ -2,7 +2,7 @@
 # Author: Roosta <mail@roosta.sh>
 # ----------------------------------------
 # backup directory in home(~/backup) with directory structure of
-# source file. (~/.backup/[PATH]/FILE)
+# source file. (~/backup/[PATH]/FILE)
 # Append dateformatted date and .bak to file (FILENAME.DATE.bak)
 # -----------------------------------
 
