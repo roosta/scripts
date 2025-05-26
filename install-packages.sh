@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# install_packages.sh - Install packages from YAML configuration using paru
-# Usage: ./install_packages.sh [config.yaml]
+# install-packages.sh - Install packages from YAML configuration using paru
+# Usage: ./install-packages.sh [config.yaml]
 
 set -euo pipefail
 
