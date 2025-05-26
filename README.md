@@ -261,12 +261,19 @@ sinks use `pactl list sinks short`.
 #### Usage:
 
 ```sh
-./toggle-sinks.sh [SINK1] [SINK2]
+./switch-auio.sh [SINK1] [SINK2]
 ```
 
-I have two outputs I toggle between often: headset and speakers. I've added
-this script to [Waybar](https://github.com/Alexays/Waybar), and activate it by
-clicking on the volume module.
+Toggles between two sinks using pactl, takes two arguments, which are the
+sinks you wish to toggle between. Using on pipewire, pipewire-pulse. To list
+sinks use `pactl list sinks short`
+
+    Usage: ./toggle-sinks.sh [headphones|speakers|media]
+    No arguments: Toggle between speakers and headphones
+    headphones: Activate headphones
+    speakers: Activate speakers
+    media: Activate media speakers
+
 
 ```jsonc
 "pulseaudio": {

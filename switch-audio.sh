@@ -4,11 +4,11 @@
 # sinks you wish to toggle between. Using on pipewire, pipewire-pulse. To list
 # sinks use `pactl list sinks short`
 #
-# Usage: ./toggle-sinks.sh [headphones|speakers|media]
-#   No arguments: Toggle between speakers and headphones
+# Usage: ./switch-audio.sh [headphones|speakers|media|toggle]
 #   headphones: Activate headphones
 #   speakers: Activate speakers
 #   media: Activate media speakers
+#   toggle: Toggle between speakers and headphones
 
 # Author: Daniel Berg <mail@roosta.sh>
  
@@ -64,15 +64,15 @@ case "$1" in
   "media")
     activate_media
     ;;
-  "")
+  "toggle")
     toggle_sinks
     ;;
   *)
-    echo "Usage: $0 [headphones|speakers|media]"
-    echo "  No arguments: Toggle between speakers and headphones"
+    echo "Usage: $0 [headphones|speakers|media|toggle]"
     echo "  headphones: Activate headphones"
     echo "  speakers: Activate speakers"
     echo "  media: Activate media speakers"
+    echo "  toggle: Toggle between speakers and headphones"
     exit 1
     ;;
 esac
