@@ -4,11 +4,11 @@
 # sinks you wish to toggle between. Using on pipewire, pipewire-pulse. To list
 # sinks use `pactl list sinks short`
 #
-# Usage: ./toggle-sinks.sh [headphones|speakers|tv]
+# Usage: ./toggle-sinks.sh [headphones|speakers|media]
 #   No arguments: Toggle between speakers and headphones
 #   headphones: Activate headphones
 #   speakers: Activate speakers
-#   tv: Activate tv speakers
+#   media: Activate media speakers
 
 # Author: Daniel Berg <mail@roosta.sh>
  
@@ -16,7 +16,7 @@
 # i.e `pactl list sinks short`
 HEADPHONES="alsa_output.usb-SteelSeries_SteelSeries_Arctis_7-00.stereo-game"
 SPEAKERS="alsa_output.usb-Generic_USB_Audio-00.HiFi__Speaker__sink"
-TV="alsa_output.pci-0000_03_00.1.hdmi-stereo-extra3"
+MEDIA="alsa_output.pci-0000_03_00.1.hdmi-stereo-extra3"
 
 # Get the currently active sink
 CURRENT_SINK=$(pactl get-default-sink)
@@ -47,8 +47,8 @@ activate_speakers() {
   pactl set-default-sink "$SPEAKERS"
 }
 
-activate_tv() {
-  pactl set-default-sink "$TV"
+activate_media() {
+  pactl set-default-sink "$MEDIA"
 }
 
 # Toggle between sinks
@@ -61,18 +61,18 @@ case "$1" in
   "speakers")
     activate_speakers
     ;;
-  "tv")
-    activate_tv
+  "media")
+    activate_media
     ;;
   "")
     toggle_sinks
     ;;
   *)
-    echo "Usage: $0 [headphones|speakers|tv]"
+    echo "Usage: $0 [headphones|speakers|media]"
     echo "  No arguments: Toggle between speakers and headphones"
     echo "  headphones: Activate headphones"
     echo "  speakers: Activate speakers"
-    echo "  tv: Activate tv speakers"
+    echo "  media: Activate media speakers"
     exit 1
     ;;
 esac
