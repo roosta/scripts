@@ -93,7 +93,7 @@ return {
   "roosta/fzf-folds.vim",
 }
 ```
-### [bookmarks_md.mjs](bookmarks_md.mjs)
+### [bookmarks-md.mjs](bookmarks-md.mjs)
 
 Node script to grab bookmarks from chrome/firefox in a folder on the toolbar
 called `capture`. Converts the bookmarks to markdown links.
