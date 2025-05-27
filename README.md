@@ -95,6 +95,47 @@ return {
 }
 ```
 
+### [bakc.sh](./bakc.sh)
+
+Quickly backup and timestamp a file mirroring its location in a target backup
+directory
+
+#### Usage
+
+```sh
+./bakc.sh ~/src/bakc/bakc.sh
+# backed up /home/[user]/src/bakc/bakc.sh to /home/[user]/backup/home/[user]/src/bakc/bakc.sh~2017-02-12@21:20:12
+```
+
+Includes the option of placing it in working dir and only appending a .bak file extension
+
+```sh
+./bakc.sh -w file.txt
+# Created test.txt.bak here (pwd)
+```
+
+Also included is the option to remove source file after backup:
+
+```sh
+./bakc.sh -wR file.txt
+# Created file.txt.bak here (/home/[user]/[path]) removed 'file.txt'
+```
+
+It takes a relative path, and/or multiple files and follow symlinks:
+
+```sh
+~/bakc.sh ~/.zprofile ~/.zshenv
+# backed up /home/[user]/.zshenv to /home/[user]/backup/home/[user]/.zshenv\~2017-02-12@22:01:40
+# backed up /home/[user]/.zprofile to /home/[user]/backup/home/[user]/.zprofile\~2017-02-12@22:01:40
+```
+
+
+```sh
+~/bakc.sh -w ~/.zshenv ~/.zprofile
+# created /home/[user]/.zshenv.bak here (/home/[user]/src/bakc)
+# Created /home/[user]/.zprofile.bak here (/home/[user]/src/bakc)
+```
+
 ### [bookmarks-md.mjs](./bookmarks-md.mjs)
 
 Node script to grab bookmarks from chrome/firefox in a folder on the toolbar
@@ -141,6 +182,17 @@ See which files in a git repo history takes up the most space. Useful if
 pruning assets or similar from a repo.
 
 Source: https://stackoverflow.com/questions/13403069/how-to-find-out-which-files-take-up-the-most-space-in-git-repo
+
+### [git-update.sh](./git-update.sh)
+
+Script to walk a list of repositories and either pull or clone, depending on
+state. It is done in parallell, and takes a destination and a flat text file
+with git repo urls to sync. Used in my dotfiles, when I need to keep repos up to
+date with a job.
+
+```sh
+./scripts/git-update.sh ~/projects ~/projects.txt
+```
 
 ### [iommu-groups.sh](./iommu-groups.sh)
 
@@ -208,6 +260,21 @@ how it looks depends on what colors are supported by your terminal.
 
 More on that [here](https://gist.github.com/XVilka/8346728).
 
+### [switch-audio.sh](./switch-audio.sh)
+
+Requirements:
+
+- `pulseaudio` / `pipewire-pulse`
+
+Switches between audio sink (output) presets using pactl: `pactl list sinks short`.
+
+    Usage: ./switch-audio.sh [headphones|speakers|tv|toggle]
+      headphones: Activate headphones
+      speakers: Activate speakers
+      tv: Activate tv speakers
+      toggle: Toggle between speakers and headphones
+
+
 ### [tmux-attach.sh](./tmux-attach.sh)
 
 Attach to an existing session, or create a new. Useful if you want tmux to
@@ -249,21 +316,6 @@ Create an update window if `main` session exist. Set this window to monitor
 silence. When I start an update, and then do something else I'd like to be
 alerted on silence since that indicates that its either finished or requires
 input.
-
-### [switch-audio.sh](./switch-audio.sh)
-
-Requirements:
-
-- `pulseaudio` / `pipewire-pulse`
-
-Switches between audio sink (output) presets using pactl: `pactl list sinks short`.
-
-    Usage: ./switch-audio.sh [headphones|speakers|tv|toggle]
-      headphones: Activate headphones
-      speakers: Activate speakers
-      tv: Activate tv speakers
-      toggle: Toggle between speakers and headphones
-
 
 ### [torrent-done.sh](./torrent-done.sh)
 
@@ -313,17 +365,6 @@ Requirements:
 Works similarly to `xprop` in xorg. Running this will start a window selection,
 and output the relevant node from the Sway tree.
 
-### [git-update.sh](./git-update.sh)
-
-Script to walk a list of repositories and either pull or clone, depending on
-state. It is done in parallell, and takes a destination and a flat text file
-with git repo urls to sync. Used in my dotfiles, when I need to keep repos up to
-date with a job.
-
-```sh
-./scripts/git-update.sh ~/projects ~/projects.txt
-```
-
 ### [zsh-update.sh](./zsh-update.sh)
 
 Requires:
@@ -335,45 +376,4 @@ Makes updating zsh plugins via zplug accessible via a script, normally you'd
 have to source an environment for `zplug update` to work, in other words have a
 fully sourced config with zplug to be able to update. You still need that, but
 here it is as a script callable from a subshell.
-
-### [bakc.sh](./bakc.sh)
-
-Quickly backup and timestamp a file mirroring its location in a target backup
-directory
-
-#### Usage
-
-```sh
-./bakc.sh ~/src/bakc/bakc.sh
-# backed up /home/[user]/src/bakc/bakc.sh to /home/[user]/backup/home/[user]/src/bakc/bakc.sh~2017-02-12@21:20:12
-```
-
-Includes the option of placing it in working dir and only appending a .bak file extension
-
-```sh
-./bakc.sh -w file.txt
-# Created test.txt.bak here (pwd)
-```
-
-Also included is the option to remove source file after backup:
-
-```sh
-./bakc.sh -wR file.txt
-# Created file.txt.bak here (/home/[user]/[path]) removed 'file.txt'
-```
-
-It takes a relative path, and/or multiple files and follow symlinks:
-
-```sh
-~/bakc.sh ~/.zprofile ~/.zshenv
-# backed up /home/[user]/.zshenv to /home/[user]/backup/home/[user]/.zshenv\~2017-02-12@22:01:40
-# backed up /home/[user]/.zprofile to /home/[user]/backup/home/[user]/.zprofile\~2017-02-12@22:01:40
-```
-
-
-```sh
-~/bakc.sh -w ~/.zshenv ~/.zprofile
-# created /home/[user]/.zshenv.bak here (/home/[user]/src/bakc)
-# Created /home/[user]/.zprofile.bak here (/home/[user]/src/bakc)
-```
 
