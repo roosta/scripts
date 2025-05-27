@@ -58,6 +58,7 @@ need.
   - [swappy](https://github.com/jtheoof/swappy)
 
 Using with you could put something like this in your WM/compositor config:
+
 ```i3
 bindsym $mod+grave exec rofi -show menu -modes "menu:~/scripts/rofi-menu.sh" -show-icons
 ```
@@ -83,7 +84,7 @@ Usage:
 
 Resulting file:
 
-```./fzf-folds.lua
+```lua
 -- ┬─┐┌─┐┬─┐  ┬─┐┌─┐┬  ┬─┐┐─┐ ┐ ┬o┌┌┐
 -- ├─ ┌─┘├─ ──├─ │ ││  │ │└─┐ │┌┘││││
 -- ┆  └─┘┆    ┆  ┘─┘┆─┘┆─┘──┘o└┘ ┆┘ ┆
@@ -93,6 +94,7 @@ return {
   "roosta/fzf-folds.vim",
 }
 ```
+
 ### [bookmarks-md.mjs](./bookmarks-md.mjs)
 
 Node script to grab bookmarks from chrome/firefox in a folder on the toolbar
@@ -355,7 +357,7 @@ have to source an environment for `zplug update` to work, in other words have a
 fully sourced config with zplug to be able to update. You still need that, but
 here it is as a script callable from a subshell.
 
-## [bakc.sh](./bakc.sh)
+### [bakc.sh](./bakc.sh)
 
 Quickly backup and timestamp a file mirroring its location in a target backup
 directory
