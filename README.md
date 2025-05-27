@@ -275,6 +275,23 @@ Switches between audio sink (output) presets using pactl: `pactl list sinks shor
       toggle: Toggle between speakers and headphones
 
 
+### [switch-display.sh](./switch-display.sh)
+
+Hyprland display switcher using dynamic monitor configs, toggle between
+monitor layouts.
+
+Requirements:
+
+- hyprland
+
+```
+Usage: ./switch-display.sh [desk|mirror|tv|toggle]
+Make sure to create config files:
+  $HOME/.config/hypr/monitors/desk.conf
+  $HOME/.config/hypr/monitors/tv.conf
+  $HOME/.config/hypr/monitors/mirror.conf
+```
+
 ### [tmux-attach.sh](./tmux-attach.sh)
 
 Attach to an existing session, or create a new. Useful if you want tmux to
