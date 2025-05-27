@@ -250,42 +250,21 @@ silence. When I start an update, and then do something else I'd like to be
 alerted on silence since that indicates that its either finished or requires
 input.
 
-### [switch-sinks.sh](./switch-sinks.sh)
+### [switch-audio.sh](./switch-audio.sh)
 
 Requirements:
 
 - `pulseaudio` / `pipewire-pulse`
 
-Toggles between two sinks using pactl, takes two arguments, which are the
-sinks you wish to toggle between. Using on pipewire, pipewire-pulse. To list
-sinks use `pactl list sinks short`.
+Switches between audio sink (output) presets using pactl: `pactl list sinks short`.
 
-#### Usage:
-
-```sh
-./switch-auio.sh [SINK1] [SINK2]
-```
-
-Toggles between two sinks using pactl, takes two arguments, which are the
-sinks you wish to toggle between. Using on pipewire, pipewire-pulse. To list
-sinks use `pactl list sinks short`
-
-    Usage: ./toggle-sinks.sh [headphones|speakers|media]
-    No arguments: Toggle between speakers and headphones
-    headphones: Activate headphones
-    speakers: Activate speakers
-    media: Activate media speakers
+    Usage: ./switch-audio.sh [headphones|speakers|tv|toggle]
+      headphones: Activate headphones
+      speakers: Activate speakers
+      tv: Activate tv speakers
+      toggle: Toggle between speakers and headphones
 
 
-```jsonc
-"pulseaudio": {
-    // ...
-    "on-click": "~/scripts/toggle-sinks.sh 'alsa_output.usb-SteelSeries_SteelSeries_Arctis_7-00.stereo-game' 'alsa_output.pci-0000_00_1b.0.analog-stereo'",
-    "on-click-middle": "pavucontrol"
-    // ...
-
-},
-```
 ### [torrent-done.sh](./torrent-done.sh)
 
 Extract `rar` archives on torrent completion, used in [transmission](https://github.com/transmission/transmission)
