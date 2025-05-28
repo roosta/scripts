@@ -25,17 +25,16 @@
 # Hyprland display switcher using dynamic monitor configs, toggle between
 # monitor layouts.
 #
-# Usage: ./switch-display.sh [desk|mirror|tv|toggle]
+# Usage: ./switch-display.sh [desk|mirror|tv|all|toggle]
 # Make sure to create config files:
 #   $HOME/.config/hypr/monitors/desk.conf
 #   $HOME/.config/hypr/monitors/tv.conf
 #   $HOME/.config/hypr/monitors/mirror.conf
+#   $HOME/.config/hypr/monitors/all.conf
+
 
 CONFIG_DIR="$HOME/.config/hypr/monitors"
 CURRENT_CONFIG="$CONFIG_DIR/current.conf"
-DESK_CONFIG="$CONFIG_DIR/desk.conf"
-TV_CONFIG="$CONFIG_DIR/tv.conf"
-MIRROR_CONFIG="$CONFIG_DIR/mirror.conf"
 LOG_FILE="$HOME/.config/hypr/monitors/switch-display.log"
 
 log() {
@@ -50,94 +49,66 @@ reload_waybar() {
 # Get current mode by reading the symlink
 get_current_mode() {
   if [ -L "$CURRENT_CONFIG" ]; then
-    local target;
+    local target
     target=$(readlink "$CURRENT_CONFIG")
-    case "$target" in
-      *desk.conf)
-        echo "desk"
-        ;;
-      *tv.conf)
-        echo "tv"
-        ;;
-      *mirror.conf)
-        echo "mirror"
-        ;;
-      *)
-        echo "unknown"
-        ;;
-    esac
+
+    local basename
+    basename=$(basename "$target")
+
+    # Remove the .conf suffix to get the mode name
+    if [[ "$basename" == *.conf ]]; then
+      echo "${basename%.conf}"
+    else
+      echo "unknown"
+    fi
   else
     echo "none"
   fi
 }
 
-# Create config directory if it doesn't exist
-mkdir -p "$CONFIG_DIR"
-
-activate_desk() {
-  if [ ! -f "$DESK_CONFIG" ]; then
-    log "ERROR: Desk config file not found: $DESK_CONFIG"
+switch_config() {
+  local config
+  config="$CONFIG_DIR/$1.conf"
+  if [ ! -f "$config" ]; then
+    log "ERROR: $config not found"
     return 1
   fi
-
-  # Remove existing symlink/file and create new symlink
-  rm -f "$CURRENT_CONFIG"
-  ln -sf "$DESK_CONFIG" "$CURRENT_CONFIG" || { log "ERROR: Failed to create desk symlink"; return 1; }
+  ln -sf "$config" "$CURRENT_CONFIG" || {
+    log "ERROR: Failed to create $config symlink"; return 1; 
+  }
 }
 
-activate_tv() {
-  if [ ! -f "$TV_CONFIG" ]; then
-    log "ERROR: tv config file not found: $TV_CONFIG"
-    return 1
-  fi
-
-  # Remove existing symlink/file and create new symlink
-  rm -f "$CURRENT_CONFIG"
-  ln -sf "$TV_CONFIG" "$CURRENT_CONFIG" || { log "ERROR: Failed to create tv symlink"; return 1; }
-}
-
-activate_mirror() {
-  if [ ! -f "$MIRROR_CONFIG" ]; then
-    log "ERROR: mirror config file not found: $TV_CONFIG"
-    return 1
-  fi
-
-  # Remove existing symlink/file and create new symlink
-  rm -f "$CURRENT_CONFIG"
-  ln -sf "$MIRROR_CONFIG" "$CURRENT_CONFIG" || { log "ERROR: Failed to create mirror symlink"; return 1; }
-}
-
+# TODO: error on toggle without extra args
 case "$1" in
-  "desk")
-    activate_desk
-    ;;
-  "tv")
-    activate_tv
-    ;;
-  "mirror")
-    activate_mirror
+  "desk"|"tv"|"mirror"|"all")
+    switch_config "$1"
     ;;
   "toggle")
     current_mode=$(get_current_mode)
-    if [ "$current_mode" = "tv" ]; then
-      activate_desk
+    if [ "$current_mode" = "$2" ]; then
+      switch_config "$3"
     else
-      activate_tv
+      switch_config "$2"
     fi
     ;;
   *)
-    echo "Usage: $0 [desk|mirror|tv|toggle]"
-    echo "Make sure to create config files:"
-    echo "  $DESK_CONFIG"
-    echo "  $TV_CONFIG"
-    echo "  $MIRROR_CONFIG"
+    echo "Usage: $0 <config> [options]"
+    echo ""
+    echo "Configurations:"
+    echo "  desk|mirror|tv|all    Switch to specified display configuration"
+    echo "  toggle <conf1> <conf2> Toggle between two configurations"
+    echo ""
+    echo "Examples:"
+    echo "  $0 desk              # Switch to desk configuration"
+    echo "  $0 toggle desk tv    # Toggle between desk and tv configurations"
+    echo ""
+    echo "Note: Make sure to create config files in $CONFIG_DIR matching argument name, e.g., desk.conf"
     exit 1
     ;;
 esac
 
 # Reload hyprland and waybar
 # TODO: do binary check for waybar
-reload_waybar
-hyprctl reload
+hyprctl reload && reload_waybar
 
 # vim: set ts=2 sw=2 tw=0 fdm=marker et :
