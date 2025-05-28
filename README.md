@@ -183,6 +183,8 @@ pruning assets or similar from a repo.
 
 Source: https://stackoverflow.com/questions/13403069/how-to-find-out-which-files-take-up-the-most-space-in-git-repo
 
+> Licensed under CC BY-SA 4.0
+
 ### [git-update.sh](./git-update.sh)
 
 Script to walk a list of repositories and either pull or clone, depending on
