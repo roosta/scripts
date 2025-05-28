@@ -346,7 +346,7 @@ Waybar on save. I use this when I develop themes and customization, you can
 pass `-d` to open a GTK debugger window as well, to get CSS selectors used for
 styling Waybar.
 
-### [wl-prop.sh](./wl-prop.sh)
+### [sway-prop.sh](./sway-prop.sh)
 
 - source: https://gist.github.com/crispyricepc/f313386043395ff06570e02af2d9a8e0#file-wlprop-sh
 
