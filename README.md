@@ -238,28 +238,6 @@ enable-ipc = true
 
 Original source: <http://unix.stackexchange.com/a/27688>
 
-### [launch-polybar.sh](./launch-polybar.sh)
-
-> DEPECATED: Xorg is getting phased out for wayland, kept for backward
-> compatibility temporarily
-
-Called on i3 startup to launch whatever polybar layout `hostname` requires.
-
-```
-exec_always --no-startup-id $HOME/scripts/launch-polybar.sh
-```
-
-I have multiple monitors, so I launch several bars depending on hostname, since
-the number of screens vary, so does the configs.
-
-
-### [rainbow.sh](./rainbow.sh)
-
-Script used to troubleshoot true color in terminal, will print a rainbow and
-how it looks depends on what colors are supported by your terminal.
-
-More on that [here](https://gist.github.com/XVilka/8346728).
-
 ### [switch-audio.sh](./switch-audio.sh)
 
 Requirements:
@@ -381,16 +359,4 @@ Requirements:
 
 Works similarly to `xprop` in xorg. Running this will start a window selection,
 and output the relevant node from the Sway tree.
-
-### [zsh-update.sh](./zsh-update.sh)
-
-Requires:
-
-- [zplug](https://github.com/zplug/zplug)
-- [Zsh](https://www.zsh.org/)
-
-Makes updating zsh plugins via zplug accessible via a script, normally you'd
-have to source an environment for `zplug update` to work, in other words have a
-fully sourced config with zplug to be able to update. You still need that, but
-here it is as a script callable from a subshell.
 
