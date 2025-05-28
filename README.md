@@ -374,3 +374,18 @@ Set my Wacom prefs using `xsetwacom`, never found a gui app that did what I need
 
 Check for tunnel and echo [polybar formatted](https://github.com/jaagr/polybar/wiki/Formatting) string
 
+#### [launch-polybar.sh](./launch-polybar.sh)
+
+> DEPECATED: Xorg is getting phased out for wayland, kept for backward
+> compatibility temporarily
+
+Called on i3 startup to launch whatever polybar layout `hostname` requires.
+
+```
+exec_always --no-startup-id $HOME/scripts/launch-polybar.sh
+```
+
+I have multiple monitors, so I launch several bars depending on hostname, since
+the number of screens vary, so does the configs.
+
+
