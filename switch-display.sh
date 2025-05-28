@@ -25,13 +25,17 @@
 # Hyprland display switcher using dynamic monitor configs, toggle between
 # monitor layouts.
 #
-# Usage: ./switch-display.sh [desk|mirror|tv|all|toggle]
-# Make sure to create config files:
-#   $HOME/.config/hypr/monitors/desk.conf
-#   $HOME/.config/hypr/monitors/tv.conf
-#   $HOME/.config/hypr/monitors/mirror.conf
-#   $HOME/.config/hypr/monitors/all.conf
-
+# Usage: ./switch-display.sh <config> [options]
+#
+# Configurations:
+#   desk|mirror|tv|all    Switch to specified display configuration
+#   toggle <conf1> <conf2> Toggle between two configurations
+#
+# Examples:
+#   ./switch-display.sh desk              # Switch to desk configuration
+#   ./switch-display.sh toggle desk tv    # Toggle between desk and tv configurations
+#
+# Note: Make sure to create config files in $HOME/.config/hypr/monitors matching argument name, e.g., desk.conf
 
 CONFIG_DIR="$HOME/.config/hypr/monitors"
 CURRENT_CONFIG="$CONFIG_DIR/current.conf"
