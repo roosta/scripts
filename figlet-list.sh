@@ -2,7 +2,7 @@
 # =============================================================================
 # Script to display all toilet/figlet fonts with sample text
 # =============================================================================
-# It will try /usr/share/figlet and /usr/share/figlet/fonts. I got extra fonts
+# It will try /usr/share/figlet and $HOME/lib/figlet-fonts. I got extra fonts
 # installed in the latter.
 # Refs:
 # =============================================================================
@@ -10,7 +10,7 @@
 # https://github.com/xero/dotfiles
 
 TOILET_FONT_PATH=${TOILET_FONT_PATH:=/usr/share/figlet}
-FIGLET_FONTS_PATH="/usr/share/figlet/fonts"
+FIGLET_FONTS_PATH="$HOME/lib/figlet-fonts"
 PAGER=${PAGER:=less}
 
 process_fonts_from_dir() {
