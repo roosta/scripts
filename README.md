@@ -397,3 +397,15 @@ how it looks depends on what colors are supported by your terminal.
 
 More on that [here](https://gist.github.com/XVilka/8346728).
 
+### [zsh-update.sh](./zsh-update.sh)
+
+Requires:
+
+- [zplug](https://github.com/zplug/zplug)
+- [Zsh](https://www.zsh.org/)
+
+Makes updating zsh plugins via zplug accessible via a script, normally you'd
+have to source an environment for `zplug update` to work, in other words have a
+fully sourced config with zplug to be able to update. You still need that, but
+here it is as a script callable from a subshell.
+
