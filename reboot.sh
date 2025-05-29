@@ -1,7 +1,7 @@
 #!/bin/bash
 zenity --question \
   --text='Are you sure you want to reboot?' \
-  --title='Confirm' \
+  --title='Reboot' \
   --icon=system-reboot-symbolic &&
   reboot
 
