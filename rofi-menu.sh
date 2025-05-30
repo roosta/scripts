@@ -1,12 +1,52 @@
 #!/usr/bin/env bash
-
-# rofi-menu
+#
+# Copyright (c) 2025 Daniel Berg <mail@roosta.sh>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy of
+# this software and associated documentation files (the “Software”), to deal in
+# the Software without restriction, including without limitation the rights to
+# use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+# of the Software, and to permit persons to whom the Software is furnished to do
+# so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+#
+# rofi-menu.sh
 # ================
-# Custom menu for rofi, a few actions I use on the daily, see its corresponding
-# scripts for what program is used, i.e ./screenshot.sh or ./colorpicker.sh
+# Script to create rofi menus based on a provided config file
+# (ROFI_MENU_CONFIG)
+#
+# Resources:
+# - https://github.com/davatorium/rofi/wiki/Script-Launcher
+# - https://github.com/davatorium/rofi/blob/next/doc/rofi-script.5.markdown
+# 
+# Config Format: 
+#   script_name|description|icon
+#
+# Usage:
+# To create a menu create a script like this
+#
+# ```sh
+# export ROFI_MENU_CONFIG="${XDG_CONFIG_HOME}/rofi-menu/config.conf"
+# exec "${HOME}/scripts/rofi-menu.sh" "$@"
+# ```
+#
+# Then in rofi you'add your new script to a mode
+# ```rasi
+# modes: "run,mymode:~/scripts/script.sh";
+# ```
 
 readonly SCRIPTS_DIR="${HOME}/scripts"
-readonly CONFIG_DIR="${XDG_CONFIG_HOME}/rofi-menu"
+# readonly CONFIG_DIR="${XDG_CONFIG_HOME}/rofi-menu"
 
 # Arrays to store menu data
 declare -a SCRIPT_NAMES
@@ -39,19 +79,12 @@ load_config() {
   fi
 }
 
-# Show usage information
-show_usage() {
-  echo "Usage: $0 <config_file> [selection]"
-  echo "  config_file: Path to config file with format: script_name|description|icon"
-  echo "  name of config file will be the name of the menu."
-  exit 1
-}
-
 # Determine config file
 if [ -n "$ROFI_MENU_CONFIG" ]; then
   config_file="$ROFI_MENU_CONFIG"
 else
-  config_file="${CONFIG_DIR}/actions.conf"
+  echo "Error: no ROFI_MENU_CONFIG file found, exiting..." >&2
+  exit 1
 fi
 
 # Extract prompt name from config filename
@@ -61,6 +94,8 @@ prompt_name=$(basename "$config_file" .conf)
 load_config "$config_file"
 
 # Format menu item for rofi display
+# Separated by NULL character (\0)
+# 
 format_menu_item() {
   local description="$1"
   local icon="$2"
@@ -78,6 +113,7 @@ run_script() {
   local script_path="${SCRIPTS_DIR}/${script_name}.sh"
 
   if [ -x "$script_path" ]; then
+    # this ensures rofi closes on script execution
     setsid "$script_path" > /dev/null 2>&1 &
   else
     echo "Error: ${script_name} script not found or not executable" >&2
