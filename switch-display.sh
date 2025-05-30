@@ -80,6 +80,7 @@ switch_config() {
   ln -sf "$config" "$CURRENT_CONFIG" || {
     log "ERROR: Failed to create $config symlink"; return 1; 
   }
+  hyprctl reload
 }
 
 # TODO: error on toggle without extra args
@@ -110,9 +111,5 @@ case "$1" in
     exit 1
     ;;
 esac
-
-# Reload hyprland and waybar
-# TODO: do binary check for waybar
-hyprctl reload && reload_waybar
 
 # vim: set ts=2 sw=2 tw=0 fdm=marker et :
