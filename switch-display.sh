@@ -39,7 +39,7 @@
 
 CONFIG_DIR="$HOME/.config/hypr/monitors"
 CURRENT_CONFIG="$CONFIG_DIR/current.conf"
-LOG_FILE="$HOME/.config/hypr/monitors/switch-display.log"
+LOG_FILE="$CONFIG_DIR/switch-display.log"
 
 log() {
   echo "$(date '+%Y-%m-%d %H:%M:%S'): $1" | tee -a "$LOG_FILE"
