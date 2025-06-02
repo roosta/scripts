@@ -37,14 +37,56 @@ sometimes hit the wrong menu item.
 - [shutdown.sh](./shutdown.sh)
 - [suspend.sh](./suspend.sh)
 
-### Rofi Action Menu
+### [rofi-menu.sh](./rofi-menu.sh)
 
-A Rofi menu with common actions I used to script or save as cmd one liners.
+Script to create rofi menus based on a provided YAML config file
+(`ROFI_MENU_CONFIG`)
 
-When transitioning to Wayland, several desktop related tools stopped working,
-like `flameshot`, or `gpick`. So I needed some alternatives for Wayland. I set it
-up as a Rofi menu with generic scripts, so that it can be swapped out on
-need.
+Resources:
+- https://github.com/davatorium/rofi/wiki/Script-Launcher
+- https://github.com/davatorium/rofi/blob/next/doc/rofi-script.5.markdown
+
+Config Format (YAML): 
+
+```yml
+  items:
+    - script: ~/path/to/my/script.sh
+      description: Item description
+      icon: icon_name
+      args: ["optional", "arguments"]
+```
+
+Usage:
+To create a menu create a script like this
+
+```sh
+export ROFI_MENU_CONFIG="${XDG_CONFIG_HOME}/rofi-menu/config.yaml"
+exec "${HOME}/scripts/rofi-menu.sh" "$@"
+```
+
+Then in rofi you add your new script to a mode
+```rasi
+modes: "run,mymode:~/scripts/script.sh";
+```
+
+#### Example menu
+
+```yml
+# Script menu for some common actions
+items:
+  - script: ~/scripts/screenshot.sh
+    description: Take a screenshot
+    icon: image-x-generic
+
+  - script: ~/scripts/colorpicker.sh
+    description: Pick a color
+    icon: applications-graphics
+    args: ["--format", "hex"]
+
+  - script: ~/scripts/monitor.sh
+    description: Start monitor
+    icon: utilities-system-monitor
+```
 
 - [colorpicker.sh](./colorpicker.sh)
   - [hyprpicker](https://github.com/hyprwm/hyprpicker)
@@ -57,11 +99,6 @@ need.
   - [slurp](https://github.com/emersion/slurp)
   - [swappy](https://github.com/jtheoof/swappy)
 
-Using with you could put something like this in your WM/compositor config:
-
-```i3
-bindsym $mod+grave exec rofi -show menu -modes "menu:~/scripts/rofi-menu.sh" -show-icons
-```
 
 ### [add-vim-plugin.sh](./add-vim-plugin.sh)
 
