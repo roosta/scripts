@@ -24,10 +24,12 @@
 # ===============
 # Switches between audio sink (output) presets using pactl
 #
-# Usage: ./switch-audio.sh [headphones|speakers|tv|toggle]
+# Usage: ./switch-audio.sh [headphones|speakers|tv|mute-output|mute-input|toggle]
 #   headphones: Activate headphones
 #   speakers: Activate speakers
 #   tv: Activate tv speakers
+#   mute-output: Toggle mute default output sinks
+#   mute-input: Toggle mute default input source
 #   toggle: Toggle between speakers and headphones
 
 
@@ -103,8 +105,8 @@ case "$1" in
     echo "  headphones: Activate headphones"
     echo "  speakers: Activate speakers"
     echo "  tv: Activate tv speakers"
-    echo "  mute-output: Mute default output sinks"
-    echo "  mute-input: Mute default input source"
+    echo "  mute-output: Toggle mute default output sinks"
+    echo "  mute-input: Toggle mute default input source"
     echo "  toggle: Toggle between speakers and headphones"
     exit 1
     ;;
