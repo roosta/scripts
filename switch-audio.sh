@@ -56,6 +56,16 @@ toggle_sinks() {
   fi
 }
 
+# mute default sink
+toggle_sink_mute() {
+  pactl set-sink-mute @DEFAULT_SINK@ toggle
+}
+
+# mute default source
+toggle_source_mute() {
+  pactl set-source-mute @DEFAULT_SOURCE@ toggle
+}
+
 activate_headphones() {
   pactl set-default-sink "$HEADPHONES"
 }
@@ -79,14 +89,22 @@ case "$1" in
   "tv")
     activate_tv
     ;;
+  "mute-output")
+    toggle_sink_mute
+    ;;
+  "mute-input")
+    toggle_source_mute
+    ;;
   "toggle")
     toggle_sinks
     ;;
   *)
-    echo "Usage: $0 [headphones|speakers|tv|toggle]"
+    echo "Usage: $0 [headphones|speakers|tv|mute-output|mute-input|toggle]"
     echo "  headphones: Activate headphones"
     echo "  speakers: Activate speakers"
     echo "  tv: Activate tv speakers"
+    echo "  mute-output: Mute default output sinks"
+    echo "  mute-input: Mute default input source"
     echo "  toggle: Toggle between speakers and headphones"
     exit 1
     ;;
