@@ -45,6 +45,14 @@ log() {
   echo "$(date '+%Y-%m-%d %H:%M:%S'): $1" | tee -a "$LOG_FILE"
 }
 
+get_primary_monitor() {
+  if [ -f "$CURRENT_CONFIG" ]; then
+    grep "\$primary_monitor =" "$CURRENT_CONFIG" | sed 's/.*= //'
+  else
+    echo ""
+  fi
+}
+
 reload_waybar() {
   killall -SIGUSR2 waybar
   # systemctl --user restart waybar
@@ -81,6 +89,14 @@ switch_config() {
     log "ERROR: Failed to create $config symlink"; return 1; 
   }
   hyprctl reload
+  primary_monitor=$(get_primary_monitor)
+  while ! hyprctl monitors | grep -q "$primary_monitor"; do
+    sleep 1
+  done
+  workspaces=$(hyprctl workspaces -j | jq -r '.[].id')
+  for ws in $workspaces; do
+    hyprctl dispatch moveworkspacetomonitor "$ws" "$primary_monitor"
+  done
 }
 
 # TODO: error on toggle without extra args
