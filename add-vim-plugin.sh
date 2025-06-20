@@ -23,7 +23,7 @@ repo=$1
 name=$(basename "$repo")
 
 # Generate ASCII art with toilet
-art=$(toilet -f fonts/rusto "$name")
+art=$(toilet -d "$HOME/lib/figlet-fonts" -f "rusto" "$name")
 
 {
   # Add each line of ASCII art with Lua comment
