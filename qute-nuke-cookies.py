@@ -20,8 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-# Drafted June 2025 based on LLM suggestion (GTP-4.1);
-# reviewed and edited by Daniel Berg <mail@roosta.sh>”.
+# Drafted June 2025 based on LLM suggestion (GTP-4.1)
+# reviewed and edited by Daniel Berg <mail@roosta.sh>
 #
 # qute-nuke-cookies.py
 # ====================
