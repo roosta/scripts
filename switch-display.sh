@@ -25,16 +25,6 @@
 # Hyprland display switcher using dynamic monitor configs, switch between
 # monitor layouts.
 #
-# Usage: ./switch-display.sh <config> [options]
-#
-# Configurations:
-#   desk|mirror|tv|all    Switch to specified display configuration
-#
-# Examples:
-#   ./switch-display.sh desk              # Switch to desk configuration
-#
-# Note: Make sure to create config files in $HOME/.config/hypr/monitors matching argument name, e.g., desk.conf
-
 # Monitor rules
 # -------------
 # Enable hdr with this, adjust brightness/saturation for preference. 
@@ -49,6 +39,22 @@ LEFT_DISPLAY="DP-2"
 CENTER_DISPLAY="DP-1"
 RIGHT_DISPLAY="HDMI-A-1"
 TV_DISPLAY="HDMI-A-2"
+
+declare -A CONFIG_FILES=(
+  ["desk"]="desk.conf"
+  ["mirror"]="desk.conf"
+  ["all"]="desk.conf"
+  ["tv"]="tv.conf"
+)
+
+declare -A SWITCH_FUNCTIONS=(
+  ["desk"]="switch_to_desk"
+  ["tv"]="switch_to_tv"
+)
+
+is_valid_config() {
+  [[ -n "${CONFIG_FILES[$1]}" ]]
+}
 
 log() {
   echo "$(date '+%Y-%m-%d %H:%M:%S'): $1" | tee -a "$LOG_FILE"
@@ -167,50 +173,44 @@ switch_to_tv() {
   done
 }
 
+
+# Link the appropriate config file
 link_config() {
-  local config
-  case "$1" in 
-    "desk"|"mirror"|"all")
-      config="$CONFIG_DIR/desk.conf"
-      ;;
-    *)
-      config="$CONFIG_DIR/$1.conf"
-      ;;
-  esac
-  if [ ! -f "$config" ]; then
-    log "ERROR: $config not found"
+  local config_file="$CONFIG_DIR/${CONFIG_FILES[$1]}"
+
+  if [[ ! -f "$config_file" ]]; then
+    log "ERROR: $config_file not found"
     return 1
   fi
-  ln -sf "$config" "$CURRENT_CONFIG" || {
-    log "ERROR: Failed to create $config symlink"; return 1; 
-  }
+
+  ln -sf "$config_file" "$CURRENT_CONFIG" || {
+    log "ERROR: Failed to create $config_file symlink"
+      return 1
+    }
 }
 
-case "$1" in
-  "desk"|"tv"|"mirror"|"all")
-    link_config "$1"
-    ;;
-  *)
-    echo "Usage: $0 <config> [options]"
-    echo ""
-    echo "Configurations:"
-    echo "  desk|mirror|tv|all    Switch to specified display configuration"
-    echo ""
-    echo "Examples:"
-    echo "  $0 desk              # Switch to desk configuration"
-    echo ""
-    echo "Note: Make sure to create config files in $CONFIG_DIR matching argument name, e.g., desk.conf"
-    exit 1
-    ;;
-esac
+switch_layout() {
+  local switch_func="${SWITCH_FUNCTIONS[$1]}"
+  if [[ -n "$switch_func" ]]; then
+    "$switch_func"
+  fi
+}
 
-case "$1" in
-  "desk")
-    switch_to_desk
-    ;;
-  "tv")
-    switch_to_tv
-    ;;
-esac
+# Main argument handling
+if ! is_valid_config "$1"; then
+  echo "Usage: $0 <config> [options]"
+  echo ""
+  echo "Configurations:"
+  echo "  [${!CONFIG_FILES[*]}] Switch to specified display configuration"
+  echo ""
+  echo "Example (Switch to desk configuration):"
+  echo "  $0 desk"
+  echo ""
+  echo "Note: Make sure to create config files in $CONFIG_DIR matching argument name, e.g., desk.conf"
+  exit 1
+fi
+
+link_config "$1"
+switch_layout "$1"
 
 # vim: set ts=2 sw=2 tw=0 fdm=marker et :
