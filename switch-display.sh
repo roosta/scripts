@@ -32,7 +32,6 @@
 
 CONFIG_DIR="$HOME/.config/hypr/monitors"
 CURRENT_CONFIG="$CONFIG_DIR/current.conf"
-LOG_FILE="$CONFIG_DIR/switch-display.log"
 
 # Monitors
 LEFT_DISPLAY="DP-2"
@@ -57,7 +56,7 @@ is_valid_config() {
 }
 
 log() {
-  echo "$(date '+%Y-%m-%d %H:%M:%S'): $1" | tee -a "$LOG_FILE"
+  echo "$(date '+%Y-%m-%d %H:%M:%S'): $1"
 }
 
 # Looks for a variable in the config $primary_monitor, return monitor id
