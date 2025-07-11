@@ -22,30 +22,40 @@
 
 # switch-display.sh
 # =================
-# Hyprland display switcher using dynamic monitor configs, toggle between
+# Hyprland display switcher using dynamic monitor configs, switch between
 # monitor layouts.
 #
 # Usage: ./switch-display.sh <config> [options]
 #
 # Configurations:
 #   desk|mirror|tv|all    Switch to specified display configuration
-#   toggle <conf1> <conf2> Toggle between two configurations
 #
 # Examples:
 #   ./switch-display.sh desk              # Switch to desk configuration
-#   ./switch-display.sh toggle desk tv    # Toggle between desk and tv configurations
 #
 # Note: Make sure to create config files in $HOME/.config/hypr/monitors matching argument name, e.g., desk.conf
+
+# Monitor rules
+# =============
+# Enable hdr with this, adjust brightness/saturation for preference. 
+# monitor = $center_monitor,preferred,1920x0,2,vrr, 3, bitdepth, 10, cm, hdr, sdrbrightness, 1.2, sdrsaturation, 0.98
 
 CONFIG_DIR="$HOME/.config/hypr/monitors"
 CURRENT_CONFIG="$CONFIG_DIR/current.conf"
 LOG_FILE="$CONFIG_DIR/switch-display.log"
 
+# Monitors
+LEFT_DISPLAY="DP-2"
+CENTER_DISPLAY="DP-1"
+RIGHT_DISPLAY="HDMI-A-1"
+TV_DISPLAY="HDMI-A-2"
+
 log() {
   echo "$(date '+%Y-%m-%d %H:%M:%S'): $1" | tee -a "$LOG_FILE"
 }
 
-get_primary_monitor() {
+# Looks for a variable in the config $primary_monitor, return monitor id
+_get_primary_monitor() {
   if [ -f "$CURRENT_CONFIG" ]; then
     grep "\$primary_monitor =" "$CURRENT_CONFIG" | sed 's/.*= //'
   else
@@ -53,13 +63,34 @@ get_primary_monitor() {
   fi
 }
 
+# Wait for a monitor to be available before performing operations on workspaces
+# This fixes hyprland moving ws to monitors it's not bound to due to the
+# different wakeup times for displays
+wait_for_monitor() {
+  local monitor_name="$1"
+  local timeout=10
+  local count=0
+
+  while [ $count -lt $timeout ]; do
+    if hyprctl monitors -j | jq -r '.[].name' | grep -q "^$monitor_name$"; then
+      log "Monitor $monitor_name is ready"
+      return 0
+    fi
+    sleep 0.5
+    ((count++))
+  done
+
+  log "WARNING: Monitor $monitor_name not ready after ${timeout}s"
+  return 1
+}
+
 reload_waybar() {
-  killall -SIGUSR2 waybar
-  # systemctl --user restart waybar
+  # killall -SIGUSR2 waybar
+  systemctl --user restart waybar
 }
 
 # Get current mode by reading the symlink
-get_current_mode() {
+_get_current_mode() {
   if [ -L "$CURRENT_CONFIG" ]; then
     local target
     target=$(readlink "$CURRENT_CONFIG")
@@ -78,9 +109,55 @@ get_current_mode() {
   fi
 }
 
-switch_config() {
+# Desk layout, wait until all displays are ready before moving workspaces
+switch_to_desk() {
+  hyprctl keyword monitor "$LEFT_DISPLAY,preferred,0x0,2" 
+  hyprctl keyword monitor "$CENTER_DISPLAY,preferred,1920x0,2,vrr,3"
+  hyprctl keyword monitor "$RIGHT_DISPLAY,preferred,3840x0,2"
+  hyprctl keyword monitor "$TV_DISPLAY,disable"
+
+  wait_for_monitor "$LEFT_DISPLAY"
+  wait_for_monitor "$CENTER_DISPLAY" 
+  wait_for_monitor "$RIGHT_DISPLAY"
+
+  for i in {1..4}; do
+    hyprctl dispatch moveworkspacetomonitor "$i" $CENTER_DISPLAY
+  done
+  for i in {11..14}; do
+    hyprctl dispatch moveworkspacetomonitor "$i" $LEFT_DISPLAY
+  done
+  for i in {15..18}; do
+    hyprctl dispatch moveworkspacetomonitor "$i" $CENTER_DISPLAY
+  done
+  for i in {19..22}; do
+    hyprctl dispatch moveworkspacetomonitor "$i" $RIGHT_DISPLAY
+  done
+}
+
+switch_to_tv() {
+  hyprctl keyword monitor "$LEFT_DISPLAY,disabled" 
+  hyprctl keyword monitor "$CENTER_DISPLAY,disabled"
+  hyprctl keyword monitor "$RIGHT_DISPLAY,disabled"
+  hyprctl keyword monitor "$TV_DISPLAY,preferred,auto,2"
+
+  wait_for_monitor "$TV_DISPLAY"
+
+  workspaces=$(hyprctl workspaces -j | jq -r '.[].id')
+  for ws in $workspaces; do
+    hyprctl dispatch moveworkspacetomonitor "$ws" $TV_DISPLAY
+  done
+}
+
+link_config() {
   local config
-  config="$CONFIG_DIR/$1.conf"
+  case "$1" in 
+    "desk"|"mirror"|"all")
+      config="$CONFIG_DIR/desk.conf"
+      ;;
+    *)
+      config="$CONFIG_DIR/$1.conf"
+      ;;
+  esac
   if [ ! -f "$config" ]; then
     log "ERROR: $config not found"
     return 1
@@ -88,35 +165,32 @@ switch_config() {
   ln -sf "$config" "$CURRENT_CONFIG" || {
     log "ERROR: Failed to create $config symlink"; return 1; 
   }
-  hyprctl reload
 }
 
-# TODO: error on toggle without extra args
 case "$1" in
   "desk"|"tv"|"mirror"|"all")
-    switch_config "$1"
-    ;;
-  "toggle")
-    current_mode=$(get_current_mode)
-    if [ "$current_mode" = "$2" ]; then
-      switch_config "$3"
-    else
-      switch_config "$2"
-    fi
+    link_config "$1"
     ;;
   *)
     echo "Usage: $0 <config> [options]"
     echo ""
     echo "Configurations:"
     echo "  desk|mirror|tv|all    Switch to specified display configuration"
-    echo "  toggle <conf1> <conf2> Toggle between two configurations"
     echo ""
     echo "Examples:"
     echo "  $0 desk              # Switch to desk configuration"
-    echo "  $0 toggle desk tv    # Toggle between desk and tv configurations"
     echo ""
     echo "Note: Make sure to create config files in $CONFIG_DIR matching argument name, e.g., desk.conf"
     exit 1
+    ;;
+esac
+
+case "$1" in
+  "desk")
+    switch_to_desk
+    ;;
+  "tv")
+    switch_to_tv
     ;;
 esac
 
