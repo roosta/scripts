@@ -19,7 +19,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-
+#
 # switch-display.sh
 # =================
 # Hyprland display switcher using dynamic monitor configs, switch between
@@ -36,7 +36,7 @@
 # Note: Make sure to create config files in $HOME/.config/hypr/monitors matching argument name, e.g., desk.conf
 
 # Monitor rules
-# =============
+# -------------
 # Enable hdr with this, adjust brightness/saturation for preference. 
 # monitor = $center_monitor,preferred,1920x0,2,vrr, 3, bitdepth, 10, cm, hdr, sdrbrightness, 1.2, sdrsaturation, 0.98
 
@@ -60,6 +60,22 @@ _get_primary_monitor() {
     grep "\$primary_monitor =" "$CURRENT_CONFIG" | sed 's/.*= //'
   else
     echo ""
+  fi
+}
+
+# check if a workspace exists
+workspace_exists() {
+  local workspace_id="$1"
+  hyprctl workspaces -j | jq -r '.[].id' | grep -q "^$workspace_id$"
+}
+
+# move workspace if it exists
+move_workspace_if_exists() {
+  local workspace_id="$1"
+  local monitor="$2"
+
+  if workspace_exists "$workspace_id"; then
+    hyprctl dispatch moveworkspacetomonitor "$workspace_id" "$monitor"
   fi
 }
 
@@ -111,6 +127,8 @@ _get_current_mode() {
 
 # Desk layout, wait until all displays are ready before moving workspaces
 switch_to_desk() {
+
+  # layout, from left to right
   hyprctl keyword monitor "$LEFT_DISPLAY,preferred,0x0,2" 
   hyprctl keyword monitor "$CENTER_DISPLAY,preferred,1920x0,2,vrr,3"
   hyprctl keyword monitor "$RIGHT_DISPLAY,preferred,3840x0,2"
@@ -120,17 +138,18 @@ switch_to_desk() {
   wait_for_monitor "$CENTER_DISPLAY" 
   wait_for_monitor "$RIGHT_DISPLAY"
 
+  # force workspaces to their assigment monitors after all monitors are available
   for i in {1..4}; do
-    hyprctl dispatch moveworkspacetomonitor "$i" $CENTER_DISPLAY
+    move_workspace_if_exists "$i" "$CENTER_DISPLAY"
   done
   for i in {11..14}; do
-    hyprctl dispatch moveworkspacetomonitor "$i" $LEFT_DISPLAY
+    move_workspace_if_exists "$i" "$LEFT_DISPLAY"
   done
   for i in {15..18}; do
-    hyprctl dispatch moveworkspacetomonitor "$i" $CENTER_DISPLAY
+    move_workspace_if_exists "$i" "$CENTER_DISPLAY"
   done
   for i in {19..22}; do
-    hyprctl dispatch moveworkspacetomonitor "$i" $RIGHT_DISPLAY
+    move_workspace_if_exists "$i" "$RIGHT_DISPLAY"
   done
 }
 
