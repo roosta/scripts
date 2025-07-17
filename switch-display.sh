@@ -25,10 +25,9 @@
 # Hyprland display switcher using dynamic monitor configs, switch between
 # monitor layouts.
 #
-# Monitor rules
-# -------------
-# Enable hdr with this, adjust brightness/saturation for preference. 
-# monitor = $center_monitor,preferred,1920x0,2,vrr, 3, bitdepth, 10, cm, hdr, sdrbrightness, 1.2, sdrsaturation, 0.98
+# TODOs:
+# - [ ] Toggle HDR
+# - [ ] Force refresh
 
 CONFIG_DIR="$HOME/.config/hypr/monitors"
 CURRENT_CONFIG="$CONFIG_DIR/current.conf"
@@ -41,8 +40,8 @@ TV_DISPLAY="HDMI-A-2"
 
 declare -A CONFIG_FILES=(
   ["desk"]="desk.conf"
-  ["mirror"]="desk.conf"
-  ["all"]="desk.conf"
+  ["mirror"]="mirror.conf"
+  ["all"]="all.conf"
   ["tv"]="tv.conf"
 )
 
@@ -134,10 +133,10 @@ _get_current_mode() {
 switch_to_desk() {
 
   # layout, from left to right
-  hyprctl keyword monitor "$LEFT_DISPLAY,preferred,0x0,2" 
-  hyprctl keyword monitor "$CENTER_DISPLAY,preferred,1920x0,2,vrr,3"
-  hyprctl keyword monitor "$RIGHT_DISPLAY,preferred,3840x0,2"
-  hyprctl keyword monitor "$TV_DISPLAY,disable"
+  # hyprctl keyword monitor "$LEFT_DISPLAY,preferred,0x0,2" 
+  # hyprctl keyword monitor "$CENTER_DISPLAY,3840x2160@240,1920x0,2"
+  # hyprctl keyword monitor "$RIGHT_DISPLAY,preferred,3840x0,2"
+  # hyprctl keyword monitor "$TV_DISPLAY,disable"
 
   wait_for_monitor "$LEFT_DISPLAY"
   wait_for_monitor "$CENTER_DISPLAY" 
@@ -159,10 +158,10 @@ switch_to_desk() {
 }
 
 switch_to_tv() {
-  hyprctl keyword monitor "$LEFT_DISPLAY,disabled" 
-  hyprctl keyword monitor "$CENTER_DISPLAY,disabled"
-  hyprctl keyword monitor "$RIGHT_DISPLAY,disabled"
-  hyprctl keyword monitor "$TV_DISPLAY,preferred,auto,2"
+  # hyprctl keyword monitor "$LEFT_DISPLAY,disabled" 
+  # hyprctl keyword monitor "$CENTER_DISPLAY,disabled"
+  # hyprctl keyword monitor "$RIGHT_DISPLAY,disabled"
+  # hyprctl keyword monitor "$TV_DISPLAY,preferred,auto,2"
 
   wait_for_monitor "$TV_DISPLAY"
 
@@ -186,6 +185,7 @@ link_config() {
     log "ERROR: Failed to create $config_file symlink"
       return 1
     }
+  hyprctl reload
 }
 
 switch_layout() {
