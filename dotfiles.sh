@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # MIT License
 #
-# Copyright (c) 2024 Daniel Berg <mail@roosta.sh>
+# Copyright (c) 2025 Daniel Berg <mail@roosta.sh>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of
 # this software and associated documentation files (the “Software”), to deal in
@@ -22,27 +22,21 @@
 # SOFTWARE.
 #
 # BEGIN_DOC
-# ### [torrent-done.sh](./torrent-done.sh)
+# ### [dotfiles.sh](./dotfiles.sh)
 #
-# A simple script to extract a rar file inside a directory downloaded by
-# Transmission. It uses environment variables passed by the transmission client
-# to find and extract any rar files from a downloaded torrent into the folder
-# they were found in.
+# Scaffold various shell utils  needed for storing dotfiles like described here
+# https://wiki.archlinux.org/title/Dotfiles.
+# 
+# > [!WARNING]
+# > Work in progress
 #
-# Requirements:
-# - https://transmissionbt.com/
-#
-# Usage:
-# Configure to run on torrent completion in your client. See `./media-clean.sh`
-# for a way to clean up after this script.
-#
-# > [!NOTE]
-# > I don't actually know where this snipped originated, its all over the web,
-# > in gists and other script repos. I've seen other variants of this licensed
-# > under MIT, so I'm assuming that's OK here to, but I'm not 100%. If anyone
-# > knows, please let me know so I can add proper credit
-#  
 # License [MIT](./LICENSES/MIT-LICENSE.txt)
 # END_DOC
 
-find /"$TR_TORRENT_DIR"/"$TR_TORRENT_NAME" -name "*.rar" -execdir unrar e -o- "{}" \;
+alias dotfiles='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
+
+# https://wiki.archlinux.org/title/Dotfiles
+mkdir -p .dotfiles-backup && \
+  /usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME" checkout 2>&1 | \
+  grep -E "\s+\." | awk {'print $1'} | \
+  xargs -I{} mv {} .dotfiles-backup/{}

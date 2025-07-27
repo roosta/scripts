@@ -1,6 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# MIT License
 #
-# Copyright Daniel Berg <mail@roosta.sh>
+# Copyright (c) 2025 Daniel Berg <mail@roosta.sh>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of
 # this software and associated documentation files (the “Software”), to deal in
@@ -19,19 +20,27 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-
-# switch-audio.sh
-# ===============
-# Switches between audio sink (output) presets using pactl
 #
-# Usage: ./switch-audio.sh [headphones|speakers|tv|mute-output|mute-input|toggle]
-#   headphones: Activate headphones
-#   speakers: Activate speakers
-#   tv: Activate tv speakers
-#   mute-output: Toggle mute default output sinks
-#   mute-input: Toggle mute default input source
-#   toggle: Toggle between speakers and headphones
-
+# BEGIN_DOC
+# ### [switch-audio.sh](./switch-audio.sh)
+#
+# Switches between audio sink (output) presets using pactl. Normally used with
+# a graphical menu. See menu scripts in this repo for an example.
+#
+#     Usage: ./switch-audio.sh [headphones|speakers|tv|mute-output|mute-input|toggle]
+#       headphones: Activate headphones
+#       speakers: Activate speakers
+#       tv: Activate tv speakers
+#       mute-output: Toggle mute default output sinks
+#       mute-input: Toggle mute default input source
+#       toggle: Toggle between speakers and headphones
+#
+# > [!NOTE]
+# > This is spesific for my personal setup, script needs modification to work
+# > for any setup.
+#
+# License [MIT](./LICENSES/MIT-LICENSE.txt)
+# END_DOC
 
 # `pactl list sinks short`
 HEADPHONES="alsa_output.usb-SteelSeries_SteelSeries_Arctis_7-00.stereo-game"

@@ -1,11 +1,10 @@
 #!/usr/bin/env sh
-
-# source: https://gist.github.com/crispyricepc/f313386043395ff06570e02af2d9a8e0#file-wlprop-sh
-#
-# wlprop
+# MIT License
 #
 # Licensed under the MIT license
+#
 # Copyright © 2022 bjosephmitchell@gmail.com
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
 # in the Software without restriction, including without limitation the rights
@@ -24,11 +23,24 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-# Dependencies:
-# - swaymsg
-# - jq
-# - slurp
-# - awk
+# BEGIN_DOC
+# ### [sway-prop.sh](./sway-prop.sh)
+# 
+# source: https://gist.github.com/crispyricepc/f313386043395ff06570e02af2d9a8e0#file-wlprop-sh
+#
+# Starts a window picker (slurp) and print selected window information. 
+# Similar to xprop. This is for sway, in Hyprland you can just use `hyprctl
+# clients` + some grep pattern will get you far.
+#
+# Requirements:
+#
+# - https://swaywm.org/
+# - https://jqlang.github.io/jq/
+# - https://github.com/emersion/slurp
+# - https://www.gnu.org/software/gawk/
+#
+# License [MIT](./LICENSES/MIT-LICENSE.txt)
+# END_DOC
 
 # Get the sway tree and store the output
 SWAY_TREE=$(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?)')

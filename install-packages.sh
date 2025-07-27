@@ -1,5 +1,67 @@
 #!/usr/bin/env bash
-
+# MIT License
+#
+# Copyright (c) 2025 Daniel Berg <mail@roosta.sh>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy of
+# this software and associated documentation files (the “Software”), to deal in
+# the Software without restriction, including without limitation the rights to
+# use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+# of the Software, and to permit persons to whom the Software is furnished to do
+# so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+#
+# Drafted May 2025 based on LLM suggestion (claude-3.7-sonnet)
+# reviewed and edited by Daniel Berg <mail@roosta.sh>
+#
+# BEGIN_DOC
+# ### [install-packages.sh](./install-packages.sh)
+#
+# Install packages from YAML configuration using paru. Will look for
+# `~/.dependencies.yml` unless `[config.yml]` is provided.
+#
+# Requirements:
+# - https://github.com/morganamilo/paru
+# - https://github.com/kislyuk/yq
+# - https://archlinux.org/
+#
+# Usage:
+# ```sh
+# ./install-packages.sh [config.yml]
+# ```
+#
+# Example configuration:
+# ```yml
+# packages:
+#   # Core system utilities
+#   core:
+#     - name: cryptsetup
+#       description: Userspace setup tool for transparent encryption of block devices using dm-crypt
+#       aur: false
+#     - name: git
+#       description: The fast distributed version control system
+#       aur: false
+#   # ...
+# ```
+#
+# For a full example of config refer to my [dotfile
+# dependencies](https://github.com/roosta/dotfiles/blob/f40a9dbbab2e721d9ec63dd2f51be55701faf5ba/.dependencies.yml)
+# 
+# > [!WARNING]
+# > Work in progress
+#
+# License [MIT](./LICENSES/MIT-LICENSE.txt)
+# END_DOC
 # install-packages.sh - Install packages from YAML configuration using paru
 # Usage: ./install-packages.sh [config.yaml]
 

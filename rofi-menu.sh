@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# MIT License
 #
 # Copyright (c) 2025 Daniel Berg <mail@roosta.sh>
 #
@@ -20,21 +21,28 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-# rofi-menu.sh
-# ================
+# BEGIN_DOC
+# ### [rofi-menu.sh](./rofi-menu.sh)
+#
 # Script to create rofi menus based on a provided YAML config file
-# (ROFI_MENU_CONFIG)
+# (`ROFI_MENU_CONFIG`)
+#
+# Requirements:
+# - https://github.com/lbonn/rofi
+# - https://github.com/kislyuk/yq
 #
 # Resources:
 # - https://github.com/davatorium/rofi/wiki/Script-Launcher
 # - https://github.com/davatorium/rofi/blob/next/doc/rofi-script.5.markdown
 # 
 # Config Format (YAML): 
+# ```yml
 #   items:
 #     - script: ~/path/to/my/script.sh
 #       description: Item description
 #       icon: icon_name
 #       args: ["optional", "arguments"]
+# ```
 #
 # Usage:
 # To create a menu create a script like this
@@ -48,6 +56,13 @@
 # ```rasi
 # modes: "run,mymode:~/scripts/script.sh";
 # ```
+#
+# >[!NOTE]
+# > It's a bit slow, tried to reduce the queries passed to yq, but depending
+# > on the complexity of menu will take longer than I'd like. 
+#
+# License [MIT](./LICENSES/MIT-LICENSE.txt)
+# END_DOC
 
 # Arrays to store menu data
 declare -a SCRIPTS

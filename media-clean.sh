@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# MIT License
 #
 # Copyright (c) 2025 Daniel Berg <mail@roosta.sh>
 #
@@ -23,19 +24,25 @@
 # Drafted June 2025 based on LLM suggestion (claude-3.7-sonnet)
 # reviewed and edited by Daniel Berg <mail@roosta.sh>
 #
-# media-clean.sh
-# ================
-# Usage: ./media-clean.sh [OPTIONS] [DIRECTORY]
+# BEGIN_DOC
+# ### [media-clean.sh](./media-clean.sh)
+#
+# Usage: `./media-clean.sh [OPTIONS] [DIRECTORY]`
 # Clean up RAR files from directories that contain extracted video files
 #
-# OPTIONS:
-#   -d, --dry-run    Show what would be deleted without actually deleting
-#   -h, --help       Show this help message
+#     OPTIONS:
+#       -d, --dry-run    Show what would be deleted without actually deleting
+#       -h, --help       Show this help message
 #
-# DIRECTORY: Target directory to clean (default: current directory)
+#     DIRECTORY: Target directory to clean (default: current directory)
 #
-# WARNING: without passing dryrun this script WILL delete files, use at own
-# risk.
+# > [!WARNING]
+# > without passing dryrun this script WILL delete files, use at own
+# > risk.
+#
+# License [MIT](./LICENSES/MIT-LICENSE.txt)
+# END_DOC
+
 set -euo pipefail
 
 # Default values

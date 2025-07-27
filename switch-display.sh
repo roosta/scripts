@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# MIT License
 #
 # Copyright Daniel Berg <mail@roosta.sh>
 #
@@ -20,14 +21,41 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-# switch-display.sh
-# =================
+# BEGIN_DOC
+# ### [switch-display.sh](./switch-display.sh)
+#
 # Hyprland display switcher using dynamic monitor configs, switch between
 # monitor layouts.
 #
-# TODOs:
-# - [ ] Toggle HDR
-# - [ ] Force refresh
+# This script is spesifific to my home setup. It uses symlinks to swap out
+# config for `~/.config/hypr/monitors/current.conf`. These conf files are
+# just hyprland config files with settings spesific to that display layout.
+# Remember to source the symlink in your main hyprland config:
+#
+# ```hyprland
+# source = ~/.config/hypr/monitors/current.conf
+# ```
+#
+# > I've had a persistent problem where on monitor wakeup (varying wake times),
+# > hyprland won't respect my workspace monitor assignments, so this script
+# > will move windows to their "corrent" placement.
+#
+#     Usage: ./switch-display.sh <config> [options]
+#     
+#     Configurations:
+#       [all desk mirror tv] Switch to specified display configuration
+#     
+#     Example (Switch to desk configuration):
+#       ./switch-display.sh desk
+#     
+#     Note: Make sure to create config files in $HOME/.config/hypr/monitors matching argument name, e.g., desk.conf
+# 
+# > [!WARNING]
+# > Work in progress
+#
+# License [MIT](./LICENSES/MIT-LICENSE.txt)
+# END_DOC
+
 
 CONFIG_DIR="$HOME/.config/hypr/monitors"
 CURRENT_CONFIG="$CONFIG_DIR/current.conf"

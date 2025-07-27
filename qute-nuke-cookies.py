@@ -1,16 +1,17 @@
 #!/usr/bin/env python
+# MIT License
 #
 # Copyright (c) 2025 Daniel Berg <mail@roosta.sh>
 #
-# Permission is hereby granted, free of charge, to any person obtaining a copy of
-# this software and associated documentation files (the “Software”), to deal in
-# the Software without restriction, including without limitation the rights to
-# use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-# of the Software, and to permit persons to whom the Software is furnished to do
-# so, subject to the following conditions:
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the “Software”), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
 #
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
 #
 # THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -23,26 +24,32 @@
 # Drafted June 2025 based on LLM suggestion (GTP-4.1)
 # reviewed and edited by Daniel Berg <mail@roosta.sh>
 #
-# qute-nuke-cookies.py
-# ====================
-# usage: qute-nuke-cookies.py [-h] [-n] [-w WHITELIST_FILE]
+# BEGIN_DOC
+# ### [qute-nuke-cookies.py](./qute-nuke-cookies.py)
+#
+# Usage: `qute-nuke-cookies.py [-h] [-n] [-w WHITELIST_FILE]`
 #
 # Nuke qutebrowser cookies except for whitelisted domains.
 #
-# options:
-#   -h, --help            show this help message and exit
-#   -n, --dry-run         Print actions, but do not modify the database
-#   -w, --whitelist-file WHITELIST_FILE
+#       options:
+#         -h, --help            show this help message and exit
+#         -n, --dry-run         Print actions, but do not modify the database
+#         -w, --whitelist-file WHITELIST_FILE
 #                         Whitelist file (default:
 #                         $XDG_CONFIG_HOME/qutebrowser/cookie_whitelist).
 #
 # Cookie whitelist file:
-# $XDG_CONFIG_HOME/qutebrowser/cookie_whitelist (use -w to use a different
-# location) Config filer is flat file with URLs, and supports simple comments (#)
+# `$XDG_CONFIG_HOME/qutebrowser/cookie_whitelist` (use `-w` to use a different
+# location) Config file is flat file with URLs, and supports simple comments (#)
 # 
+# ```conf
 # # My whitelist
 # example.com
 # google.com
+# ```
+#
+# License [MIT](./LICENSES/MIT-LICENSE.txt)
+# END_DOC
 
 import sqlite3
 import os

@@ -1,5 +1,4 @@
-
-#!/bin/bash
+#!/usr/bin/env bash
 
 declare -i ID
 ID=`xinput list | grep -Eo 'ouchpad\s*id\=[0-9]{1,2}' | grep -Eo '[0-9]{1,2}'`
