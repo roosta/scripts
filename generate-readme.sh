@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-# MIT License
-#
 # Copyright (c) 2025 Daniel Berg <mail@roosta.sh>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of

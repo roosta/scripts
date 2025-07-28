@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-# MIT License
-#
 # Copyright 2016 Daniel Berg <mail@roosta.sh>
 #
 # This program is free software: you can redistribute it and/or modify
