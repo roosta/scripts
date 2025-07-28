@@ -448,3 +448,15 @@ enable-ipc = true
 
 Original source: <http://unix.stackexchange.com/a/27688>
 
+
+### [touchpad-toggle.sh](./touchpad-toggle.sh)
+
+- TODO: Fix for wayland
+
+Toggles touchpad on or off.
+
+Used in i3wm config like so:
+
+```i3
+bindsym XF86TouchpadToggle exec --no-startup-id ~/utils/touchpad-toggle.sh
+```
