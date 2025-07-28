@@ -62,8 +62,6 @@
 #
 # License [MIT](./LICENSES/MIT-LICENSE.txt)
 # END_DOC
-# install-packages.sh - Install packages from YAML configuration using paru
-# Usage: ./install-packages.sh [config.yaml]
 
 set -euo pipefail
 

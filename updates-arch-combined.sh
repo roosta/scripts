@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# MIT License
+# UNLICENSE
 #
 # This is free and unencumbered software released into the public domain.
 # 

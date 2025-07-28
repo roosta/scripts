@@ -37,7 +37,7 @@
 # for a way to clean up after this script.
 #
 # > [!NOTE]
-# > I don't actually know where this snipped originated, its all over the web,
+# > I don't actually know where this snippet originated, its all over the web,
 # > in gists and other script repos. I've seen other variants of this licensed
 # > under MIT, so I'm assuming that's OK here to, but I'm not 100%. If anyone
 # > knows, please let me know so I can add proper credit
