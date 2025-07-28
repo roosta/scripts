@@ -409,3 +409,42 @@ have to source an environment for `zplug update` to work, in other words have a
 fully sourced config with zplug to be able to update. You still need that, but
 here it is as a script callable from a subshell.
 
+### [keyboard-layout.sh](./keyboard-layout.sh)
+
+> DEPECATED: Xorg is getting phased out for wayland, kept for backward
+> compatibility temporarily
+
+Echo keyboard layout code/caps lock and formatting for [polybar](https://github.com/jaagr/polybar)
+
+I like my indicator to have a red background on Norwegian layout and caps-lock
+since it always trips me up when this is activated. Only works for Norwegian
+and US layouts. Could easily be modified though.
+
+How to use: In polybar setup a module using IPC:
+
+```conf
+[module/keyboard-layout]
+type = custom/ipc
+format-foreground = ${colors.brightwhite}
+format = <output>
+hook-0 = ~/scripts/keyboard-layout.sh
+initial = 1
+```
+
+Then in i3 setup something like this:
+
+```conf
+bindsym --release Caps_Lock exec polybar-msg hook keyboard-layout 1
+```
+
+This triggers an ipc message when releasing caps lock, which I have setup via xorg to toggle between layouts.
+
+Remember to enable ipc for your bar:
+
+```conf
+[bar/primary]
+enable-ipc = true
+```
+
+Original source: <http://unix.stackexchange.com/a/27688>
+
