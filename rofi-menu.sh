@@ -21,6 +21,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
+# Drafted May 2025 based on LLM suggestion (claude-3.7-sonnet)
+# reviewed and edited by Daniel Berg <mail@roosta.sh>
+#
 # BEGIN_DOC
 # ### [rofi-menu.sh](./rofi-menu.sh)
 #
