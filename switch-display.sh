@@ -38,7 +38,7 @@
 #
 # > I've had a persistent problem where on monitor wakeup (varying wake times),
 # > hyprland won't respect my workspace monitor assignments, so this script
-# > will move windows to their "corrent" placement.
+# > will move windows to their "correct" placement.
 #
 #     Usage: ./switch-display.sh <config> [options]
 #     
@@ -95,13 +95,11 @@ _get_primary_monitor() {
   fi
 }
 
-# check if a workspace exists
 workspace_exists() {
   local workspace_id="$1"
   hyprctl workspaces -j | jq -r '.[].id' | grep -q "^$workspace_id$"
 }
 
-# move workspace if it exists
 move_workspace_if_exists() {
   local workspace_id="$1"
   local monitor="$2"
@@ -137,7 +135,6 @@ reload_waybar() {
   systemctl --user restart waybar
 }
 
-# Get current mode by reading the symlink
 _get_current_mode() {
   if [ -L "$CURRENT_CONFIG" ]; then
     local target
@@ -160,17 +157,12 @@ _get_current_mode() {
 # Desk layout, wait until all displays are ready before moving workspaces
 switch_to_desk() {
 
-  # layout, from left to right
-  # hyprctl keyword monitor "$LEFT_DISPLAY,preferred,0x0,2" 
-  # hyprctl keyword monitor "$CENTER_DISPLAY,3840x2160@240,1920x0,2"
-  # hyprctl keyword monitor "$RIGHT_DISPLAY,preferred,3840x0,2"
-  # hyprctl keyword monitor "$TV_DISPLAY,disable"
-
   wait_for_monitor "$LEFT_DISPLAY"
   wait_for_monitor "$CENTER_DISPLAY" 
   wait_for_monitor "$RIGHT_DISPLAY"
 
-  # force workspaces to their assigment monitors after all monitors are available
+  # arrange workspaces two my desk screen layout. Force hyprland to
+  # respect my monitor ws assignments by placing them manually.
   for i in {1..4}; do
     move_workspace_if_exists "$i" "$CENTER_DISPLAY"
   done
@@ -186,10 +178,6 @@ switch_to_desk() {
 }
 
 switch_to_tv() {
-  # hyprctl keyword monitor "$LEFT_DISPLAY,disabled" 
-  # hyprctl keyword monitor "$CENTER_DISPLAY,disabled"
-  # hyprctl keyword monitor "$RIGHT_DISPLAY,disabled"
-  # hyprctl keyword monitor "$TV_DISPLAY,preferred,auto,2"
 
   wait_for_monitor "$TV_DISPLAY"
 
@@ -203,7 +191,6 @@ switch_to_tv() {
 }
 
 
-# Link the appropriate config file
 link_config() {
   local config_file="$CONFIG_DIR/${CONFIG_FILES[$1]}"
 
@@ -226,7 +213,6 @@ switch_layout() {
   fi
 }
 
-# Main argument handling
 if ! is_valid_config "$1"; then
   echo "Usage: $0 <config> [options]"
   echo ""
