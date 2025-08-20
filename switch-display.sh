@@ -197,6 +197,9 @@ switch_to_tv() {
   for ws in $workspaces; do
     hyprctl dispatch moveworkspacetomonitor "$ws" $TV_DISPLAY
   done
+
+
+  ./switch-audio.sh tv
 }
 
 
