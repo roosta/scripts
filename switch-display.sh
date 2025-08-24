@@ -187,7 +187,7 @@ switch_to_tv() {
   done
 
 
-  ./switch-audio.sh tv
+  /bin/bash ./switch-audio.sh tv
 }
 
 
