@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # MIT License
 #
-# Copyright Daniel Berg <mail@roosta.sh>
+# Copyright (c) 2025 Daniel Berg <mail@roosta.sh>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of
 # this software and associated documentation files (the “Software”), to deal in
@@ -187,7 +187,7 @@ switch_to_tv() {
   done
 
 
-  ./switch-audio.sh tv
+  /bin/bash "$HOME"/scripts/switch-audio.sh tv
 }
 
 
