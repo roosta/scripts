@@ -163,7 +163,7 @@ switch_to_desk() {
 
   # arrange workspaces two my desk screen layout. Force hyprland to
   # respect my monitor ws assignments by placing them manually.
-  for i in {1..4}; do
+  for i in {1..10}; do
     move_workspace_if_exists "$i" "$CENTER_DISPLAY"
   done
   for i in {11..14}; do
