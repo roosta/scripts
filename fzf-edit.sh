@@ -42,7 +42,7 @@ function fzf_edit() {
     fzf \
       --ansi \
       --preview-window 'right:60%' --multi \
-      --bind "enter:become(${EDITOR:-nvim} {+})" \
+      --bind "enter:execute(echo -en '\033]0;${EDITOR:-nvim} {}\a')+become(${EDITOR:-nvim} {+})" \
       --preview 'bat --color=always --style=numbers {}' <<< "$files"
   else
     ${EDITOR:-nvim} "$@"
