@@ -18,7 +18,8 @@
 # BEGIN_DOC
 # ### [update-nvim-plugins.sh](./update-nvim-plugins.sh)
 #
-# Syncs nvim plugins and commits changed lockfile to dotfiles.
+# Commit changed lock file to dotfiles. Pass --sync to also update using
+# lazy.nvim, otherwise it will commit a dirty lock file.
 #
 # Requirements:
 # - https://wiki.archlinux.org/title/Dotfiles#Tracking_dotfiles_directly_with_Git
@@ -26,7 +27,7 @@
 # 
 # Usage:
 # ```bash
-# ./update-nvim-plugins.sh
+# ./update-nvim-plugins.sh [--sync]
 # ```
 # 
 # License [GPL-3.0](./LICENSES/GPL-3.0-LICENSE.txt)
@@ -43,33 +44,43 @@ dotfiles() {
   GIT_DIR="$HOME/.dotfiles" GIT_WORK_TREE="$HOME" git "$@"
 }
 
-if [ -f "$LOCKFILE" ]; then
-  cp "$LOCKFILE" "$LOCKFILE.bak"
+# Optional: Update plugins if --sync flag is provided
+if [[ "$1" == "--sync" ]]; then
+  echo "Syncing plugins..."
+  nvim --headless "+Lazy! sync" +qa
 fi
 
-# Update plugins
-nvim --headless "+Lazy! sync" +qa
+# Get relative path from home directory for git operations
+LOCKFILE_REL="${LOCKFILE#"$HOME"/}"
 
-if ! diff -q "$LOCKFILE" "$LOCKFILE.bak" &>/dev/null; then
-
-  # Get updated plugins to add to commit message 
-  UPDATED_PLUGINS=$(diff \
-    --changed-group-format='%>' \
-    --unchanged-group-format='' "$LOCKFILE.bak" "$LOCKFILE" | 
+# Check if lockfile exists and is tracked in git
+if [[ -f "$LOCKFILE" ]] && dotfiles show "HEAD:$LOCKFILE_REL" > /dev/null 2>&1; then
+  COMMITTED_LOCKFILE=$(dotfiles show "HEAD:$LOCKFILE_REL")
+  if ! echo "$COMMITTED_LOCKFILE" | diff -q - "$LOCKFILE" &>/dev/null; then
+    UPDATED_PLUGINS=$(echo "$COMMITTED_LOCKFILE" | diff \
+      --changed-group-format='%>' \
+      --unchanged-group-format='' - "$LOCKFILE" | 
       grep -o '"[^"]*": {' | 
       sed 's/": {//' | 
       tr -d '"')
 
-  # Commit changes
+    # Commit changes
+    dotfiles add "$LOCKFILE"
+    dotfiles commit \
+      -m "nvim/lazy: update plugins" \
+      -m "Updated plugins:" \
+      -m "$(echo "$UPDATED_PLUGINS" | sed 's/^/- /')"
+
+    echo "Plugin changes committed to dotfiles."
+  else
+    echo "No plugin updates to commit."
+  fi
+elif [[ -f "$LOCKFILE" ]]; then
+  # First time adding lockfile
+  echo "Adding lockfile to dotfiles for the first time."
   dotfiles add "$LOCKFILE"
-  dotfiles commit \
-    -m "nvim/lazy: update plugins" \
-    -m "Updated plugins:" \
-    -m "$(echo "$UPDATED_PLUGINS" | sed 's/^/- /')"
-
-  echo "Plugins updated and changes committed."
+  dotfiles commit -m "nvim/lazy: add initial lockfile"
 else
-  echo "No plugin updates available."
+  echo "Lockfile not found at $LOCKFILE"
+  exit 1
 fi
-
-# rm -f "$LOCKFILE.bak"
