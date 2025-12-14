@@ -87,7 +87,7 @@ log() {
 }
 
 # Looks for a variable in the config $primary_monitor, return monitor id
-_get_primary_monitor() {
+get_primary_monitor() {
   if [ -f "$CURRENT_CONFIG" ]; then
     grep "\$primary_monitor =" "$CURRENT_CONFIG" | sed 's/.*= //'
   else
@@ -190,6 +190,12 @@ switch_to_tv() {
   /bin/bash "$HOME"/scripts/switch-audio.sh tv
 }
 
+# Just for xorg, need it so that some games will open on correct monitor
+set_primary_monitor() {
+  local primary 
+  primary=$(get_primary_monitor)
+  xrandr --output "$primary" --primary
+}
 
 link_config() {
   local config_file="$CONFIG_DIR/${CONFIG_FILES[$1]}"
@@ -228,5 +234,6 @@ fi
 
 link_config "$1"
 switch_layout "$1"
+set_primary_monitor
 
 # vim: set ts=2 sw=2 tw=0 fdm=marker et :
