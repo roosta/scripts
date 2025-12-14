@@ -105,6 +105,7 @@ move_workspace_if_exists() {
   local monitor="$2"
 
   if workspace_exists "$workspace_id"; then
+    log "Moving workspace $workspace_id to monitor $monitor"
     hyprctl dispatch moveworkspacetomonitor "$workspace_id" "$monitor"
   fi
 }
@@ -194,6 +195,7 @@ switch_to_tv() {
 set_primary_monitor() {
   local primary 
   primary=$(get_primary_monitor)
+  log "Setting xorg primary display to $primary"
   xrandr --output "$primary" --primary
 }
 
@@ -205,6 +207,7 @@ link_config() {
     return 1
   fi
 
+  log "Linking config file $config_file"
   ln -sf "$config_file" "$CURRENT_CONFIG" || {
     log "ERROR: Failed to create $config_file symlink"
       return 1
