@@ -37,7 +37,7 @@
 # ```hyprlang
 # exec = ~/scripts/hypr-mouse-state.sh sync
 # bind = $main_mod SHIFT,mouse:275,exec,~/scripts/hypr-mouse-state.sh menu
-# bind = $main_mod ALT,mouse:275,exec,~/.config/hypr/scripts/hypr-mouse-state.sh alt
+# bind = $main_mod ALT,mouse:275,exec,~/scripts/hypr-mouse-state.sh alt
 # ```
 #
 # `sync` checks the state file and sets the mode accordingly
