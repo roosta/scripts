@@ -98,12 +98,14 @@ case "${1:-sync}" in
     state=$(get_state)
     case "$state" in
       menu)
+        hyprctl keyword unbind ",mouse:275"
         hyprctl keyword bind ",mouse:275,global,:media-menu"
         ;;
       disabled)
         hyprctl keyword unbind ",mouse:275"
         ;;
       alt)
+        hyprctl keyword unbind ",mouse:275"
         hyprctl keyword bind ",mouse:275,sendshortcut,,ALT_L"
         ;;
     esac
