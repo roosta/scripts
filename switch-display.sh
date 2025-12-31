@@ -41,15 +41,15 @@
 # > will move windows to their "correct" placement.
 #
 #     Usage: ./switch-display.sh <config> [options]
-#     
+#
 #     Configurations:
 #       [all desk mirror tv] Switch to specified display configuration
-#     
+#
 #     Example (Switch to desk configuration):
 #       ./switch-display.sh desk
-#     
+#
 #     Note: Make sure to create config files in $HOME/.config/hypr/monitors matching argument name, e.g., desk.conf
-# 
+#
 # > [!WARNING]
 # > Work in progress
 #
@@ -159,7 +159,7 @@ _get_current_mode() {
 switch_to_desk() {
 
   wait_for_monitor "$LEFT_DISPLAY"
-  wait_for_monitor "$CENTER_DISPLAY" 
+  wait_for_monitor "$CENTER_DISPLAY"
   wait_for_monitor "$RIGHT_DISPLAY"
 
   # arrange workspaces two my desk screen layout. Force hyprland to
@@ -193,7 +193,7 @@ switch_to_tv() {
 
 # Just for xorg, need it so that some games will open on correct monitor
 set_primary_monitor() {
-  local primary 
+  local primary
   primary=$(get_primary_monitor)
   log "Setting xorg primary display to $primary"
   xrandr --output "$primary" --primary
