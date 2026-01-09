@@ -42,7 +42,7 @@
 #
 # `sync` checks the state file and sets the mode accordingly
 # Calling the script multiple times will toggle the passed mode on and off
-# 
+#
 # License [MIT](./LICENSES/MIT-LICENSE.txt)
 # END_DOC
 
@@ -67,6 +67,7 @@ enable_menu() {
   if [ "$state" = "menu" ]; then
     disable
   else
+    hyprctl keyword unbind ",mouse:275"
     hyprctl keyword bind ",mouse:275,global,:media-menu"
     notify-send --icon input-mouse "Media Menu" "Enabled media menu (kando)"
     echo "menu" > "$STATE_FILE"
@@ -79,7 +80,8 @@ enable_alt() {
     disable
   else
     echo "alt" > "$STATE_FILE"
-    hyprctl keyword bind ",mouse:275,sendshortcut,,ALT_L"
+    hyprctl keyword unbind ",mouse:275"
+    hyprctl keyword bind ",mouse:275,sendshortcut,,ALT_L,title:^World of Warcraft.*"
     notify-send --icon preferences-desktop-keyboard "Alt Mode" "Enabled alt mode"
   fi
 }
