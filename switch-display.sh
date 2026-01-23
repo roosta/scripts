@@ -60,12 +60,6 @@
 CONFIG_DIR="$HOME/.config/hypr/monitors"
 CURRENT_CONFIG="$CONFIG_DIR/current.conf"
 
-# Monitors
-LEFT_DISPLAY="DP-2"
-CENTER_DISPLAY="DP-1"
-RIGHT_DISPLAY="HDMI-A-1"
-TV_DISPLAY="HDMI-A-2"
-
 declare -A CONFIG_FILES=(
   ["desk"]="desk.conf"
   ["mirror"]="mirror.conf"
@@ -87,13 +81,21 @@ log() {
 }
 
 # Looks for a variable in the config $primary_monitor, return monitor id
-get_primary_monitor() {
+get_var() {
   if [ -f "$CURRENT_CONFIG" ]; then
-    grep "\$primary_monitor =" "$CURRENT_CONFIG" | sed 's/.*= //'
+    grep "\$$1 =" "$CURRENT_CONFIG" | sed 's/.*= //'
   else
     echo ""
   fi
 }
+
+
+# Monitors
+# Assume each config defines these variables
+LEFT_DISPLAY=$(get_var "left_monitor")
+CENTER_DISPLAY=$(get_var "center_monitor")
+RIGHT_DISPLAY=$(get_var "right_monitor")
+TV_DISPLAY=$(get_var "tv_monitor")
 
 workspace_exists() {
   local workspace_id="$1"
@@ -194,7 +196,7 @@ switch_to_tv() {
 # Just for xorg, need it so that some games will open on correct monitor
 set_primary_monitor() {
   local primary
-  primary=$(get_primary_monitor)
+  primary=$(get_var "primary_monitor")
   log "Setting xorg primary display to $primary"
   xrandr --output "$primary" --primary
 }
