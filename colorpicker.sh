@@ -36,11 +36,13 @@
 # ```sh
 # ./colorpicker.sh
 # ```
-# 
+#
 # License [MIT](./LICENSES/MIT-LICENSE.txt)
 # END_DOC
 
 # Added sleep here because otherwise rofi will be open when hyprpicker "freeze"
 # the screen
-sleep .2s && hyprpicker -a "$@"
+# sleep .2s && hyprpicker -a "$@"
+
+flatpak run com.github.finefindus.eyedropper
 
