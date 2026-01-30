@@ -24,11 +24,12 @@
 # BEGIN_DOC
 # ### [locker.sh](./locker.sh)
 #
-# Generic locker script, normally called via a graphical menu. Uses zenity
+# Generic locker script, normally called via a graphical menu. Uses kdialog
 # for a confirm dialog.
 #
 # Requirements:
 # - https://github.com/hyprwm/hyprlock
+# - https://invent.kde.org/utilities/kdialog
 #
 # Usage:
 # ```sh

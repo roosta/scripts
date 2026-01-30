@@ -24,11 +24,11 @@
 # BEGIN_DOC
 # ### [lock.sh](./lock.sh)
 #
-# Generic lock script, normally called via a graphical menu. Uses zenity
+# Generic lock script, normally called via a graphical menu. Uses kdialog
 # for a confirm dialog.
 #
 # Requirements:
-# - https://gitlab.gnome.org/GNOME/zenity
+# - https://invent.kde.org/utilities/kdialog
 # - https://github.com/hyprwm/hyprlock
 # - ./locker.sh
 #
@@ -40,8 +40,7 @@
 # License [MIT](./LICENSES/MIT-LICENSE.txt)
 # END_DOC
 
-zenity --question \
-  --text='Are you sure you want to lock?' \
+kdialog --yesno 'Are you sure you want to lock?' \
   --title='Lock' \
   --icon=system-lock-screen-symbolic.svg &&
   "$HOME/scripts/locker.sh"

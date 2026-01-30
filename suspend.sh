@@ -24,11 +24,11 @@
 # BEGIN_DOC
 # ### [suspend.sh](./suspend.sh)
 #
-# Generic suspend script, normally called via a graphical menu. Uses zenity
+# Generic suspend script, normally called via a graphical menu. Uses kdialog
 # for a confirm dialog.
 #
 # Requirements:
-# - https://gitlab.gnome.org/GNOME/zenity
+# - https://invent.kde.org/utilities/kdialog
 # - [locker.sh](./locker.sh)
 #
 # Usage:
@@ -38,8 +38,7 @@
 #
 # License [MIT](./LICENSES/MIT-LICENSE.txt)
 # END_DOC
-zenity --question \
-  --text='Are you sure you want to suspend this machine?' \
+kdialog --yesno 'Are you sure you want to suspend this machine?' \
   --title='Suspend' \
   --icon=dialog-warning-symbolic &&
   "$HOME/scripts/locker.sh" && systemctl suspend

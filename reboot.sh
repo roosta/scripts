@@ -24,11 +24,11 @@
 # BEGIN_DOC
 # ### [reboot.sh](./reboot.sh)
 #
-# Generic reboot script, normally called via a graphical menu. Uses zenity
+# Generic reboot script, normally called via a graphical menu. Uses kdialog
 # for a confirm dialog.
 #
 # Requirements:
-# - https://gitlab.gnome.org/GNOME/zenity
+# - https://invent.kde.org/utilities/kdialog
 #
 # Usage:
 # ```sh
@@ -38,8 +38,7 @@
 # License [MIT](./LICENSES/MIT-LICENSE.txt)
 # END_DOC
 
-zenity --question \
-  --text='Are you sure you want to reboot?' \
+kdialog --yesno 'Are you sure you want to reboot?' \
   --title='Reboot' \
   --icon=system-reboot-symbolic &&
   reboot

@@ -24,11 +24,11 @@
 # BEGIN_DOC
 # ### [shutdown.sh](./shutdown.sh)
 #
-# Generic shutdown script, normally called via a graphical menu. Uses zenity
+# Generic shutdown script, normally called via a graphical menu. Uses kdialog
 # for a confirm dialog.
 #
 # Requirements:
-# - https://gitlab.gnome.org/GNOME/zenity
+# - https://invent.kde.org/utilities/kdialog
 #
 # Usage:
 # ```sh
@@ -38,8 +38,7 @@
 # License [MIT](./LICENSES/MIT-LICENSE.txt)
 # END_DOC
 
-zenity --question \
-  --text='Are you sure you want to shut down?' \
+kdialog --yesno 'Are you sure you want to shut down?' \
   --title='Shutdown' \
   --icon=system-shutdown-symbolic &&
   shutdown now

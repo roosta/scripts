@@ -24,11 +24,11 @@
 # BEGIN_DOC
 # ### [hibernate.sh](./hibernate.sh)
 #
-# Generic hibernate script, normally called via a graphical menu. Uses zenity
+# Generic hibernate script, normally called via a graphical menu. Uses kdialog
 # for a confirm dialog. Locks screen before hibernating.
 #
 # Requirements:
-# - https://gitlab.gnome.org/GNOME/zenity
+# - https://invent.kde.org/utilities/kdialog
 # - https://github.com/hyprwm/hyprlock
 # - ./locker.sh
 # - ./lock.sh
@@ -41,8 +41,7 @@
 # License [MIT](./LICENSES/MIT-LICENSE.txt)
 # END_DOC
 
-zenity --question \
-  --text='Are you sure you want to hibernate this machine?' \
+kdialog --yesno 'Are you sure you want to hibernate this machine?' \
   --title='Hibernate' \
   --icon=dialog-warning-symbolic &&
   "$HOME/scripts/locker.sh" && systemctl hibernate
