@@ -40,7 +40,7 @@
 # License [MIT](./LICENSES/MIT-LICENSE.txt)
 # END_DOC
 
-kdialog --yesno 'Are you sure you want to lock?' \
+kdialog --warningcontinuecancel 'Are you sure you want to lock?' \
   --title='Lock' \
   --icon=system-lock-screen-symbolic.svg &&
   "$HOME/scripts/locker.sh"

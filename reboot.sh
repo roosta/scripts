@@ -38,7 +38,7 @@
 # License [MIT](./LICENSES/MIT-LICENSE.txt)
 # END_DOC
 
-kdialog --yesno 'Are you sure you want to reboot?' \
+kdialog --warningcontinuecancel 'Are you sure you want to reboot?' \
   --title='Reboot' \
   --icon=system-reboot-symbolic &&
   reboot

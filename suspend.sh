@@ -38,7 +38,7 @@
 #
 # License [MIT](./LICENSES/MIT-LICENSE.txt)
 # END_DOC
-kdialog --yesno 'Are you sure you want to suspend this machine?' \
+kdialog --warningcontinuecancel 'Are you sure you want to suspend this machine?' \
   --title='Suspend' \
   --icon=dialog-warning-symbolic &&
   "$HOME/scripts/locker.sh" && systemctl suspend
