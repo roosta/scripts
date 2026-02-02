@@ -36,22 +36,15 @@
 # source = ~/.config/hypr/monitors/current.conf
 # ```
 #
-# > I've had a persistent problem where on monitor wakeup (varying wake times),
-# > hyprland won't respect my workspace monitor assignments, so this script
-# > will move windows to their "correct" placement.
-#
 #     Usage: ./switch-display.sh <config> [options]
 #
 #     Configurations:
-#       [all desk mirror tv] Switch to specified display configuration
+#       [all desk mirror single tv] Switch to specified display configuration
 #
 #     Example (Switch to desk configuration):
 #       ./switch-display.sh desk
 #
 #     Note: Make sure to create config files in $HOME/.config/hypr/monitors matching argument name, e.g., desk.conf
-#
-# > [!WARNING]
-# > Work in progress
 #
 # License [MIT](./LICENSES/MIT-LICENSE.txt)
 # END_DOC
@@ -65,11 +58,15 @@ declare -A CONFIG_FILES=(
   ["mirror"]="mirror.conf"
   ["all"]="all.conf"
   ["tv"]="tv.conf"
+  ["single"]="single.conf"
 )
 
 declare -A SWITCH_FUNCTIONS=(
-  ["desk"]="switch_to_desk"
+  ["desk"]="spread_workspaces"
+  ["all"]="spread_workspaces"
+  ["mirror"]="spread_workspaces"
   ["tv"]="switch_to_tv"
+  ["single"]="switch_to_single"
 )
 
 is_valid_config() {
@@ -133,11 +130,6 @@ wait_for_monitor() {
   return 1
 }
 
-reload_waybar() {
-  # killall -SIGUSR2 waybar
-  systemctl --user restart waybar
-}
-
 _get_current_mode() {
   if [ -L "$CURRENT_CONFIG" ]; then
     local target
@@ -157,8 +149,8 @@ _get_current_mode() {
   fi
 }
 
-# Desk layout, wait until all displays are ready before moving workspaces
-switch_to_desk() {
+# spread workspaces across multiple monitors
+spread_workspaces() {
 
   wait_for_monitor "$LEFT_DISPLAY"
   wait_for_monitor "$CENTER_DISPLAY"
@@ -180,17 +172,14 @@ switch_to_desk() {
   done
 }
 
-switch_to_tv() {
-
-  wait_for_monitor "$TV_DISPLAY"
-
+# Collects workspaces to a single target monitor $1
+collect_workspaces() {
+  local monitor="$1"
+  wait_for_monitor "$1"
   workspaces=$(hyprctl workspaces -j | jq -r '.[].id')
   for ws in $workspaces; do
-    hyprctl dispatch moveworkspacetomonitor "$ws" $TV_DISPLAY
+    hyprctl dispatch moveworkspacetomonitor "$ws" "$monitor"
   done
-
-
-  /bin/bash "$HOME"/scripts/switch-audio.sh tv
 }
 
 # Just for xorg, need it so that some games will open on correct monitor
@@ -222,6 +211,15 @@ switch_layout() {
   if [[ -n "$switch_func" ]]; then
     "$switch_func"
   fi
+}
+
+switch_to_tv() {
+  collect_workspaces "$TV_DISPLAY"
+  /bin/bash "$HOME"/scripts/switch-audio.sh tv
+}
+
+switch_to_single() {
+  collect_workspaces "$CENTER_DISPLAY"
 }
 
 if ! is_valid_config "$1"; then
