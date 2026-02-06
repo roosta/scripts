@@ -38,7 +38,7 @@
 # License [MIT](./LICENSES/MIT-LICENSE.txt)
 # END_DOC
 
-kitty btop
+kitty -o 'font_size=12' btop -p 1
 
 # Start alacritty with custom font size and btop as a command. Start it on
 # workspace 15, and go back to the previously active workspace.
