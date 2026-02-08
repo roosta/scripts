@@ -25,6 +25,7 @@
 # ### [system-monitor.sh](./system-monitor.sh)
 #
 # System monitor
+# Optinally pass arguments to btop when calling.
 #
 # Requirements:
 # - https://github.com/kovidgoyal/kitty
@@ -32,13 +33,13 @@
 #
 # Usage:
 # ```sh
-# ./system-monitor.sh`
+# ./system-monitor.sh -c ~/.config/btop/myconf.conf
 # ```
 #
 # License [MIT](./LICENSES/MIT-LICENSE.txt)
 # END_DOC
 
-kitty -o 'font_size=12' btop -p 1
+kitty -o 'font_size=12' btop "$@"
 
 # Start alacritty with custom font size and btop as a command. Start it on
 # workspace 15, and go back to the previously active workspace.
