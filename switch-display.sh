@@ -93,6 +93,7 @@ LEFT_DISPLAY=$(get_var "left_monitor")
 CENTER_DISPLAY=$(get_var "center_monitor")
 RIGHT_DISPLAY=$(get_var "right_monitor")
 TV_DISPLAY=$(get_var "tv_monitor")
+TOP_DISPLAY=$(get_var "top_monitor")
 
 workspace_exists() {
   local workspace_id="$1"
@@ -155,6 +156,7 @@ spread_workspaces() {
   wait_for_monitor "$LEFT_DISPLAY"
   wait_for_monitor "$CENTER_DISPLAY"
   wait_for_monitor "$RIGHT_DISPLAY"
+  wait_for_monitor "$TOP_DISPLAY"
 
   # arrange workspaces two my desk screen layout. Force hyprland to
   # respect my monitor ws assignments by placing them manually.
@@ -165,7 +167,7 @@ spread_workspaces() {
     move_workspace_if_exists "$i" "$LEFT_DISPLAY"
   done
   for i in {15..18}; do
-    move_workspace_if_exists "$i" "$CENTER_DISPLAY"
+    move_workspace_if_exists "$i" "$TOP_DISPLAY"
   done
   for i in {19..22}; do
     move_workspace_if_exists "$i" "$RIGHT_DISPLAY"
