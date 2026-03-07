@@ -80,7 +80,7 @@ log() {
 # Looks for a variable in the config $primary_monitor, return monitor id
 get_var() {
   if [ -f "$CURRENT_CONFIG" ]; then
-    grep "\$$1 =" "$CURRENT_CONFIG" | sed 's/.*= //'
+    grep "\$$1\s*=" "$CURRENT_CONFIG" | sed 's/.*= //'
   else
     echo ""
   fi
