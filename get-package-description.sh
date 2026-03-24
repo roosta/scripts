@@ -42,7 +42,7 @@
 # :lua vim.cmd('! ~/scripts/get-package-description.sh ' .. vim.fn.shellescape(vim.fn.getreg('"')))
 # ```
 #
-# License [MIT](./LICENSE)
+# License [MIT](./LICENSES/MIT-LICENSE.txt)
 # END_DOC
 
 # Quckly grab a package description and put in clipboard
