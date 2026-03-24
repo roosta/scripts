@@ -51,7 +51,8 @@
 # Environment variables:
 # ```
 # AUTHOR     Overrides the author info line (default: Daniel Berg <mail@roosta.sh>)
-# GITHUB     Overrides the github info line (default: https://github.com/roosta/dotfiles)
+# REPO       Overrides the repo info line (default: https://github.com/roosta/dotfiles)
+# SITE       Overrides the site info line (default: https://www.roosta.sh)
 # LICENSE    Overrides the license info line (default: GNU General Public License v3)
 # FONT_DIR   Path to figlet fonts directory  (default: ~/lib/figlet-fonts)
 # ```
@@ -77,7 +78,8 @@ FONT="${2:-pagga}"
 FONT_DIR="${FONT_DIR:-$HOME/lib/figlet-fonts}"
 
 AUTHOR="${AUTHOR:-Daniel Berg <mail@roosta.sh>}"
-GITHUB="${GITHUB:-https://github.com/roosta/dotfiles}"
+REPO="${REPO:-https://github.com/roosta/dotfiles}"
+SITE="${SITE:-https://www.roosta.sh}"
 LICENSE="${LICENSE:-GNU General Public License v3}"
 
 L_BLOCK="█▀▀▀▀▀▀▀▀█"
@@ -111,7 +113,7 @@ done
 # Minimum INNER for info lines: lb(2) + " "(1) + label(7) + " : "(3) + value + rb(2) = INNER+2
 # => INNER >= 13 + max_info_len
 MAX_INFO=0
-for val in "$AUTHOR" "$GITHUB" "$LICENSE"; do
+for val in "$AUTHOR" "$REPO" "$SITE" "$LICENSE"; do
   vlen=$(charlen "$val")
   (( vlen > MAX_INFO )) && MAX_INFO=$vlen
 done
@@ -161,7 +163,8 @@ info_line() {
 }
 
 info_line "├┤" "├┤" "Author"  "$AUTHOR"
-info_line "││" "││" "Github"  "$GITHUB"
+info_line "││" "││" "Repo"  "$REPO"
+info_line "││" "││" "Site"  "$SITE"
 info_line "├┤" "├┤" "License" "$LICENSE"
 
 # ── Bottom border ────────────────────────────────────────────────────────────────────────
