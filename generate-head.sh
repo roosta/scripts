@@ -35,19 +35,42 @@
 #
 # Usage:
 # ```bash
-# ./generate-head.sh <text> [font]  # Outputs the head
+# ./generate-head.sh [options] <text> [font]
+#
+# Options:
+#   -c, --comment          Prefix each line with '# '
+#   --comment=CHAR         Prefix each line with a custom character
+#
+# Examples:
+#   ./generate-head.sh zshrc                  # plain output
+#   ./generate-head.sh -c zshrc               # prefixed with '# '
+#   ./generate-head.sh --comment=-- init.lua  # prefixed with '--'
+#   ./generate-head.sh --comment=// style.ts  # prefixed with '//'
 # ```
 #
-# >[!TIP]
-# > Set AUTHOR, GITHUB, LICENSE env vars to override defaults.
-# > Set FONT_DIR to point to your figlet fonts directory.
+# Environment variables:
+#   AUTHOR     Overrides the author info line (default: Daniel Berg <mail@roosta.sh>)
+#   GITHUB     Overrides the github info line (default: https://github.com/roosta/dotfiles)
+#   LICENSE    Overrides the license info line (default: GNU General Public License v3)
+#   FONT_DIR   Path to figlet fonts directory  (default: ~/lib/figlet-fonts)
 #
 # License [MIT](./LICENSES/MIT-LICENSE.txt)
 # END_DOC
 
 set -euo pipefail
 
-INPUT="${1:?Usage: $0 <text> [font]}"
+COMMENT_PREFIX=""
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -c|--comment)   COMMENT_PREFIX="# "; shift ;;
+    --comment=*)    COMMENT_PREFIX="${1#--comment=} "; shift ;;
+    --)             shift; break ;;
+    -*)             echo "Unknown option: $1" >&2; exit 1 ;;
+    *)              break ;;
+  esac
+done
+
+INPUT="${1:?Usage: $0 [-c|--comment[=CHAR]] <text> [font]}"
 FONT="${2:-pagga}"
 FONT_DIR="${FONT_DIR:-$HOME/lib/figlet-fonts}"
 
@@ -110,6 +133,7 @@ fi
 L_DECO="${L_BLOCK}$(repeat '░' "$PAD_L")"
 R_DECO="$(repeat '░' "$PAD_R")${R_BLOCK}"
 
+_output() {
 # ── Top border ────────────────────────────────────────────────────────────────────────────
 printf "┌%s┐\n" "$(repeat '─' "$INNER")"
 
@@ -140,4 +164,11 @@ info_line "├┤" "├┤" "License" "$LICENSE"
 
 # ── Bottom border ────────────────────────────────────────────────────────────────────────
 printf "┆└%s┘┆\n" "$(repeat '─' "$(( INNER - 2 ))")"
+}
+
+if [[ -n "$COMMENT_PREFIX" ]]; then
+  _output | while IFS= read -r _line; do printf "%s%s\n" "$COMMENT_PREFIX" "$_line"; done
+else
+  _output
+fi
 
