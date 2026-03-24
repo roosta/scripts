@@ -49,10 +49,12 @@
 # ```
 #
 # Environment variables:
-#   AUTHOR     Overrides the author info line (default: Daniel Berg <mail@roosta.sh>)
-#   GITHUB     Overrides the github info line (default: https://github.com/roosta/dotfiles)
-#   LICENSE    Overrides the license info line (default: GNU General Public License v3)
-#   FONT_DIR   Path to figlet fonts directory  (default: ~/lib/figlet-fonts)
+# ```
+# AUTHOR     Overrides the author info line (default: Daniel Berg <mail@roosta.sh>)
+# GITHUB     Overrides the github info line (default: https://github.com/roosta/dotfiles)
+# LICENSE    Overrides the license info line (default: GNU General Public License v3)
+# FONT_DIR   Path to figlet fonts directory  (default: ~/lib/figlet-fonts)
+# ```
 #
 # License [MIT](./LICENSES/MIT-LICENSE.txt)
 # END_DOC
