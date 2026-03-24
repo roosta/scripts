@@ -55,10 +55,11 @@ AUTHOR="${AUTHOR:-Daniel Berg <mail@roosta.sh>}"
 GITHUB="${GITHUB:-https://github.com/roosta/dotfiles}"
 LICENSE="${LICENSE:-GNU General Public License v3}"
 
-L_DECO="█▀▀▀▀▀▀▀▀█░░"
-R_DECO="░░█▀▀▀▀▀▀▀▀█"
+L_BLOCK="█▀▀▀▀▀▀▀▀█"
+R_BLOCK="█▀▀▀▀▀▀▀▀█"
 L_SEP="█▀▀▀▀▀▀▀▀▀"
 R_SEP="▀▀▀▀▀▀▀▀▀█"
+MIN_PAD=2
 
 charlen() { printf "%s" "$1" | wc -m; }
 
@@ -82,8 +83,32 @@ for line in "${LINES[@]}"; do
   (( len > MAX_TXT )) && MAX_TXT=$len
 done
 
-# Inner width = content between the two outer border chars
-INNER=$(( $(charlen "$L_DECO") + MAX_TXT + $(charlen "$R_DECO") ))
+# Minimum INNER for info lines: lb(2) + " "(1) + label(7) + " : "(3) + value + rb(2) = INNER+2
+# => INNER >= 13 + max_info_len
+MAX_INFO=0
+for val in "$AUTHOR" "$GITHUB" "$LICENSE"; do
+  vlen=$(charlen "$val")
+  (( vlen > MAX_INFO )) && MAX_INFO=$vlen
+done
+
+PAD_L=$MIN_PAD
+PAD_R=$MIN_PAD
+L_BLOCK_LEN=$(charlen "$L_BLOCK")
+R_BLOCK_LEN=$(charlen "$R_BLOCK")
+INNER=$(( L_BLOCK_LEN + PAD_L + MAX_TXT + PAD_R + R_BLOCK_LEN ))
+
+# Expand padding equally if info lines don't fit; right gets the extra if deficit is odd
+MIN_INNER=$(( 13 + MAX_INFO ))
+if (( INNER < MIN_INNER )); then
+  DEFICIT=$(( MIN_INNER - INNER ))
+  PAD_L=$(( MIN_PAD + DEFICIT / 2 ))
+  PAD_R=$(( MIN_PAD + (DEFICIT + 1) / 2 ))
+  INNER=$(( L_BLOCK_LEN + PAD_L + MAX_TXT + PAD_R + R_BLOCK_LEN ))
+fi
+
+# Build decorators with final padding
+L_DECO="${L_BLOCK}$(repeat '░' "$PAD_L")"
+R_DECO="$(repeat '░' "$PAD_R")${R_BLOCK}"
 
 # ── Top border ────────────────────────────────────────────────────────────────────────────
 printf "┌%s┐\n" "$(repeat '─' "$INNER")"
