@@ -239,7 +239,7 @@ fi
 
 link_config "$1"
 switch_layout "$1"
-set_primary_monitor
+# set_primary_monitor
 hyprctl reload config-only
 
 # vim: set ts=2 sw=2 tw=0 fdm=marker et :
