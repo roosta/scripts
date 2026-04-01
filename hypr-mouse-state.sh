@@ -59,7 +59,7 @@ get_state() {
 disable() {
   hyprctl keyword unbind ",mouse:275"
   echo "disabled" > "$STATE_FILE"
-  notify-send --icon media-playback-paused "Mouse Mode Disabled" "Mouse now acts normally"
+  notify-send -e --icon media-playback-paused "Mouse Mode Disabled" "Mouse now acts normally"
 }
 
 enable_menu() {
@@ -69,7 +69,7 @@ enable_menu() {
   else
     hyprctl keyword unbind ",mouse:275"
     hyprctl keyword bind ",mouse:275,global,:media-menu"
-    notify-send --icon input-mouse "Media Menu" "Enabled media menu (kando)"
+    notify-send -e --icon input-mouse "Media Menu" "Enabled media menu (kando)"
     echo "menu" > "$STATE_FILE"
   fi
 }
