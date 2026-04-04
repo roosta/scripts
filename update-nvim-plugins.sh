@@ -24,12 +24,12 @@
 # Requirements:
 # - https://wiki.archlinux.org/title/Dotfiles#Tracking_dotfiles_directly_with_Git
 # - https://github.com/folke/lazy.nvim
-# 
+#
 # Usage:
 # ```bash
 # ./update-nvim-plugins.sh [--sync]
 # ```
-# 
+#
 # License [GPL-3.0](./LICENSES/GPL-3.0-LICENSE.txt)
 # END_DOC
 #
@@ -59,9 +59,9 @@ if [[ -f "$LOCKFILE" ]] && dotfiles show "HEAD:$LOCKFILE_REL" > /dev/null 2>&1; 
   if ! echo "$COMMITTED_LOCKFILE" | diff -q - "$LOCKFILE" &>/dev/null; then
     UPDATED_PLUGINS=$(echo "$COMMITTED_LOCKFILE" | diff \
       --changed-group-format='%>' \
-      --unchanged-group-format='' - "$LOCKFILE" | 
-      grep -o '"[^"]*": {' | 
-      sed 's/": {//' | 
+      --unchanged-group-format='' - "$LOCKFILE" |
+      grep -o '"[^"]*": {' |
+      sed 's/": {//' |
       tr -d '"')
 
     # Commit changes

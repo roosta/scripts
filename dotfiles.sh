@@ -26,7 +26,7 @@
 #
 # Scaffold various shell utils  needed for storing dotfiles like described here
 # https://wiki.archlinux.org/title/Dotfiles.
-# 
+#
 # > [!WARNING]
 # > Work in progress
 #

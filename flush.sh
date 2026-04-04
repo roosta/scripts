@@ -28,7 +28,7 @@
 #
 # > [!WARNING]
 # > Work in progress
-# 
+#
 # License [MIT](./LICENSES/MIT-LICENSE.txt)
 # END_DOC
 

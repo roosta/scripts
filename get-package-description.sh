@@ -26,7 +26,7 @@
 #
 # Quckly grab a package description and put in clipboard
 #
-# Requirements: 
+# Requirements:
 #
 # - https://pacman.archlinux.page/
 # - https://github.com/bugaevc/wl-clipboard

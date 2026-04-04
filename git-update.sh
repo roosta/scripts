@@ -38,7 +38,7 @@
 # ```sh
 # ./git-update.sh ~/src mydependencies.txt
 # ```
-# 
+#
 # License [MIT](./LICENSES/MIT-LICENSE.txt)
 # END_DOC
 error_msg() {

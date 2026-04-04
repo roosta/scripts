@@ -40,7 +40,7 @@
 #
 # Script will try `/usr/share/figlet` and `$HOME/lib/figlet-fonts`. I got extra
 # fonts installed in the latter.
-# 
+#
 # License [MIT](./LICENSES/MIT-LICENSE.txt)
 # END_DOC
 

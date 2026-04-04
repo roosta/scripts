@@ -24,7 +24,7 @@
 # BEGIN_DOC
 # ### [ags-dev.sh](./ags-dev.sh)
 #
-# Starts an ags dev session, passing optional debug flat to also open inspector 
+# Starts an ags dev session, passing optional debug flat to also open inspector
 #
 # Requirements:
 # - https://github.com/eradman/entr

@@ -29,7 +29,7 @@
 # ```sh
 # ./generate-readme.sh
 # ```
-# 
+#
 # License [MIT](./LICENSE)
 # END_DOC
 
@@ -93,7 +93,7 @@ cat >> "$output" << EOF
 
 See individual script headers, or attached licenses in [LICENSES](./LICENSES)
 
-- [CC BY-SA 4.0](./LICENSES/CC-BY-SA-4.0-LICENSE.txt) 
+- [CC BY-SA 4.0](./LICENSES/CC-BY-SA-4.0-LICENSE.txt)
 - [GFDL-1.3](./LICENSES/GFDL-1.3-LICENSE.txt)
 - [GPL-3.0](./LICENSES/GPL-3.0-LICENSE.txt)
 - [MIT LICENSE](./LICENSES/MIT-LICENSE.txt)

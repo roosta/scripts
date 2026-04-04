@@ -41,7 +41,7 @@
 # > in gists and other script repos. I've seen other variants of this licensed
 # > under MIT, so I'm assuming that's OK here to, but I'm not 100%. If anyone
 # > knows, please let me know so I can add proper credit
-#  
+#
 # License [MIT](./LICENSES/MIT-LICENSE.txt)
 # END_DOC
 

@@ -41,7 +41,7 @@
 # ```sh
 # ./add-vim-plugin.sh "roosta/fzf-folds.vim"
 # ```
-# 
+#
 # License [MIT](./LICENSES/MIT-LICENSE.txt)
 # END_DOC
 

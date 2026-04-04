@@ -35,7 +35,7 @@
 // ```sh
 // node bookmarks-md.mjs
 // ```
-// 
+//
 // License [MIT](./LICENSES/MIT-LICENSE.txt)
 // END_DOC
 

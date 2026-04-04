@@ -56,7 +56,7 @@
 #
 # For a full example of config refer to my [dotfile
 # dependencies](https://github.com/roosta/dotfiles/blob/f40a9dbbab2e721d9ec63dd2f51be55701faf5ba/.dependencies.yml)
-# 
+#
 # > [!WARNING]
 # > Work in progress
 #

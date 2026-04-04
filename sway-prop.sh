@@ -25,10 +25,10 @@
 #
 # BEGIN_DOC
 # ### [sway-prop.sh](./sway-prop.sh)
-# 
+#
 # source: https://gist.github.com/crispyricepc/f313386043395ff06570e02af2d9a8e0#file-wlprop-sh
 #
-# Starts a window picker (slurp) and print selected window information. 
+# Starts a window picker (slurp) and print selected window information.
 # Similar to xprop. This is for sway, in Hyprland you can just use `hyprctl
 # clients` + some grep pattern will get you far.
 #

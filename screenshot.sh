@@ -37,7 +37,7 @@
 # ```sh
 # ./screenshot.sh
 # ```
-# 
+#
 # License [MIT](./LICENSES/MIT-LICENSE.txt)
 # END_DOC
 

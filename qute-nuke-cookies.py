@@ -41,7 +41,7 @@
 # Cookie whitelist file:
 # `$XDG_CONFIG_HOME/qutebrowser/cookie_whitelist` (use `-w` to use a different
 # location) Config file is flat file with URLs, and supports simple comments (#)
-# 
+#
 # ```conf
 # # My whitelist
 # example.com
@@ -83,7 +83,7 @@ def is_whitelisted(host, whitelist):
 
 def main(dry_run, whitelist_file):
     whitelist = load_whitelist(whitelist_file)
-    
+
     # --- edit this for profile support, if needed:
     cookie_db = os.path.expanduser("~/.local/share/qutebrowser/webengine/Cookies")
 

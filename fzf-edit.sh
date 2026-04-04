@@ -16,7 +16,7 @@
 # ### [fzf-edit.sh](./fzf-edit.sh)
 #
 # Quicky find and edit files using fzf and fd
-# 
+#
 # Requirements:
 # - https://github.com/sharkdp/fd
 # - https://github.com/junegunn/fzf
