@@ -68,7 +68,7 @@ enable_menu() {
     disable
   else
     hyprctl keyword unbind ",mouse:275"
-    hyprctl keyword bind ",mouse:275,global,:media-menu"
+    hyprctl keyword bind ",mouse:275,global,menu.kando.Kando:media-menu"
     notify-send -e --icon input-mouse "Media Menu" "Enabled media menu (kando)"
     echo "menu" > "$STATE_FILE"
   fi
