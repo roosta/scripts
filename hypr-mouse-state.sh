@@ -101,7 +101,7 @@ case "${1:-sync}" in
     case "$state" in
       menu)
         hyprctl keyword unbind ",mouse:275"
-        hyprctl keyword bind ",mouse:275,global,:media-menu"
+        hyprctl keyword bind ",mouse:275,global,:menu.kando.Kando:media-menu"
         ;;
       disabled)
         hyprctl keyword unbind ",mouse:275"
