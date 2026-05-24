@@ -71,7 +71,7 @@ art=$(toilet -d "$HOME/lib/figlet-fonts" -f "rusto" "$name")
   echo "return {"
   echo "  \"$repo\","
   echo "}"
-} > "$XDG_CONFIG_HOME/nvim/lua/plugins/$name".lua
+} > "${XDG_CONFIG_HOME:$HOME/.config}/nvim/lua/plugins/$name".lua
 
 # Print the result
-cat "$XDG_CONFIG_HOME/nvim/lua/plugins/$name".lua
+cat "${XDG_CONFIG_HOME:$HOME/.config}/nvim/lua/plugins/$name".lua
