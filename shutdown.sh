@@ -41,5 +41,5 @@
 kdialog --warningcontinuecancel 'Are you sure you want to shut down?' \
   --title='Shutdown' \
   --icon=system-shutdown-symbolic &&
-  shutdown now
+  hyprshutdown -t 'Shutting down...' --post-cmd 'shutdown -P 0'
 
