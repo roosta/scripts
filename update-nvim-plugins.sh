@@ -35,7 +35,7 @@
 #
 # shellcheck disable=SC2001
 
-NVIM_CONFIG_DIR="${XDG_CONFIG_HOME:$HOME/.config}/nvim"
+NVIM_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/nvim"
 LOCKFILE="$NVIM_CONFIG_DIR/lazy-lock.json"
 
 cd "$NVIM_CONFIG_DIR" || exit 1
