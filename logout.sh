@@ -25,10 +25,11 @@
 # ### [logout.sh](./logout.sh)
 #
 # Generic logout script, normally called via a graphical menu. Uses kdialog
-# for a confirm dialog.
+# for a confirm dialog. Session needs to be started with uwsm.
 #
 # Requirements:
 # - https://invent.kde.org/utilities/kdialog
+# - https://github.com/Vladimir-csp/uwsm
 #
 # Usage:
 # ```sh
@@ -41,5 +42,5 @@
 kdialog --warningcontinuecancel 'Are you sure you want to log out?' \
   --title='Logout' \
   --icon=system-log-out-symbolic &&
-  hyprshutdown
+  uwsm stop
 
