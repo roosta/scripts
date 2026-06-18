@@ -483,3 +483,19 @@ bind = $main_mod ALT,mouse:275,exec,~/scripts/hypr-mouse-state.sh alt
 Calling the script multiple times will toggle the passed mode on and off
 
 License [MIT](./LICENSES/MIT-LICENSE.txt)
+
+### [iommu-groups.sh](./iommu-groups.sh)
+
+Lists system iommu groups used for PCI passthrough via OVMF. This was copied
+from the arch wiki in 2016, I would probably go check the latest wiki
+revision to get up to date scripts.
+
+- https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF
+
+Usage:
+
+```sh
+./iommu-groups.sh
+```
+
+License [GFDL-1.3](./LICENSES/GFDL-1.3-LICENSE.txt)
