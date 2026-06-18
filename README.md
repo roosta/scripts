@@ -521,3 +521,18 @@ Usage:
 ```
 
 License [MIT](./LICENSES/MIT-LICENSE.txt)
+
+### [ags-dev.sh](./ags-dev.sh)
+
+Starts an ags dev session, passing optional debug flat to also open inspector
+
+Requirements:
+- https://github.com/eradman/entr
+- https://github.com/aylur/ags
+
+Usage: `./ags-dev.sh [OPTIONS]`
+
+    OPTIONS:
+      -d, --debug      open debug inspector
+
+License [MIT](./LICENSES/MIT-LICENSE.txt)
