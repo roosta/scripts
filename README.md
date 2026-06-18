@@ -499,3 +499,25 @@ Usage:
 ```
 
 License [GFDL-1.3](./LICENSES/GFDL-1.3-LICENSE.txt)
+
+### [waybar-dev.sh](./waybar-dev.sh)
+
+Uses `entr` to watch for changes in my Waybar config files, and will restart
+Waybar on save. I use this when I develop themes and customization, you can
+pass `-d` to open a GTK debugger window as well, to get CSS selectors used
+for styling Waybar.
+
+Requirements:
+- https://eradman.com/entrproject/
+- https://github.com/Alexays/Waybar
+
+Usage:
+
+```tmux
+./waybar-dev.sh [OPTIONS]
+
+    OPTIONS:
+      -d, --debug      open debug inspector
+```
+
+License [MIT](./LICENSES/MIT-LICENSE.txt)
