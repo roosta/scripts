@@ -460,3 +460,26 @@ Used in i3wm config like so:
 ```i3
 bindsym XF86TouchpadToggle exec --no-startup-id ~/utils/touchpad-toggle.sh
 ```
+
+
+### [hypr-mouse-state.sh](./hypr-mouse-state.sh)
+
+Handle the different states `mouse:275` (first side button on my setup)
+I use this for various conflicting things, this handles toggling on and off
+the various modes.
+
+Requirements:
+- https://github.com/hyprwm/Hyprland
+
+Usage:
+
+```hyprlang
+exec = ~/scripts/hypr-mouse-state.sh sync
+bind = $main_mod SHIFT,mouse:275,exec,~/scripts/hypr-mouse-state.sh menu
+bind = $main_mod ALT,mouse:275,exec,~/scripts/hypr-mouse-state.sh alt
+```
+
+`sync` checks the state file and sets the mode accordingly
+Calling the script multiple times will toggle the passed mode on and off
+
+License [MIT](./LICENSES/MIT-LICENSE.txt)
