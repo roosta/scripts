@@ -190,7 +190,7 @@ link_config() {
     log "ERROR: Failed to create $config_file symlink"
       return 1
     }
-  hyprctl reload config-only
+  # hyprctl reload
 }
 
 switch_layout() {
@@ -223,7 +223,6 @@ if ! is_valid_config "$1"; then
 fi
 
 link_config "$1"
-sleep 0.3
 switch_layout "$1"
 
 # vim: set ts=2 sw=2 tw=0 fdm=marker et :
