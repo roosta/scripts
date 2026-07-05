@@ -63,118 +63,12 @@ declare -A CONFIG_FILES=(
   ["single"]="single.lua"
 )
 
-declare -A SWITCH_FUNCTIONS=(
-  ["desk"]="spread_workspaces"
-  ["all"]="spread_workspaces"
-  ["mirror"]="spread_workspaces"
-  ["tv"]="switch_to_tv"
-  ["single"]="switch_to_single"
-)
-
 is_valid_config() {
   [[ -n "${CONFIG_FILES[$1]}" ]]
 }
 
 log() {
   echo "$(date '+%Y-%m-%d %H:%M:%S'): $1"
-}
-
-# Require in monitors.lua to get defined outputs
-get_var() {
-  local key="$1"
-  local monitors_file="$CONFIG_DIR/monitors.lua"
-  if [ -f "$monitors_file" ]; then
-    lua -e "local m = dofile('$monitors_file'); print(m['$key'] or '')"
-  else
-    echo ""
-  fi
-}
-
-# Monitors
-# Assume each config defines these variables
-LEFT_DISPLAY=$(get_var "left")
-CENTER_DISPLAY=$(get_var "center")
-RIGHT_DISPLAY=$(get_var "right")
-TV_DISPLAY=$(get_var "tv")
-TOP_DISPLAY=$(get_var "top")
-
-workspace_exists() {
-  local workspace_id="$1"
-  hyprctl workspaces -j | jq -r '.[].id' | grep -q "^$workspace_id$"
-}
-
-_get_current_mode() {
-  if [ -L "$CURRENT_CONFIG" ]; then
-    local target
-    target=$(readlink "$CURRENT_CONFIG")
-
-    local basename
-    basename=$(basename "$target")
-
-    # Remove the .conf suffix to get the mode name
-    if [[ "$basename" == *.lua ]]; then
-      echo "${basename%.lua}"
-    else
-      echo "unknown"
-    fi
-  else
-    echo "none"
-  fi
-}
-
-# Build a lua string of workspace move commands to be passed to eval
-move_workspaces() {
-  local -n _pairs=$1
-  local lua_cmds=()
-
-  for pair in "${_pairs[@]}"; do
-    local ws="${pair%%=*}"
-    local mon="${pair#*=}"
-    if workspace_exists "$ws"; then
-      lua_cmds+=("hl.dispatch(hl.dsp.workspace.move({ workspace = \"$ws\", monitor = \"$mon\" }))")
-    fi
-  done
-
-  if [ ${#lua_cmds[@]} -gt 0 ]; then
-    local script
-    printf -v script '%s; ' "${lua_cmds[@]}"
-    hyprctl eval "$script"
-  fi
-}
-
-# spread workspaces across multiple monitors
-spread_workspaces() {
-  local pairs=()
-
-  for i in {1..10};  do pairs+=("$i=$CENTER_DISPLAY"); done
-  for i in {11..14}; do pairs+=("$i=$LEFT_DISPLAY");   done
-  for i in {15..18}; do pairs+=("$i=$TOP_DISPLAY");    done
-  for i in {19..22}; do pairs+=("$i=$RIGHT_DISPLAY");  done
-
-  log "Executing batch move move of workspaces..."
-  move_workspaces pairs
-}
-
-# Collects workspaces to a single target monitor $1
-collect_workspaces() {
-  local monitor="$1"
-  local workspaces
-  workspaces=$(hyprctl workspaces -j | jq -r '.[].id')
-
-  local pairs=()
-  for ws in $workspaces; do
-    pairs+=("$ws=$monitor")
-  done
-
-  move_workspaces pairs
-}
-
-# Just for xorg, need it so that some games will open on correct monitor
-set_primary_monitor() {
-  local primary
-  primary=$(get_var "primary_monitor")
-  log "Setting xorg primary display to $primary"
-  xrandr --output "$primary" --primary
 }
 
 link_config() {
@@ -189,24 +83,7 @@ link_config() {
   ln -sf "$config_file" "$CURRENT_CONFIG" || {
     log "ERROR: Failed to create $config_file symlink"
       return 1
-    }
-  # hyprctl reload
-}
-
-switch_layout() {
-  local switch_func="${SWITCH_FUNCTIONS[$1]}"
-  if [[ -n "$switch_func" ]]; then
-    "$switch_func"
-  fi
-}
-
-switch_to_tv() {
-  collect_workspaces "$TV_DISPLAY"
-  /bin/bash "$HOME"/scripts/switch-audio.sh tv
-}
-
-switch_to_single() {
-  collect_workspaces "$CENTER_DISPLAY"
+  }
 }
 
 if ! is_valid_config "$1"; then
@@ -223,6 +100,5 @@ if ! is_valid_config "$1"; then
 fi
 
 link_config "$1"
-switch_layout "$1"
 
 # vim: set ts=2 sw=2 tw=0 fdm=marker et :
