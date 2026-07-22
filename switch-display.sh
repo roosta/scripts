@@ -40,7 +40,7 @@
 #     Usage: ./switch-display.sh <config> [options]
 #
 #     Configurations:
-#       [all desk mirror single tv] Switch to specified display configuration
+#       [all desk mirror exclusive tv] Switch to specified display configuration
 #
 #     Example (Switch to desk configuration):
 #       ./switch-display.sh desk
@@ -60,7 +60,7 @@ declare -A CONFIG_FILES=(
   ["mirror"]="mirror.lua"
   ["all"]="all.lua"
   ["tv"]="tv.lua"
-  ["single"]="single.lua"
+  ["exclusive"]="exclusive.lua"
 )
 
 is_valid_config() {
