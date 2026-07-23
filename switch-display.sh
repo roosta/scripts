@@ -73,6 +73,7 @@ log() {
 
 link_config() {
   local config_file="$CONFIG_DIR/${CONFIG_FILES[$1]}"
+  local tmp_link="$CURRENT_CONFIG.tmp.$$"
 
   if [[ ! -f "$config_file" ]]; then
     log "ERROR: $config_file not found"
@@ -80,10 +81,28 @@ link_config() {
   fi
 
   log "Linking config file $config_file"
-  ln -sf "$config_file" "$CURRENT_CONFIG" || {
-    log "ERROR: Failed to create $config_file symlink"
-      return 1
-  }
+  if ! ln -sf "$config_file" "$tmp_link"; then
+    log "ERROR: Failed to create temporary symlink"
+    return 1
+  fi
+
+  if ! mv -T "$tmp_link" "$CURRENT_CONFIG"; then
+    log "ERROR: Failed to move symlink into place"
+    rm -f "$tmp_link"
+    return 1
+  fi
+}
+
+# Disable autoreload when linking config
+switch_config() {
+  hyprctl eval 'hl.config({misc = {disable_autoreload = true}})'
+
+  # The trap here works by firing on function return, kinda like a finally,
+  # ensuring that the autoreload is turned back on no matter what
+  trap 'hyprctl eval "hl.config({misc = {disable_autoreload = false}})"' RETURN
+
+  link_config "$1" || return 1
+  hyprctl reload
 }
 
 if ! is_valid_config "$1"; then
@@ -99,6 +118,6 @@ if ! is_valid_config "$1"; then
   exit 1
 fi
 
-link_config "$1"
+switch_config "$1"
 
 # vim: set ts=2 sw=2 tw=0 fdm=marker et :
