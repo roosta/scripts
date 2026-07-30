@@ -39,7 +39,8 @@
 # License [MIT](./LICENSES/MIT-LICENSE.txt)
 # END_DOC
 
-kdialog --warningcontinuecancel 'Are you sure you want to log out?' \
+sleep 0.2 && \
+  kdialog --warningcontinuecancel 'Are you sure you want to log out?' \
   --title='Logout' \
   --icon=system-log-out-symbolic &&
   uwsm stop
