@@ -71,6 +71,11 @@ log() {
   echo "$(date '+%Y-%m-%d %H:%M:%S'): $1"
 }
 
+# Here I swap out the link, I create a temporary file so that use mv to move it
+# in place without triggering two separate fs events.
+# This often causes compositor to be without any monitor configuration, which
+# causes many things to die. This kinda serves double duty, because I also
+# disable the auto reload when swapping in the link.
 link_config() {
   local config_file="$CONFIG_DIR/${CONFIG_FILES[$1]}"
   local tmp_link="$CURRENT_CONFIG.tmp.$$"
