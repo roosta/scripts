@@ -21,20 +21,44 @@
 # SOFTWARE.
 #
 # BEGIN_DOC
-# ### [test-notify.sh](./test-notify.sh)
+# ### [demo-layout.sh](./demo-layout.sh)
 #
-# Send test notifications for demonstration purposes
+# Setup a terminal window layout for demo purposes
 #
 # Requirements:
-# - https://gitlab.gnome.org/GNOME/libnotify
+# - https://github.com/kovidgoyal/kitty
+# - https://github.com/karlstav/cava
+# - https://www.asty.org/cmatrix/
+# - https://github.com/aristocratos/btop
 #
 # Usage:
 # ```sh
-# ./test-notify.sh
+# ./demo-layout.sh
 # ```
 #
 # License [MIT](./LICENSES/MIT-LICENSE.txt)
 # END_DOC
-notify-send --icon notifications "Demonstration" "This is a notification" --app-name "My Application" &&
-sleep 2 &&
-notify-send --icon media-image "Demonstration 2" "This is another notification" --app-name "My Second Application"
+
+hyprctl eval 'hl.dispatch(hl.dsp.exec_cmd("kitty btop"))'
+sleep 0.5
+hyprctl eval 'hl.dispatch(hl.dsp.exec_cmd("kitty cava"))'
+sleep 0.5
+hyprctl eval 'hl.dispatch(hl.dsp.layout("togglesplit"))'
+sleep 0.5
+hyprctl eval 'hl.dispatch(hl.dsp.window.resize({
+  y = 400,
+  x = 0,
+  relative = true,
+  window = "title:cava"
+}))'
+sleep 0.5
+hyprctl eval 'hl.dispatch(hl.dsp.focus({window = "title:btop"}))'
+sleep 0.5
+hyprctl eval 'hl.dispatch(hl.dsp.exec_cmd("kitty cmatrix"))'
+sleep 0.5
+hyprctl eval 'hl.dispatch(hl.dsp.window.resize({
+  y = 0,
+  x = 400,
+  relative = true,
+  window = "title:cmatrix"
+}))'
