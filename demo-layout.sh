@@ -59,7 +59,7 @@ pause() { jitter_sleep "${1:-500}"; }   # normal beat between actions
 think() { jitter_sleep "${1:-900}"; }   # "deciding what to do next"
 
 hyprctl eval 'hl.dispatch(hl.dsp.focus({workspace = 5}))'
-pause
+think
 
 hyprctl eval 'hl.dispatch(hl.dsp.exec_cmd("kitty btop"))'
 think
