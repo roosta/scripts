@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # MIT License
 #
 # Copyright (c) 2026 Daniel Berg <mail@roosta.sh>
@@ -23,7 +24,9 @@
 # BEGIN_DOC
 # ### [demo-layout.sh](./demo-layout.sh)
 #
-# Setup a terminal window layout for demo purposes
+# Create a demonstartion layout in hyprland, opening several windows in a
+# spesific arrangement. Add random pauses between actions to reduce mechanical
+# appearance.
 #
 # Requirements:
 # - https://github.com/kovidgoyal/kitty
@@ -39,26 +42,47 @@
 # License [MIT](./LICENSES/MIT-LICENSE.txt)
 # END_DOC
 
+# jitter_sleep <ms> [spread_percent] — pause with human-ish variance
+
+set -euo pipefail
+
+jitter_sleep() {
+  local ms=${1:-500} spread=${2:-25}
+  local delta=$(( ms * spread / 100 ))
+  local out=$(( ms - delta + RANDOM % (2 * delta + 1) ))
+  (( RANDOM % 8 == 0 )) && out=$(( out + 150 + RANDOM % 450 ))  # occasional hesitation
+  sleep "$(printf '%d.%03d' $(( out / 1000 )) $(( out % 1000 )))"
+}
+
+beat()  { jitter_sleep "${1:-250}"; }   # quick follow-up keystroke
+pause() { jitter_sleep "${1:-500}"; }   # normal beat between actions
+think() { jitter_sleep "${1:-900}"; }   # "deciding what to do next"
+
+hyprctl eval 'hl.dispatch(hl.dsp.focus({workspace = 5}))'
+pause
+
 hyprctl eval 'hl.dispatch(hl.dsp.exec_cmd("kitty btop"))'
-sleep 0.5
+think
+
+hyprctl eval 'hl.dispatch(hl.dsp.layout("preselect d"))'
+beat
 hyprctl eval 'hl.dispatch(hl.dsp.exec_cmd("kitty cava"))'
-sleep 0.5
-hyprctl eval 'hl.dispatch(hl.dsp.layout("togglesplit"))'
-sleep 0.5
+pause
+
+hyprctl eval 'hl.dispatch(hl.dsp.focus({window = "title:cava"}))'
+pause
 hyprctl eval 'hl.dispatch(hl.dsp.window.resize({
-  y = 400,
-  x = 0,
-  relative = true,
-  window = "title:cava"
+  y = 400, x = 0, relative = true, window = "title:cava"
 }))'
-sleep 0.5
+think
+
 hyprctl eval 'hl.dispatch(hl.dsp.focus({window = "title:btop"}))'
-sleep 0.5
+pause
 hyprctl eval 'hl.dispatch(hl.dsp.exec_cmd("kitty cmatrix"))'
-sleep 0.5
+beat
 hyprctl eval 'hl.dispatch(hl.dsp.window.resize({
-  y = 0,
-  x = 400,
-  relative = true,
-  window = "title:cmatrix"
+  y = 0, x = 400, relative = true, window = "title:cmatrix"
 }))'
+think
+
+hyprctl eval 'hl.dispatch(hl.dsp.exec_cmd("kitty --title fastfetch sh -c \"fastfetch --pipe false --logo none | more\""))'
