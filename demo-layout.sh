@@ -54,9 +54,9 @@ jitter_sleep() {
   sleep "$(printf '%d.%03d' $(( out / 1000 )) $(( out % 1000 )))"
 }
 
-beat()  { jitter_sleep "${1:-250}"; }   # quick follow-up keystroke
-pause() { jitter_sleep "${1:-500}"; }   # normal beat between actions
-think() { jitter_sleep "${1:-900}"; }   # "deciding what to do next"
+beat()  { jitter_sleep "${1:-100}"; }   # quick follow-up keystroke
+pause() { jitter_sleep "${1:-250}"; }   # normal beat between actions
+think() { jitter_sleep "${1:-600}"; }   # "deciding what to do next"
 
 hyprctl eval 'hl.dispatch(hl.dsp.focus({workspace = 5}))'
 think
