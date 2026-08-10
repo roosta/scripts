@@ -78,7 +78,7 @@ think
 
 hyprctl eval 'hl.dispatch(hl.dsp.focus({window = "title:btop"}))'
 pause
-hyprctl eval 'hl.dispatch(hl.dsp.exec_cmd("kitty cmatrix"))'
+hyprctl eval 'hl.dispatch(hl.dsp.exec_cmd("kitty --title cmatrix cmatrix"))'
 beat
 hyprctl eval 'hl.dispatch(hl.dsp.window.resize({
   y = 0, x = 400, relative = true, window = "title:cmatrix"
