@@ -42,5 +42,5 @@ sleep 0.2 && \
   kdialog --warningcontinuecancel 'Are you sure you want to shut down?' \
   --title='Shutdown' \
   --icon=system-shutdown-symbolic &&
-  hyprshutdown -t 'Shutting down...' --post-cmd 'shutdown -P 0'
+  systemctl poweroff
 

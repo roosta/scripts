@@ -41,5 +41,5 @@ sleep 0.2 && \
   kdialog --warningcontinuecancel 'Are you sure you want to reboot?' \
   --title='Reboot' \
   --icon=system-reboot-symbolic &&
-  hyprshutdown -t 'Restarting...' --post-cmd 'reboot'
+  systemctl reboot
 
